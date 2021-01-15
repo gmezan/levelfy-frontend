@@ -1,0 +1,67 @@
+.alert {
+  border: 0;
+  border-radius: 0;
+  color: #000000;
+  padding: 10px 15px;
+  font-size: 14px;
+
+  & .close {
+    font-size: $font-size-large;
+    color: $white-color;
+  }
+
+  .container & {
+    border-radius: 4px;
+  }
+  .navbar & {
+    border-radius: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 85px;
+    width: 100%;
+    z-index: 3;
+  }
+  .navbar:not(.navbar-transparent) & {
+    top: 70px;
+  }
+  .alert-icon {
+    display: block;
+    font-size: 30px;
+    left: 15px;
+    position: absolute;
+    top: 50%;
+    margin-top: -22px;
+  }
+
+  &.message {
+    padding-right: 60px;
+  }
+  i {
+    position: relative;
+    font-size: 20px;
+    top: 5px;
+    margin-top: -5px;
+    font-weight: $font-weight-bold;
+  }
+}
+.alert-info {
+  color: #006c6f;
+  background-color: #ccf5f7;
+  border-color: #b8f2f3;
+}
+.alert-success {
+  color: #005937;
+  background-color: #cceee1;
+  border-color: #b8e8d5;
+}
+.alert-warning {
+  color: #7f5400;
+  background-color: #fdeccc;
+  border-color: #fce5b8;
+}
+.alert-danger {
+  color: #790b00;
+  background-color: #fad0cc;
+  border-color: #f9bdb8;
+}
