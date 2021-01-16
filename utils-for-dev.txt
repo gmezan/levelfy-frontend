@@ -1,0 +1,5 @@
+https://stackoverflow.com/questions/30892298/infinite-loop-with-spring-boot-in-a-one-to-many-relation
+
+https://vertabelo.com/blog/database-model-for-an-online-discussion-forum-part-1/
+
+https://nehalist.io/working-with-models-in-angular/

@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from 'app/shared/header/header.component';
+import { MenuServicesComponent } from './menu-services/menu-services.component';
+import { CourseCardComponent } from './course-card/course-card.component';
 
 
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [
+    HeaderComponent,
+    MenuServicesComponent,
+    CourseCardComponent
+  ],
   imports: [
     CommonModule
   ],
