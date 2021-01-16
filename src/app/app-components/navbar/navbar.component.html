@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="500">
     <div class="container">
         <div class="navbar-translate">
-            <a class="navbar-brand" href="#">LEVELFY</a>
+            <a class="navbar-brand" routerLink="/home">LEVELFY</a>
             <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
                 <span class="navbar-toggler-bar"></span>
                 <span class="navbar-toggler-bar"></span>
@@ -10,7 +10,7 @@
         </div>
         <div class="navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav ml-auto">
-                <li ngbDropdown class="nav-item d-inline-block dropdown">
+                <!--<li ngbDropdown class="nav-item d-inline-block dropdown">
                     <a class="nav-link" id="servicesDropdown" ngbDropdownToggle>Servicios</a>
                     <div ngbDropdownMenu aria-labelledby="servicesDropdown" class="dropdown-dark" style="background-color: white;">
                         <a class="dropdown-item">Maratones</a>
@@ -18,15 +18,18 @@
                         <a class="dropdown-item">Paquete de asesoríasn</a>
                         <a class="dropdown-item">Aprende a tu ritmo</a>
                     </div>
+                </li>-->
+                <li routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/service" class="nav-link">Servicios</a>
                 </li>
-                <li class="nav-item" >
-                    <a href="#" class="nav-link"> Cursos</a>
+                <li routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/course"  class="nav-link">Cursos</a>
                 </li>
-                <li class="nav-item" >
-                    <a href="#" class="nav-link"> Blog</a>
+                <li routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/blog" class="nav-link">Blog</a>
                 </li>
-                <li class="nav-item" >
-                    <a href="#" class="nav-link"> Nosotros</a>
+                <li routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/us" class="nav-link">Nosotros</a>
                 </li>
 
                 <li class="nav-item pl-3">

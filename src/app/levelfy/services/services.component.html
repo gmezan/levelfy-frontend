@@ -1,0 +1,51 @@
+<div class="page-header" data-parallax="true" style="background-image: url('./assets/img/daniel-olahh.jpg');">
+    <div class="filter"></div>
+    <div class="container">
+        <div class="motto text-center">
+            <h1>Servicios</h1>
+            <br />
+        </div>
+    </div>
+</div>
+<div class="main">
+
+    <div class="section ">
+        <div *ngFor="let serv of services; let even = even;" class="container">
+            <div class="row example-page">
+                <div class="col-md-6 text-center" routerLinkActive="active">
+                    <div *ngIf="even; then imageBlock else textBlock"></div>
+                </div>
+                <div class="col-md-6 text-center" routerLinkActive="active">
+                    <div *ngIf="!even; then imageBlock else textBlock"></div>
+                </div>
+            </div>
+
+            <!-- Templates: -->
+            <ng-template #imageBlock>
+                <a [routerLink]="[serv.route]">
+                    <img [src]="serv.imageUrl" alt="Rounded Image"
+                         class="img-rounded img-responsive" style="width: 100%">
+                </a>
+            </ng-template>
+            <ng-template #textBlock>
+                <h3 class="font-weight-bold pt-5">{{serv.serviceName}}</h3>
+                <p class="py-4">{{serv.description}}</p>
+                <a [routerLink]="[serv.route]" class="btn btn-dark btn-round">{{serv.buttonMessage}}</a>
+            </ng-template>
+            <!-- End Templates: -->
+
+        </div>
+    </div>
+
+    <br />
+    <br />
+    <br />
+
+</div>
+<!--
+<div class="container" *ngFor="let user of users">
+
+    <h6>{{user.idUser}}</h6>
+    <p>{{user.fullName}}</p>
+    <br>
+</div>-->

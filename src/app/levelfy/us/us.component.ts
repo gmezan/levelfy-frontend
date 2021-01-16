@@ -12,15 +12,14 @@ export class UsComponent implements OnInit {
 
     users: User[] = [];
 
+    /*
     showUsers() {
         this.userService.getUsers().subscribe((data) =>
             data.map((user: User) => {
                 this.users.push(user);
             })
         );
-    }
+    }*/
 
-    ngOnInit(): void {
-        this.showUsers();
-    }
+    ngOnInit(): void {}
 }

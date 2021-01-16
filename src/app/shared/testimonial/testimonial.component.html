@@ -1,0 +1,27 @@
+<div class="card-body">
+    <h3 class="card-title"><fa-icon [icon]="['fas','quote-left']"></fa-icon></h3>
+    <div class="template-demo">
+        <p>{{testimonial.message}}</p>
+    </div>
+
+    <div class="text-center testimonial-star">
+        <fa-icon *ngFor="let star of stars" [icon]="star"></fa-icon>
+    </div>
+
+    <hr>
+    <div class="row pt-2 ml-auto mr-auto">
+        <div class="col-3 justify-content-center text-center">
+            <div class="card-avatar">
+                <img style="height: auto"
+                     [src]="testimonial.photoUrl"
+                     alt="...">
+            </div>
+        </div>
+        <div class="col-9 text-left ">
+                <h4 class="pt-0 mt-0">{{testimonial.name}}</h4>
+                <p >{{testimonial.description}}</p>
+        </div>
+    </div>
+    <br>
+    <br>
+</div>

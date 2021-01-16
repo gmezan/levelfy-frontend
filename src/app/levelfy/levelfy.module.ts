@@ -10,9 +10,11 @@ import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { NouisliderModule } from 'ng2-nouislider';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from '../core/core.module';
+import { ServicesComponent } from './services/services.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-    declarations: [HomeComponent, UsComponent],
+    declarations: [HomeComponent, UsComponent, ServicesComponent],
     imports: [
         CommonModule,
         SharedModule,
@@ -22,6 +24,7 @@ import { CoreModule } from '../core/core.module';
         JwBootstrapSwitchNg2Module,
         NouisliderModule,
         CoreModule,
+        FontAwesomeModule,
     ],
 })
 export class LevelfyModule {}
