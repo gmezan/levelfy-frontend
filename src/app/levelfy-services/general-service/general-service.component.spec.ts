@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AsesPerComponent } from './ases-per.component';
+import { GeneralServiceComponent } from './general-service.component';
 
-describe('AsesPerComponent', () => {
-  let component: AsesPerComponent;
-  let fixture: ComponentFixture<AsesPerComponent>;
+describe('GeneralServiceComponent', () => {
+  let component: GeneralServiceComponent;
+  let fixture: ComponentFixture<GeneralServiceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AsesPerComponent ]
+      declarations: [ GeneralServiceComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AsesPerComponent);
+    fixture = TestBed.createComponent(GeneralServiceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

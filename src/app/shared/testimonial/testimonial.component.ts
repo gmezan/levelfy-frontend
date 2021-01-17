@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TestimonialModel } from '../_dto/Testimonial.model';
+import { TestimonialModel } from '../_dto/testimonial.model';
 
 @Component({
     selector: 'app-testimonial',

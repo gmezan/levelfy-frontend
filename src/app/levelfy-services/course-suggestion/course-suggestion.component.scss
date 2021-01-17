@@ -1,0 +1,266 @@
+@import "../../app-components/footer/footer.component";
+
+section {
+    position: relative;
+}
+
+.svg-border-angled {
+    padding-top: 5rem;
+}
+.svg-border-angled svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 5rem;
+    width: 100%;
+}
+
+.svg-border-rounded svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3rem;
+    width: 100%;
+}
+
+.svg-border-waves {
+    padding-top: 2rem;
+}
+.svg-border-waves svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3rem;
+    width: 100%;
+}
+
+.bg-img-cover {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.overlay {
+    position: relative;
+}
+.overlay:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #000;
+    opacity: 0.5;
+}
+
+.overlay-primary:before {
+    background-color: #0061f2 !important;
+}
+
+.overlay-secondary:before {
+    background-color: #6900c7 !important;
+}
+
+.overlay-success:before {
+    background-color: #00ac69 !important;
+}
+
+.overlay-info:before {
+    background-color: #00cfd5 !important;
+}
+
+.overlay-warning:before {
+    background-color: #f4a100 !important;
+}
+
+.overlay-danger:before {
+    background-color: #e81500 !important;
+}
+
+.overlay-light:before {
+    background-color: #eff3f9 !important;
+}
+
+.overlay-dark:before {
+    background-color: #1f2d41 !important;
+}
+
+.overlay-black:before {
+    background-color: #000 !important;
+}
+
+.overlay-white:before {
+    background-color: #fff !important;
+}
+
+.overlay-red:before {
+    background-color: #e81500 !important;
+}
+
+.overlay-orange:before {
+    background-color: #f76400 !important;
+}
+
+.overlay-yellow:before {
+    background-color: #f4a100 !important;
+}
+
+.overlay-green:before {
+    background-color: #00ac69 !important;
+}
+
+.overlay-teal:before {
+    background-color: #00ba94 !important;
+}
+
+.overlay-cyan:before {
+    background-color: #00cfd5 !important;
+}
+
+.overlay-blue:before {
+    background-color: #0061f2 !important;
+}
+
+.overlay-indigo:before {
+    background-color: #5800e8 !important;
+}
+
+.overlay-purple:before {
+    background-color: #6900c7 !important;
+}
+
+.overlay-pink:before {
+    background-color: #e30059 !important;
+}
+
+.overlay-red-soft:before {
+    background-color: #eec7c7 !important;
+}
+
+.overlay-orange-soft:before {
+    background-color: #f1d6c7 !important;
+}
+
+.overlay-yellow-soft:before {
+    background-color: #f0e3c7 !important;
+}
+
+.overlay-green-soft:before {
+    background-color: #bfe5dc !important;
+}
+
+.overlay-teal-soft:before {
+    background-color: #bfe8e5 !important;
+}
+
+.overlay-cyan-soft:before {
+    background-color: #bfecf2 !important;
+}
+
+.overlay-blue-soft:before {
+    background-color: #bfd6f8 !important;
+}
+
+.overlay-indigo-soft:before {
+    background-color: #d1c2f6 !important;
+}
+
+.overlay-purple-soft:before {
+    background-color: #d4c2ef !important;
+}
+
+.overlay-pink-soft:before {
+    background-color: #edc2d9 !important;
+}
+
+.overlay-primary-soft:before {
+    background-color: #bfd6f8 !important;
+}
+
+.overlay-secondary-soft:before {
+    background-color: #d4c2ef !important;
+}
+
+.overlay-success-soft:before {
+    background-color: #bfe5dc !important;
+}
+
+.overlay-info-soft:before {
+    background-color: #bfecf2 !important;
+}
+
+.overlay-warning-soft:before {
+    background-color: #f0e3c7 !important;
+}
+
+.overlay-danger-soft:before {
+    background-color: #eec7c7 !important;
+}
+
+.overlay-10:before {
+    opacity: 0.1;
+}
+
+.overlay-20:before {
+    opacity: 0.2;
+}
+
+.overlay-30:before {
+    opacity: 0.3;
+}
+
+.overlay-40:before {
+    opacity: 0.4;
+}
+
+.overlay-50:before {
+    opacity: 0.5;
+}
+
+.overlay-60:before {
+    opacity: 0.6;
+}
+
+.overlay-70:before {
+    opacity: 0.7;
+}
+
+.overlay-80:before {
+    opacity: 0.8;
+}
+
+.overlay-90:before {
+    opacity: 0.9;
+}
+
+.page-header {
+    position: relative;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+.page-header .page-header-content .page-header-title {
+    font-size: 2.5rem;
+}
+.page-header .page-header-content .page-header-text {
+    font-size: 1.15rem;
+}
+.page-header .page-header-content .page-header-text.small {
+    font-size: 0.9rem;
+}
+.page-header .page-header-content .page-header-signup {
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.polygon-suggestion {
+    color: $footer-color;
+}
+
+
+.title {
+  font-weight: normal;
+  color: black;
+  font-size: 2.5rem;
+}

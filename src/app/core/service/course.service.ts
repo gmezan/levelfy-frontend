@@ -11,6 +11,11 @@ export class CourseService {
     apiUrl = 'http://localhost:8080/course/dev/listAll';
 
     getCourses() {
+        // Returns observable
         return this.http.get<Course[]>(this.apiUrl);
+    }
+
+    getAvailableCoursesByService(service: string) {
+        return this.getCourses();
     }
 }

@@ -6,7 +6,6 @@ import { CourseCardComponent } from './course-card/course-card.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-// @ts-ignore
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -15,6 +14,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         TestimonialComponent,
     ],
     imports: [CommonModule, FontAwesomeModule],
-    exports: [HeaderComponent, TestimonialComponent],
+    exports: [
+        HeaderComponent,
+        TestimonialComponent,
+        MenuServicesComponent,
+        CourseCardComponent,
+    ],
 })
 export class SharedModule {}

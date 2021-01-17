@@ -8,6 +8,9 @@ import { UserService } from '../../core/service/user.service';
     styleUrls: ['./us.component.css'],
 })
 export class UsComponent implements OnInit {
+    focus;
+    focus1;
+
     constructor(private userService: UserService) {}
 
     users: User[] = [];

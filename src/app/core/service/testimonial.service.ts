@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { TestimonialModel } from '../../shared/_dto/Testimonial.model';
+import { TestimonialModel } from '../../shared/_dto/testimonial.model';
 
 @Injectable()
 export class TestimonialService {

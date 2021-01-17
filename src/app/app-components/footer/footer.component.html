@@ -10,15 +10,13 @@
                     <a class="icon-list-social-link mr-1" href="javascript:void(0);"><fa-icon [icon]="['fab','twitter']"></fa-icon></a>
                 </div>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9 text-white">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                         <div class="text-uppercase-expanded text-xs mb-4">Servicios</div>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><a href="#">Asesoría Personalizada</a></li>
-                            <li class="mb-2"><a href="#">Paquete de Asesorías</a></li>
-                            <li class="mb-2"><a href="#">Aprende a tu ritmo</a></li>
-                            <li class="mb-2"><a href="#">Maratón</a></li>
+                            <li *ngFor="let serv of services" class="mb-2"><a [routerLink]="['/service', serv.route]">{{serv.serviceName}}</a></li>
+
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">

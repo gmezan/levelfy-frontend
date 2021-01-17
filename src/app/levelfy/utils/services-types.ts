@@ -1,6 +1,8 @@
-let asesPer = {
+import { map } from 'rxjs/operators';
+
+const service1 = {
     serviceName: 'Asesoría Personalizada',
-    route: '/service/ases-per',
+    route: 'ases-per',
     imageUrl:
         'https://images.unsplash.com/photo-1535982330050-f1c2fb79ff78?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
     description:
@@ -8,9 +10,9 @@ let asesPer = {
         'reservar con amigos, para que puedas absolver tus dudas en los cursos.',
     buttonMessage: '¡Lo quiero!',
 };
-let asesPaq = {
+const service2 = {
     serviceName: 'Paquete de Asesorías',
-    route: '/service/ases-paq',
+    route: 'ases-paq',
     imageUrl:
         'https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1650&q=80',
     description:
@@ -18,9 +20,9 @@ let asesPaq = {
         'los cursos más complejos.',
     buttonMessage: '¡Lo quiero!',
 };
-let maraton = {
+const service3 = {
     serviceName: 'Maratón',
-    route: '/service/mar',
+    route: 'mar',
     imageUrl:
         'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
     description:
@@ -28,9 +30,9 @@ let maraton = {
         'manera y con el tiempo que requieras.',
     buttonMessage: '¡Lo quiero!',
 };
-let selfPaced = {
+const service4 = {
     serviceName: 'Aprende a tu ritmo',
-    route: '/service/mar',
+    route: 'self-p',
     imageUrl:
         'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80',
     description:
@@ -39,4 +41,11 @@ let selfPaced = {
     buttonMessage: '¡Lo quiero!',
 };
 
-export const servicesTypes = [asesPer, asesPaq, maraton];
+// available services
+export const servicesTypes = [service1, service2, service3];
+export const servicesTypesDict = {
+    'ases-per': service1,
+    'ases-paq': service2,
+    mar: service3,
+    'self-p': service4,
+};

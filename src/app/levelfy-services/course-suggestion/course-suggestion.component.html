@@ -1,1 +1,21 @@
-<p>course-suggestion works!</p>
+<section class=" bg-img-cover overlay overlay-light overlay-50 py-15" style='background-image: url("https://images.unsplash.com/photo-1536300099515-6c61b290b654?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80")'>
+    <div class="container z-1">
+        <div class="mt-5">
+            <div class="display-4 title pt-5 pb-3">¿No encuentras el curso que buscas? ¡Avísanos!</div>
+            <form id="suggestion">
+                <div class="form-row justify-content-center">
+                    <div class="col-lg-9 col-md-8">
+                        <div class="form-group mr-0 mr-lg-2">
+                            <label class="sr-only" for="inputSearch">Física 1, Cálculo diferencial</label>
+                            <input name="suggestion" (keyup.enter)="sendSuggestion()" [(ngModel)]="value"  class="form-control form-control-solid rounded-pill" id="inputSearch" type="text" placeholder="Física 1, Cálculo diferencial" /></div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                        <button class="btn btn-black btn-block btn-marketing rounded-pill" [disabled]="!value" (click)="sendSuggestion()">Enviar</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="svg-border-angled polygon-suggestion">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none" fill="currentColor"><polygon points="0,100 100,0 100,100"></polygon></svg>
+    </div>
+</section>

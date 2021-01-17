@@ -1,3 +1,4 @@
+$footer-color: #11151a;
 .icon-list-social {
   display: -webkit-box;
   display: flex;
@@ -30,5 +31,9 @@
   background-color: #eff3f9 !important;
 }
 .bg-dark {
-  background-color: #11151a !important;
+  background-color: $footer-color !important;
+}
+
+.global-custom {
+  color: whitesmoke;
 }
