@@ -1,34 +1,33 @@
-<nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-light fixed-top">
+<nav id="pageNavbar" class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-light fixed-top">
     <div class="container">
-        <a class="navbar-brand text-gray-900" [routerLink]="['/home']">LEVELFY</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+        <a class="navbar-brand" [routerLink]="['/home']">LEVELFY</a>
+        <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <fa-icon [icon]="['fas','bars']"></fa-icon>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-lg-4">
                 <li class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart" target="_blank"
-                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="book-open"></i></div>
+                        <div *ngFor="let serv of services">
+                            <a class="dropdown-item py-3" [routerLink]="['/service', serv.route]" >
+                                <!--<div class="icon-stack bg-gray-300 text-dark mr-4">
+                                    <fa-icon [icon]="['fas','book-open']"></fa-icon>
+                                </div>-->
+                                <div>
+                                    <div class="small text-gray-500">{{serv.serviceName}}</div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider m-0"></div>
+                        </div>
+                        <a class="dropdown-item py-3" [routerLink]="['/service']">
+                            <div class="icon-stack bg-gray-300 text-dark mr-4">
+                                <fa-icon [icon]="['fas','book-open']"></fa-icon>
+                            </div>
                             <div>
-                                <div class="small text-gray-500">Documentation</div>
-                                Usage instructions and reference
-                            </div></a
-                        >
-                        <div class="dropdown-divider m-0"></div>
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/components" target="_blank"
-                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="code"></i></div>
-                            <div>
-                                <div class="small text-gray-500">Components</div>
-                                Code snippets and reference
-                            </div></a
-                        >
-                        <div class="dropdown-divider m-0"></div>
-                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/changelog" target="_blank"
-                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="file-text"></i></div>
-                            <div>
-                                <div class="small text-gray-500">Changelog</div>
-                                Updates and changes
-                            </div></a
-                        >
+                                <div class="small text-gray-500">Ver Más</div>
+                            </div>
+                        </a>
                     </div>
                 </li>
                 <li routerLinkActive="active current" class="nav-item" >

@@ -4,6 +4,7 @@ import {
     LocationStrategy,
     PathLocationStrategy,
 } from '@angular/common';
+import { servicesTypes } from '../../levelfy/utils/services-types';
 
 @Component({
     selector: 'app-navbar',
@@ -11,6 +12,8 @@ import {
     styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent implements OnInit {
+    services = servicesTypes;
+
     private toggleButton: any;
     private sidebarVisible: boolean;
 

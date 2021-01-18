@@ -29,6 +29,46 @@ export class AppComponent implements OnInit {
         private element: ElementRef,
         public location: Location
     ) {}
+
+    ngOnInit(): void {
+        let navbar: HTMLElement = this.document.getElementById('pageNavbar');
+
+        this.router.events.subscribe((evt) => {
+            if (!(evt instanceof NavigationEnd)) return;
+            window.scrollTo(0, 0); // Go to top after page change
+
+            let pageHeader: HTMLElement = this.document.getElementById(
+                'pageHeader'
+            ); // Getting the pageHeader element
+
+            /*
+				DO NOT change the page header, the navbar should change
+				dynamically according to the pageHeader style.
+				
+				Just change the NavBar styles.
+			 */
+
+            if (!pageHeader) {
+            } else if (pageHeader.classList.contains('page-header-dark')) {
+                navbar.classList.add('navbar-dark');
+                navbar.classList.remove('navbar-light');
+            } else if (pageHeader.classList.contains('page-header-light')) {
+                navbar.classList.add('navbar-light');
+                navbar.classList.remove('navbar-dark');
+            }
+        });
+    }
+
+    /*
+    @ViewChild(NavbarComponent) navbar: NavbarComponent;
+
+    constructor(
+        private renderer: Renderer2,
+        private router: Router,
+        @Inject(DOCUMENT) private document: any,
+        private element: ElementRef,
+        public location: Location
+    ) {}
     ngOnInit() {
         let navbar: HTMLElement = this.element.nativeElement.children[0]
             .children[0];
@@ -100,4 +140,5 @@ export class AppComponent implements OnInit {
         let title = this.location.prepareExternalUrl(this.location.path());
         return title.includes('form');
     }
+    * */
 }
