@@ -13,6 +13,8 @@ import { DOCUMENT } from '@angular/common';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { NavbarComponent } from './app-components/navbar/navbar.component';
 
+// This is a backup 18/01/2021 15:22
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
