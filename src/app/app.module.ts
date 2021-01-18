@@ -7,9 +7,6 @@ import { AppRoutingModule } from './app.routing';
 
 import { AppComponent } from './app.component';
 
-import { ComponentsModule } from './_components/components.module';
-import { ExamplesModule } from './_examples/examples.module';
-
 import {
     FontAwesomeModule,
     FaIconLibrary,
@@ -33,8 +30,6 @@ import { LevelfyServicesModule } from './levelfy-services/levelfy-services.modul
         FormsModule,
         FontAwesomeModule,
         RouterModule,
-        ComponentsModule,
-        ExamplesModule,
         AppRoutingModule,
         CoreModule,
         LevelfyModule,

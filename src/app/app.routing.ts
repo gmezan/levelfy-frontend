@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-import { SignupComponent } from './_examples/signup/signup.component';
 import { HomeComponent } from './levelfy/home/home.component';
 import { UsComponent } from './levelfy/us/us.component';
 import { ServicesComponent } from './levelfy/services/services.component';
-import { ComponentsComponent } from './_components/components.component';
 import { GeneralServiceComponent } from './levelfy-services/general-service/general-service.component';
 import { ClientServiceFormComponent } from './levelfy-services/client-service-form/client-service-form.component';
 import { BlogComponent } from './levelfy/blog/blog.component';
@@ -35,10 +33,10 @@ const routes: Routes = [
     { path: 'service', component: ServicesComponent, pathMatch: 'full' },
     { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
-    { path: 'signup', component: SignupComponent, pathMatch: 'full' },
+    { path: 'signup', component: UsComponent, pathMatch: 'full' },
 
     // Error Handler 404
-    { path: '**', component: ComponentsComponent },
+    { path: '**', component: UsComponent },
 ];
 
 @NgModule({
