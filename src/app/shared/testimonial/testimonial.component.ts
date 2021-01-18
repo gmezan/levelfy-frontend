@@ -9,7 +9,7 @@ import { TestimonialModel } from '../_dto/testimonial.model';
 export class TestimonialComponent implements OnInit {
     @Input('testimonial') testimonial: TestimonialModel;
 
-    stars = [
+    stars: any = [
         ['far', 'star'],
         ['far', 'star'],
         ['far', 'star'],

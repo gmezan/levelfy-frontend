@@ -20625,8 +20625,8 @@ body {
 
 .navbar-marketing {
   transition: background-color 0.15s ease-in-out;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .navbar-marketing .navbar-toggler {
   padding: 0.5rem;
@@ -20649,8 +20649,8 @@ body {
   fill: currentColor;
 }
 .navbar-marketing .navbar-nav {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .navbar-marketing .navbar-nav .nav-item .nav-link {
   font-weight: 500;
@@ -20666,8 +20666,8 @@ body {
     padding-bottom: 0;
   }
   .navbar-marketing .navbar-nav {
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
   .navbar-marketing .navbar-nav .nav-item {
     margin-right: 1rem;
