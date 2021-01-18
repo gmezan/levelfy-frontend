@@ -1,28 +1,35 @@
-<nav class="navbar navbar-expand-lg fixed-top navbar-transparent"
-
-     color-on-scroll="500">
+<nav class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-light fixed-top">
     <div class="container">
-        <div class="navbar-translate">
-            <a class="navbar-brand" routerLink="/home">LEVELFY</a>
-            <button class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-                <span class="navbar-toggler-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse" id="navbarToggler">
-            <ul class="navbar-nav ml-auto">
-                <!--<li ngbDropdown class="nav-item d-inline-block dropdown">
-                    <a class="nav-link" id="servicesDropdown" ngbDropdownToggle>Servicios</a>
-                    <div ngbDropdownMenu aria-labelledby="servicesDropdown" class="dropdown-dark" style="background-color: white;">
-                        <a class="dropdown-item">Maratones</a>
-                        <a class="dropdown-item">Asesoría Personalizada</a>
-                        <a class="dropdown-item">Paquete de asesoríasn</a>
-                        <a class="dropdown-item">Aprende a tu ritmo</a>
+        <a class="navbar-brand text-gray-900" [routerLink]="['/home']">LEVELFY</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i data-feather="menu"></i></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mr-lg-5">
+                <li class="nav-item dropdown no-caret">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
+                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart" target="_blank"
+                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="book-open"></i></div>
+                            <div>
+                                <div class="small text-gray-500">Documentation</div>
+                                Usage instructions and reference
+                            </div></a
+                        >
+                        <div class="dropdown-divider m-0"></div>
+                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/components" target="_blank"
+                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="code"></i></div>
+                            <div>
+                                <div class="small text-gray-500">Components</div>
+                                Code snippets and reference
+                            </div></a
+                        >
+                        <div class="dropdown-divider m-0"></div>
+                        <a class="dropdown-item py-3" href="https://docs.startbootstrap.com/sb-ui-kit-pro/changelog" target="_blank"
+                        ><div class="icon-stack bg-primary-soft text-primary mr-4"><i data-feather="file-text"></i></div>
+                            <div>
+                                <div class="small text-gray-500">Changelog</div>
+                                Updates and changes
+                            </div></a
+                        >
                     </div>
-                </li>-->
-                <li routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/service" class="nav-link">Servicios</a>
                 </li>
                 <li routerLinkActive="active current" class="nav-item" >
                     <a routerLink="/course"  class="nav-link">Cursos</a>
@@ -34,11 +41,9 @@
                     <a routerLink="/us" class="nav-link">Nosotros</a>
                 </li>
 
-                <li class="nav-item pl-3">
-                    <a href="#" target="_blank" class="btn btn-danger btn-round">Iniciar Sesión</a>
-                </li>
-                
+
             </ul>
+            <a class="btn font-weight-500 ml-lg-4 btn-success" href="#">Iniciar Sesión<i class="ml-2" data-feather="arrow-right"></i></a>
         </div>
     </div>
 </nav>

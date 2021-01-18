@@ -1,287 +1,109 @@
-<div class="wrapper">
-    <div class="page-header section-dark" style="background-image: url('assets/img/antoine-barres.jpg')">
-        <div class="filter"></div>
-        <div class="content-center">
-            <div class="container">
-                <div class="title-brand">
-                    <div class="angular-logo">
-                        <img src="assets/img/angular2-logo.png" alt="">
-                    </div>
-                    <h1 class="presentation-title">Our StartUp</h1>
-                    <div class="fog-low">
-                        <img src="assets/img/fog-low.png" alt="">
-                    </div>
-                    <div class="fog-low right">
-                        <img src="assets/img/fog-low.png" alt="">
-                    </div>
+<!-- Page Header-->
+<header class="page-header page-header-light bg-white">
+    <div class="page-header-content pt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6" data-aos="fade-up">
+                    <h1 class="page-header-title">Empieza a aprender de la mejor manera</h1>
+                    <p class="page-header-text mb-5">Bienvenido a Levelfy, una plataforma de aprendizaje que te ayudará en tu etapa universitaria.</p>
+                    <a class="btn btn-lg btn-success font-weight-500 mr-3" href="#">Únete ahora<i class="ml-2" data-feather="arrow-right"></i></a>
+                    <a class="btn btn-lg btn-white font-weight-500" href="#">Ver video</a>
                 </div>
-
-                <h2 class="presentation-subtitle text-center">Plataforma eLearning</h2>
+                <div class="col-lg-6 d-none d-lg-block" data-aos="fade-up" data-aos-delay="100"><img class="img-fluid" src="assets/img/illustrations/programming.svg" /></div>
             </div>
         </div>
-        <div class="moving-clouds" style="background-image: url('assets/img/clouds.png'); "></div>
     </div>
+    <div class="svg-border-rounded text-light">
+        <!-- Rounded SVG Border--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+    </div>
+</header>
 
-    <div class="main">
-
-        <div class="section text-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 mr-auto ml-auto">
-                        <h2 class="title section-titles-home">Let's talk product</h2>
-                        <h5 class="description">
-                            Bienvenido a Levelfy, una plataforma de aprendizaje que te ayudará en tu etapa universitaria.
-                        </h5>
-                        <br>
-                    </div>
-                </div>
-                <br /><br />
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-dark">
-                                <fa-icon [icon]="['fas','chalkboard-teacher']"></fa-icon>
-                            </div>
-                            <div class="description">
-                                <h4 class="info-title">Clases Personalizadas</h4>
-                                <p class="description">Las asesorías y clases que brindamos se adecúan a tu forma de aprendizaje.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-dark">
-                                <fa-icon [icon]="['fas','user-friends']"></fa-icon>
-                            </div>
-                            <div class="description">
-                                <h4 class="info-title">Asesores Capacitados</h4>
-                                <p>Nuestro equipo de asesores consiste de estudiantes destacados, que manejan los temas más complejos de los cursos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="info">
-                            <div class="icon icon-dark">
-                                <fa-icon [icon]="['fas','book-open']"></fa-icon>
-                            </div>
-                            <div class="description">
-                                <h4 class="info-title">Material Académico</h4>
-                                <p>Contamos con material académico para el desarrollo de las asesorías.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
+<!-- Section Basic Icons -->
+<section class="bg-light py-10">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h3>Clases personalizadas</h3>
+                <p class="mb-0">Las asesorías y clases que brindamos se adecúan a tu forma de aprendizaje. </p>
+            </div>
+            <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-user-friends"></i></div>
+                <h3>Asesores capacitados</h3>
+                <p class="mb-0">Nuestro equipo de asesores consiste de estudiantes destacados, que manejan los temas más complejos de los cursos.</p>
+            </div>
+            <div class="col-lg-4">
+                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-book-open"></i></div>
+                <h3>Material Académico</h3>
+                <p class="mb-0">Contamos con material académico para el desarrollo de las asesorías. </p>
             </div>
         </div>
+    </div>
+</section>
 
 
-        <!-- Section: Carousel Offer-->
-        <div class="section section-dark text-center" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 mr-auto ml-auto">
-                        <h2 class="title section-titles-home">Ofrecemos</h2>
-                        <br>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-8 mr-auto ml-auto">
-                        <div class="card page-carousel">
-                            <ngb-carousel>
-                                <ng-template *ngFor="let serv of services" ngbSlide>
-                                    <img [src]="serv.imageUrl"  alt="Random first slide">
-                                    <div class="carousel-caption">
-                                        <h4  class="font-weight-bold">{{serv.serviceName}}</h4>
-                                    </div>
-                                </ng-template>
+<!-- Section: Carousel Offer-->
+<div class="section bg-dark text-center" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <h2 class="title section-titles-home">Ofrecemos</h2>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <div class="card page-carousel">
+                    <ngb-carousel>
+                        <ng-template *ngFor="let serv of services" ngbSlide>
+                            <img [src]="serv.imageUrl"  alt="Random first slide">
+                            <div class="carousel-caption">
+                                <h4  class="font-weight-bold">{{serv.serviceName}}</h4>
+                            </div>
+                        </ng-template>
 
-                            </ngb-carousel>
-                        </div>
-                    </div>
+                    </ngb-carousel>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Section: Universities-->
-        <div class="section text-center" >
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 ">
-                        <div class="container pb-5">
-                            <h2 class="title section-titles-home pb-4">Universidades en las que nos encontramos</h2>
-                            <h5>¿No encuentras tu universidad?</h5>
-                            <button class="btn btn-round btn-primary">¡Avísanos!</button>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="row justify-content-center pl-3">
-                            <div class="col-md-6 mb-2">
-                                <a class="card  " >
-                                    <div class="card-body text-center">
-                                        <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
-                                        <div class="small text-gray-600">PUCP</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <a class="card  " >
-                                    <div class="card-body text-center">
-                                        <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
-                                        <div class="small text-gray-600">ULima</div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col-md-6 mb-2">
-                                <a class="card  " >
-                                    <div class="card-body text-center">
-                                        <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
-                                        <div class="small text-gray-600">UDEP</div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+<!-- Section: Universities-->
+<div class="section bg-light text-center" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 ">
+                <div class="container pb-5">
+                    <h2 class="title section-titles-home pb-4">Universidades en las que nos encontramos</h2>
+                    <h5>¿No encuentras tu universidad?</h5>
+                    <button class="btn btn-round btn-primary">¡Avísanos!</button>
                 </div>
             </div>
-        </div>
-
-
-        <!-- Section: Numbers-->
-        <div class="section section-dark ">
-            <div class="container justify-content-center text-center">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="title section-titles-home section-number-title">500+</div>
-                        <h3 class="title mb-1">Horas dictadas</h3>
-                        <p class="description"> Asesorías con los mejores asesores con clases dinámicas y entretenidas.</p>
-                    </div>
-
-                    <div class="col-lg-4 col-md-12">
-                        <div class="title section-titles-home section-number-title">200+</div>
-                        <h3 class="title mb-1">Alumnos</h3>
-                        <p class="description">Como Fast Trainer conseguimos más de 200 alumnos y mejoraron sus calificaciones.</p>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <div class="title section-titles-home section-number-title">
-                            <fa-icon [icon]="['fas','user-plus']"></fa-icon>
-                        </div>
-                        <h3 class="title mb-1">Únete a nosotros</h3>
-                        <p class="description">Sé parte de esta gran comunidad que tiene el propósito de que pases tus cursos con las mejores notas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section testimonials -->
-        <div class="section">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-6 col-md-12 ">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card page-carousel">
-                                        <ngb-carousel>
-                                            <ng-template *ngFor="let testimonial of testimonials" ngbSlide>
-                                                <app-testimonial [testimonial]="testimonial"></app-testimonial>
-                                            </ng-template>
-
-                                        </ngb-carousel>
-                                    </div>
-                                </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="row justify-content-center pl-3">
+                    <div class="col-md-6 mb-2">
+                        <a class="card  " >
+                            <div class="card-body text-center">
+                                <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
+                                <div class="small text-gray-600">PUCP</div>
                             </div>
-
-
-
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12 ">
-                        <div class="container">
-                            <h2 class="title section-titles-home pb-2">Testimonios</h2>
-                            <h5>Nuestros alumnos están satisfechos con su enseñanza</h5>
-                            <button class="btn btn-round btn-primary">¡Dejanos tus recomendaciones!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Section Blog -->
-        <div class="section section-image" style="background-image: url('assets/img/login-image.jpg');">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-4 col-md-12">
-                        <div class="card blog-card">
-                            <div class="card-body justify-content-center text-center m-4">
-                                <p>
-                                    ¿Quieres conocer más acerca de tus cursos? Entra a nuestro blog y averigua que te espera
-                                </p>
-                            </div>
-                            <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-12">
-                        <div class="card blog-card">
-                            <div class="card-body justify-content-center text-center m-3">
-                                <p>
-                                    Consejos para tu vida universitaria
-                                    Apps, actividades y mucho más
-                                </p>
-                            </div>
-                            <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
-
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4 col-md-12">
-                        <div class="card blog-card">
-                            <div class="card-body justify-content-center text-center m-3">
-                                <p>
-                                    Tenemos resumenes de lecturas para ti
-                                </p>
-                            </div>
-                            <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-
-        <!-- Section partners -->
-        <div class="section">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-8 ml-auto mr-auto text-center">
-                        <h2 class="title section-titles-home">Contamos con el respaldo de</h2>
-
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3 mb-1 mt-1">
-                        <a class="card lift h-75">
-                            <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/equipu.jpeg" alt="...">
                         </a>
                     </div>
-                    <div class="col-lg-3 mb-1 mt-1">
-                        <a class="card lift h-75">
-                            <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/makerlab.jpeg" alt="...">
+                    <div class="col-md-6 mb-2">
+                        <a class="card  " >
+                            <div class="card-body text-center">
+                                <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
+                                <div class="small text-gray-600">ULima</div>
+                            </div>
                         </a>
                     </div>
-                    <div class="col-lg-3 mb-1 mt-1">
-                        <a class="card lift h-75">
-                            <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/gestion.jpeg" alt="...">
-                        </a>
-                    </div>
-                    <div class="col-lg-3 mb-1 mt-1">
-                        <a class="card lift h-75">
-                            <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/startup.jpeg" alt="...">
+                    <div class="col-md-6 mb-2">
+                        <a class="card  " >
+                            <div class="card-body text-center">
+                                <div class="icon-stack icon-stack-xl icon-dark mb-2"><svg class="svg-inline--fa fa-university fa-w-16" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="university" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M496 128v16a8 8 0 0 1-8 8h-24v12c0 6.627-5.373 12-12 12H60c-6.627 0-12-5.373-12-12v-12H24a8 8 0 0 1-8-8v-16a8 8 0 0 1 4.941-7.392l232-88a7.996 7.996 0 0 1 6.118 0l232 88A8 8 0 0 1 496 128zm-24 304H40c-13.255 0-24 10.745-24 24v16a8 8 0 0 0 8 8h464a8 8 0 0 0 8-8v-16c0-13.255-10.745-24-24-24zM96 192v192H60c-6.627 0-12 5.373-12 12v20h416v-20c0-6.627-5.373-12-12-12h-36V192h-64v192h-64V192h-64v192h-64V192H96z"></path></svg><!-- <i class="fas fa-university"></i> --></div>
+                                <div class="small text-gray-600">UDEP</div>
+                            </div>
                         </a>
                     </div>
                 </div>
@@ -289,3 +111,159 @@
         </div>
     </div>
 </div>
+
+
+<!-- Section: Numbers-->
+<section class="bg-dark py-10">
+    <div class="container">
+        <!--
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-10">
+                    <h2>Nuestros números nos avalan</h2>
+                    <p class="lead">Sabemos lo que hacemos, queremos que aprendas y pases todo con buena nota</p>
+                </div>
+            </div>
+        </div>-->
+        <div class="row">
+            <div class="col-lg-4 text-center mb-5">
+                <div class="display-1 font-weight-bold">500+</div>
+                <div class="h5 text-gray-200">Horas dictadas</div>
+                <p>Asesorías con los mejores estudiantes con clases dinámicas y entretenidas.</p>
+            </div>
+            <div class="col-lg-4 text-center mb-5">
+                <div class="display-1 font-weight-bold">200+</div>
+                <div class="h5 text-gray-200">Alumnos</div>
+                <p>Como Fast Trainer conseguimos más de 200 alumnos y mejoraron sus calificaciones.</p>
+            </div>
+            <div class="col-lg-4 text-center mb-5">
+                <div class="display-1 font-weight-bold"><fa-icon [icon]="['fas','user-plus']"></fa-icon></div>
+                <div class="h5 text-gray-200">Únete</div>
+                <p>Sé parte de esta gran comunidad que tiene el propósito de que pases tus cursos con las mejores notas.</p>
+            </div>
+        </div>
+    </div>
+    <div class="svg-border-rounded text-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+    </div>
+</section>
+
+<!-- Section testimonials -->
+<div class="section">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card page-carousel">
+                                <ngb-carousel>
+                                    <ng-template *ngFor="let testimonial of testimonials" ngbSlide>
+                                        <app-testimonial [testimonial]="testimonial"></app-testimonial>
+                                    </ng-template>
+
+                                </ngb-carousel>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 ">
+                <div class="container">
+                    <h2 class="title section-titles-home pb-2">Testimonios</h2>
+                    <h5>Nuestros alumnos están satisfechos con su enseñanza</h5>
+                    <button class="btn btn-round btn-primary">¡Dejanos tus recomendaciones!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Section Blog -->
+<div class="section section-image" style="background-image: url('assets/img/login-image.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="card blog-card">
+                    <div class="card-body justify-content-center text-center m-4">
+                        <p>
+                            ¿Quieres conocer más acerca de tus cursos? Entra a nuestro blog y averigua que te espera
+                        </p>
+                    </div>
+                    <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card blog-card">
+                    <div class="card-body justify-content-center text-center m-3">
+                        <p>
+                            Consejos para tu vida universitaria
+                            Apps, actividades y mucho más
+                        </p>
+                    </div>
+                    <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <div class="card blog-card">
+                    <div class="card-body justify-content-center text-center m-3">
+                        <p>
+                            Tenemos resumenes de lecturas para ti
+                        </p>
+                    </div>
+                    <button class="btn btn-dark mt-3 btn-blog-card">Conoce más</button>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Section partners -->
+<section class="bg-white pt-5 pb-10 ">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-5">
+                    <h2>Contamos con el respaldo de</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3 mb-1 mt-1">
+                <a class="card lift h-100" >
+                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/equipu.jpeg" alt="..."/>
+                </a>
+            </div>
+            <div class="col-lg-3 mb-1 mt-1">
+                <a class="card lift h-100" >
+                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/makerlab.jpeg" alt="..."/>
+                </a>
+            </div>
+            <div class="col-lg-3 mb-1 mt-1">
+                <a class="card lift h-100" >
+                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/gestion.jpeg" alt="..."/>
+                </a>
+            </div>
+            <div class="col-lg-3 mb-1 mt-1">
+                <a class="card lift h-100" >
+                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/startup.jpeg" alt="..."/>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="svg-border-rounded text-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+    </div>
+</section>
+
+

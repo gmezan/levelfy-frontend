@@ -1,3 +1,14 @@
-<app-navbar></app-navbar>
-<router-outlet></router-outlet>
-<app-footer *ngIf="removeFooter()"></app-footer>
+<div id="layoutDefault_content">
+    <main>
+        <!-- Navbar-->
+        <app-navbar></app-navbar>
+        <router-outlet></router-outlet>
+    </main>
+
+    <div id="layoutDefault_footer">
+        <app-footer *ngIf="removeFooter()"></app-footer>
+    </div>
+</div>
+
+
+
