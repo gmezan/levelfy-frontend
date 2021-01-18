@@ -4,6 +4,7 @@ import { UserService } from './service/user.service';
 import { CourseService } from './service/course.service';
 import { TestimonialService } from './service/testimonial.service';
 import { CourseSuggestionService } from './service/course-suggestion.service';
+import { ServiceService } from './service/service.service';
 
 @NgModule({
     declarations: [],
@@ -13,6 +14,7 @@ import { CourseSuggestionService } from './service/course-suggestion.service';
         CourseService,
         TestimonialService,
         CourseSuggestionService,
+        ServiceService,
     ],
 })
 export class CoreModule {}

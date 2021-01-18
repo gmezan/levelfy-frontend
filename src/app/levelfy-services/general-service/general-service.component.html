@@ -6,8 +6,22 @@
     <div class="container">
 
         <div class="row">
+            <div class="col-md-8" *ngIf="noCourses">
+                <h3 class="justify-content-center text-center">
+                    Por el momento no hay cursos disponibles
+                </h3>
+            </div>
+            <!-- change (above) to col-lg-4 if you want three cards in a row, and to
+                col-lg-3 if you want 4 in a row-->
             <div *ngFor="let course of courses"  class="col-lg-4 mb-5 item">
-                <app-course-card [course]="course"></app-course-card>
+                <app-course-card
+                        [course]="course"
+                        [footer-message]="footerMessage"
+                        [path-url]="['/service/'+service.route+'/form']"
+                        [path-url-params] = "{i: course.courseId.idCourse,
+                                              u: course.courseId.university
+                                              }"
+                ></app-course-card>
             </div>
 
         </div>

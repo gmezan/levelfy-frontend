@@ -5,6 +5,7 @@ import { MenuServicesComponent } from './menu-services/menu-services.component';
 import { CourseCardComponent } from './course-card/course-card.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         CourseCardComponent,
         TestimonialComponent,
     ],
-    imports: [CommonModule, FontAwesomeModule],
+    imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
         HeaderComponent,
         TestimonialComponent,

@@ -12,9 +12,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from '../core/core.module';
 import { ServicesComponent } from './services/services.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BlogComponent } from './blog/blog.component';
 
 @NgModule({
-    declarations: [HomeComponent, UsComponent, ServicesComponent],
+    declarations: [HomeComponent, UsComponent, ServicesComponent, BlogComponent],
     imports: [
         CommonModule,
         SharedModule,

@@ -9,6 +9,8 @@ import { UsComponent } from './levelfy/us/us.component';
 import { ServicesComponent } from './levelfy/services/services.component';
 import { ComponentsComponent } from './_components/components.component';
 import { GeneralServiceComponent } from './levelfy-services/general-service/general-service.component';
+import { ClientServiceFormComponent } from './levelfy-services/client-service-form/client-service-form.component';
+import { BlogComponent } from './levelfy/blog/blog.component';
 
 /*
 More specific paths should be first
@@ -17,8 +19,8 @@ More specific paths should be first
 const routes: Routes = [
     // List services navigation (no login required)
     {
-        path: 'service/:type/:courseId',
-        component: GeneralServiceComponent,
+        path: 'service/:type/form',
+        component: ClientServiceFormComponent,
         pathMatch: 'full',
     },
     {
@@ -31,7 +33,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, pathMatch: 'full' },
     { path: 'service', component: ServicesComponent, pathMatch: 'full' },
-    { path: 'blog', component: UsComponent, pathMatch: 'full' },
+    { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
     { path: 'signup', component: SignupComponent, pathMatch: 'full' },
 

@@ -9,6 +9,12 @@ const service1 = {
         'Clases completamente personalizadas que podrás ' +
         'reservar con amigos, para que puedas absolver tus dudas en los cursos.',
     buttonMessage: '¡Lo quiero!',
+    key: 'ASES_PER',
+    offers: [
+        'Ayuda completamente personalizada',
+        'Explicación teórica y práctica',
+        'Puedes inscribirte con amigos (Número de estudiantes)',
+    ],
 };
 const service2 = {
     serviceName: 'Paquete de Asesorías',
@@ -19,6 +25,12 @@ const service2 = {
         'Múltiples asesorías para la preparación exclusiva de evaluaciones en ' +
         'los cursos más complejos.',
     buttonMessage: '¡Lo quiero!',
+    key: 'ASES_PAQ',
+    offers: [
+        'Asesorías personalizadas',
+        'Explicación teórica y práctica',
+        'Solución de prácticas y/o exámenes',
+    ],
 };
 const service3 = {
     serviceName: 'Maratón',
@@ -29,6 +41,12 @@ const service3 = {
         'Clases grabadas por nuestros asesores, con la cual podrás aprender a tu ' +
         'manera y con el tiempo que requieras.',
     buttonMessage: '¡Lo quiero!',
+    key: 'MAR',
+    offers: [
+        'Asesoría personalizada',
+        'Explicación teórica y práctica',
+        'Solución de prácticas y/o exámenes',
+    ],
 };
 const service4 = {
     serviceName: 'Aprende a tu ritmo',
@@ -39,6 +57,12 @@ const service4 = {
         'Clases grabadas por nuestros asesores, con la cual podrás aprender a tu ' +
         'manera y con el tiempo que requieras.',
     buttonMessage: '¡Lo quiero!',
+    key: 'SELF_P',
+    offers: [
+        'Asesorías personalizadas',
+        'Explicación teórica y práctica',
+        'Solución de prácticas y/o exámenes',
+    ],
 };
 
 // available services

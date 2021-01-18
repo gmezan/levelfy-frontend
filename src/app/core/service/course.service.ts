@@ -1,21 +1,35 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpParams,
+} from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Course } from '../../shared/_models/course.model';
+import { GeneralService } from './_general-service.service';
 
 @Injectable()
-export class CourseService {
-    constructor(private http: HttpClient) {}
-
-    apiUrl = 'http://localhost:8080/course/dev/listAll';
+export class CourseService extends GeneralService {
+    // URI for all courses
+    apiUriAll = '/course/dev/listAll';
+    apiUriService = '/course/list';
 
     getCourses() {
         // Returns observable
-        return this.http.get<Course[]>(this.apiUrl);
+        return this.http
+            .get<Course[]>(this.buildPath(this.apiUriAll))
+            .pipe(catchError(CourseService.handleError));
     }
 
-    getAvailableCoursesByService(service: string) {
-        return this.getCourses();
+    getAvailableCoursesByService(serviceType: string): Observable<Course[]> {
+        if (!serviceType) return null;
+        let options = {
+            params: new HttpParams().set('serviceType', serviceType),
+        };
+
+        return this.http
+            .get<Course[]>(this.buildPath(this.apiUriService), options)
+            .pipe(catchError(CourseService.handleError));
     }
 }

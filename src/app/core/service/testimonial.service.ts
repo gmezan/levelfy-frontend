@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TestimonialModel } from '../../shared/_dto/testimonial.model';
+import { GeneralService } from './_general-service.service';
 
 @Injectable()
-export class TestimonialService {
-    constructor(private http: HttpClient) {}
-
+export class TestimonialService extends GeneralService {
     testimonialsTest = [
         new TestimonialModel(
             'Mensaje del testimonio 1',
