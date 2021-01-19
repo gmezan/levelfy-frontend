@@ -9,6 +9,8 @@ import { servicesTypes } from '../utils/services-types';
 export class ServicesComponent implements OnInit {
     services = servicesTypes;
 
+    title = 'Servicios';
+
     constructor() {}
 
     ngOnInit(): void {}

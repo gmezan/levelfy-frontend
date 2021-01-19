@@ -11,5 +11,7 @@ export class HeaderComponent implements OnInit {
     @Input('header-title') title: string;
     @Input('bg-image') bgImage: string;
 
+    @Input('rounded-bottom-svg') roundedBottom: boolean = true;
+
     ngOnInit(): void {}
 }

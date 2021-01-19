@@ -49,12 +49,22 @@ export class AppComponent implements OnInit {
 			 */
 
             if (!pageHeader) {
+                navbar.classList.add('navbar-dark');
+                navbar.classList.remove('navbar-light');
+                navbar.classList.remove('bg-transparent');
+                navbar.classList.add('bg-dark');
+                navbar.classList.remove('fixed-top');
+                console.log(true);
             } else if (pageHeader.classList.contains('page-header-dark')) {
                 navbar.classList.add('navbar-dark');
                 navbar.classList.remove('navbar-light');
+                navbar.classList.add('bg-transparent');
+                navbar.classList.add('fixed-top');
             } else if (pageHeader.classList.contains('page-header-light')) {
                 navbar.classList.add('navbar-light');
                 navbar.classList.remove('navbar-dark');
+                navbar.classList.add('bg-transparent');
+                navbar.classList.add('fixed-top');
             }
         });
     }
