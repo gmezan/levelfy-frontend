@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { $ } from 'protractor';
 
 @Component({
     selector: 'app-blog',

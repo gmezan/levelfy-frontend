@@ -32,7 +32,6 @@ export class AppComponent implements OnInit {
 
     ngOnInit(): void {
         let navbar: HTMLElement = this.document.getElementById('pageNavbar');
-
         this.router.events.subscribe((evt) => {
             if (!(evt instanceof NavigationEnd)) return;
             window.scrollTo(0, 0); // Go to top after page change
