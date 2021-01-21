@@ -1,5 +1,13 @@
-import { map } from 'rxjs/operators';
-
+/*
+	* serviceName: 		is the name that is displayed in the listing of services for each service
+	* route: 			is used for the routing module: '/service/:route'
+	* imageUrl:			is the url address for the image that is displayed in the bg of the service listing page
+	* description:		is the description used in '/service'
+	* buttonMessage:	is the button message in '/service'
+	* key:			 	KEY property must be the same as the key that is used to store in the database
+	* offers:			the list that is displayed in the form for registering in some service
+	
+ */
 const service1 = {
     serviceName: 'Asesoría Personalizada',
     route: 'ases-per',
@@ -67,7 +75,9 @@ const service4 = {
 
 // available services
 export const servicesTypes = [service1, service2, service3];
-export const servicesTypesDict = {
+
+// Update always this dict if something changes above
+export const mapServiceRoute2ServiceType = {
     'ases-per': service1,
     'ases-paq': service2,
     mar: service3,

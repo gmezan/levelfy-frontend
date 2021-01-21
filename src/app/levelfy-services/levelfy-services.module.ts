@@ -10,12 +10,20 @@ import { CoreModule } from '../core/core.module';
 import { GeneralServiceComponent } from './general-service/general-service.component';
 import { ClientServiceFormComponent } from './client-service-form/client-service-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ServiceFormComponent } from './client-service-form/service-form/service-form.component';
+import { AsesPerComponent } from './client-service-form/service-form/ases-per/ases-per.component';
+import { AsesPaqComponent } from './client-service-form/service-form/ases-paq/ases-paq.component';
+import { MarComponent } from './client-service-form/service-form/mar/mar.component';
 
 @NgModule({
     declarations: [
         CourseSuggestionComponent,
         GeneralServiceComponent,
         ClientServiceFormComponent,
+        ServiceFormComponent,
+        AsesPerComponent,
+        AsesPaqComponent,
+        MarComponent,
     ],
     imports: [
         CommonModule,

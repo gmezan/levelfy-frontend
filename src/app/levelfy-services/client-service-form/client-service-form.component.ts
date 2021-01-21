@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {
     servicesTypes,
-    servicesTypesDict,
+    mapServiceRoute2ServiceType,
 } from '../../levelfy/utils/services-types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../core/service/course.service';
 import { ServiceService } from '../../core/service/service.service';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { Course } from '../../shared/_models/course.model';
+
+/*
+	This component manages the inscription form of every service
+ */
 
 @Component({
     selector: 'app-client-service-form',
@@ -17,9 +20,9 @@ import { Course } from '../../shared/_models/course.model';
 })
 export class ClientServiceFormComponent implements OnInit {
     private sub: any;
-    service: typeof servicesTypes[0];
-    services: Service[];
-    course: Course;
+    serviceType: typeof servicesTypes[0];
+    services: Service[] = [new Service()];
+    course: Course = new Course();
 
     constructor(
         private route: ActivatedRoute,
@@ -29,8 +32,8 @@ export class ClientServiceFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.sub = this.route.params.subscribe((params) => {
-            this.service = servicesTypesDict[params['type']];
-            if (!this.service) {
+            this.serviceType = mapServiceRoute2ServiceType[params['type']];
+            if (!this.serviceType) {
                 // verify service TYPE exists
                 this.error();
                 return;
@@ -47,12 +50,12 @@ export class ClientServiceFormComponent implements OnInit {
                 // Get list of services that have the CourseID and the serviceType
                 this.serviceService
                     .findServiceByServiceTypeAndCourse_CourseId(
-                        this.service.key,
+                        this.serviceType.key,
                         new CourseId(params.i, params.u)
                     )
                     .subscribe((data) => {
                         if (data == null || data.length === 0)
-                            this.noServiceReturn(this.service.route);
+                            this.noServiceReturn(this.serviceType.route);
 
                         // List of services obtained
                         this.services = data;

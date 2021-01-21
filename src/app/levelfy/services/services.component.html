@@ -21,7 +21,7 @@
     <div *ngFor="let serv of services; let even = even;" class="container">
         <div class="row py-5 x">
             <div class="col-md-6 text-center" routerLinkActive="active">
-                <div *ngIf="even; then imageBlock else textBlock"></div>
+                <div  *ngIf="even; then imageBlock else textBlock"></div>
             </div>
             <div class="col-md-6 text-center" routerLinkActive="active">
                 <div *ngIf="!even; then imageBlock else textBlock"></div>

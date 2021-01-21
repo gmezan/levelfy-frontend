@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CourseSuggestionService } from '../../core/service/course-suggestion.service';
 import { CourseSuggestion } from '../../shared/_models/course-suggestion.model';
 
+/*
+	The course suggestion section at the end of every service page
+ */
+
 @Component({
     selector: 'app-course-suggestion',
     templateUrl: './course-suggestion.component.html',
@@ -10,7 +14,7 @@ import { CourseSuggestion } from '../../shared/_models/course-suggestion.model';
 export class CourseSuggestionComponent implements OnInit {
     constructor(private courseSuggestionService: CourseSuggestionService) {}
 
-    value = '';
+    value: string = '';
 
     sendSuggestion() {
         if (!this.value) return;

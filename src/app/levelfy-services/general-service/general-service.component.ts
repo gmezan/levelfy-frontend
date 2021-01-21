@@ -1,14 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
     servicesTypes,
-    servicesTypesDict,
+    mapServiceRoute2ServiceType,
 } from '../../levelfy/utils/services-types';
 import { Course } from '../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../core/service/course.service';
-import { catchError } from 'rxjs/operators';
-import { HttpErrorResponse } from '@angular/common/http';
-import { throwError } from 'rxjs';
+
+/*
+	This component LISTS the courses available for each service
+ */
 
 @Component({
     selector: 'app-general-service',
@@ -20,7 +21,6 @@ export class GeneralServiceComponent implements OnInit {
     courses: Course[];
     footerMessage: string = 'Ver detalles';
 
-    // to find the service type
     private sub: any;
     service: typeof servicesTypes[0];
     noCourses: boolean = false;
@@ -31,11 +31,11 @@ export class GeneralServiceComponent implements OnInit {
         private courseService: CourseService,
         private router: Router
     ) {}
-    œ;
+
     ngOnInit(): void {
         // Listing courses according to the serviceType:
         this.sub = this.route.params.subscribe((params) => {
-            this.service = servicesTypesDict[params['type']];
+            this.service = mapServiceRoute2ServiceType[params['type']];
             if (!this.service) {
                 this.error();
                 return;
@@ -47,10 +47,6 @@ export class GeneralServiceComponent implements OnInit {
                     this.noCourses = data == null || data.length === 0;
                 });
         });
-    }
-
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     error() {

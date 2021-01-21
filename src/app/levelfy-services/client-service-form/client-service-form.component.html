@@ -5,10 +5,10 @@
             <div class="col-lg-3">
                 <ul class="mb-1 list-group list-group-flush list-group-careers">
                     <li class="list-group-item pt-0 bg-light">
-                        <a style="color: #0D9814;" class="small" [routerLink]="['/service',service.route]">
+                        <a style="color: #0D9814;" class="small" [routerLink]="['/service',serviceType.route]">
                             <fa-icon class="mr-1" [icon]="['fas','arrow-left']"></fa-icon>Volver</a>
                     </li>
-                    <li class="list-group-item bg-light font-weight-bold">{{service.serviceName}}</li>
+                    <li class="list-group-item bg-light font-weight-bold">{{serviceType.serviceName}}</li>
                 </ul>
             </div>
 
@@ -23,14 +23,14 @@
                             <div class="row my-4">
 
                                 <div class="col-lg-6">
-                                    <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="services[0].teacher.photo"/></a>
+                                    <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="services[0]?.teacher?.photo"/></a>
                                 </div>
 
                                 <div class="col-lg-6 ">
                                     <div class="form-group">
                                         <h6 class="mb-3">Ofrecemos:</h6>
                                         <ul class="fa-ul">
-                                            <li *ngFor="let str of service.offers" class="mb-3">
+                                            <li *ngFor="let str of serviceType.offers" class="mb-3">
                                             <span class="fa-li">
                                                 <fa-icon [icon]="['far','dot-circle']"></fa-icon>
                                             </span>
@@ -42,70 +42,9 @@
 
                             </div>
 
-                            <form>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Asesor</label>
-                                        <select class="form-control rounded-pill custom-select" >
-                                            <option  selected  ></option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Servicio</label>
-                                        <select class="form-control rounded-pill custom-select" name="paquete">
-                                            <option ></option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <!-- The actual form tag -->
+                            <app-service-form [service-type]="serviceType"></app-service-form>
 
-                                <div class="form-row">
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Día de la asesoría</label>
-                                        <select class="select-diaClase form-control rounded-pill custom-select" >
-                                            <option value=''>--- Elige uno ---</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Horas de asesoría</label>
-                                        <select class="num-horas-clase form-control rounded-pill custom-select" >
-                                            <option value=1 > 1 hora </option>
-                                            <option value=2 > 2 horas </option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Hora de inicio</label>
-                                        <select class="select-horaClase form-control rounded-pill custom-select" >
-                                            <option value='' >--- Elige una ---</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6"><label class="small text-gray-600" >Numero de estudiantes</label>
-                                        <select class="form-control rounded-pill custom-select" >
-                                            <option value=1> 1  </option>
-                                            <option value=2> 2  </option>
-                                            <option value=3> 3  </option>
-                                            <option value=4> 4  </option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-row ">
-                                    <div class="form-group col-md-12">
-                                        <label class="small text-gray-600" >Temas deseados (Opcional)</label>
-                                        <input  class="form-control rounded-pill" type="text" />
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <div  class="card no-transition bg-light shadow-none">
-                                            <div class="card-body d-flex align-items-center justify-content-between p-4">
-                                                <p class="lead mb-0">La mejor asesoría a un click de distancia</p>
-                                                <button  class="btn btn-black btn-marketing rounded-pill ml-2" type="submit">Inscribirse</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </form>
                         </div>
 
 
