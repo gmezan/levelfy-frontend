@@ -1,17 +1,27 @@
 import { Injectable } from '@angular/core';
-import { GeneralService } from './_general-service.service';
 import { Observable } from 'rxjs';
 import { Course } from '../../shared/_models/course.model';
-import { HttpParams } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpParams,
+} from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
+import { DataService } from '../common/data-service.service';
+
+const uri = '/model/services';
 
 @Injectable({
     providedIn: 'root',
 })
-export class ServiceService extends GeneralService {
-    apiUriServiceForm = '/service/form';
+export class ServiceService extends DataService<Service> {
+    apiUriServiceForm = '/services/form';
+
+    constructor(http: HttpClient) {
+        super(uri, http);
+    }
 
     public findServiceByServiceTypeAndCourse_CourseId(
         serviceType: string,
@@ -28,6 +38,6 @@ export class ServiceService extends GeneralService {
 
         return this.http
             .get<Service[]>(this.buildPath(this.apiUriServiceForm), options)
-            .pipe(catchError(GeneralService.handleError));
+            .pipe(catchError(this.handleError));
     }
 }

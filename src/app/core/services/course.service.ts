@@ -7,19 +7,18 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Course } from '../../shared/_models/course.model';
-import { GeneralService } from './_general-service.service';
+import 'rxjs/add/operator/catch';
+import { DataService } from '../common/data-service.service';
+
+const uri = '/model/course';
 
 @Injectable()
-export class CourseService extends GeneralService {
+export class CourseService extends DataService<Course> {
     // URI for all courses
-    apiUriAll = '/course/dev/listAll';
-    apiUriService = '/course/list';
+    apiUriService = '/model/course/list';
 
-    getCourses() {
-        // Returns observable
-        return this.http
-            .get<Course[]>(this.buildPath(this.apiUriAll))
-            .pipe(catchError(CourseService.handleError));
+    constructor(http: HttpClient) {
+        super(uri, http);
     }
 
     getAvailableCoursesByService(serviceType: string): Observable<Course[]> {
@@ -30,6 +29,13 @@ export class CourseService extends GeneralService {
 
         return this.http
             .get<Course[]>(this.buildPath(this.apiUriService), options)
-            .pipe(catchError(CourseService.handleError));
+            .pipe(catchError(this.handleError));
     }
+
+    /*
+
+        For DELETE and POST consider using local list variable  to y
+        update the list according to the changes, to avoid load all data again
+
+    */
 }

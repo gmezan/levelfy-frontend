@@ -4,13 +4,13 @@ import {
     mapServiceRoute2ServiceType,
 } from '../../levelfy/utils/services-types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceService } from '../../core/service/service.service';
+import { ServiceService } from '../../core/services/service.service';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { Course } from '../../shared/_models/course.model';
 
 /*
-	This component manages the inscription form of every service
+	This component manages the inscription form of every services
  */
 
 @Component({
@@ -19,7 +19,6 @@ import { Course } from '../../shared/_models/course.model';
     styleUrls: ['./client-service-form.component.css'],
 })
 export class ClientServiceFormComponent implements OnInit {
-    private sub: any;
     serviceType: typeof servicesTypes[0];
     services: Service[] = [new Service()];
     course: Course = new Course();
@@ -31,46 +30,77 @@ export class ClientServiceFormComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.sub = this.route.params.subscribe((params) => {
-            this.serviceType = mapServiceRoute2ServiceType[params['type']];
-            if (!this.serviceType) {
-                // verify service TYPE exists
-                this.error();
-                return;
-            }
-            this.route.queryParams.subscribe((params) => {
-                // verify params courseId & university have been given
-                if (!params.i || !params.u) return;
+        this.serviceType =
+            mapServiceRoute2ServiceType[
+                this.route.snapshot.paramMap.get('type')
+            ];
+        if (!this.serviceType) {
+            // verify services TYPE exists
+            this.error();
+            return;
+        }
 
-                /*
-              		TODO: validate that the user (if authenticated) is not already registered in this service
-                	If so, redirect to the page of validation & payment.
-                 */
+        let params = {
+            i: this.route.snapshot.queryParamMap.get('i'),
+            u: this.route.snapshot.queryParamMap.get('u'),
+        };
 
-                // Get list of services that have the CourseID and the serviceType
-                this.serviceService
-                    .findServiceByServiceTypeAndCourse_CourseId(
-                        this.serviceType.key,
-                        new CourseId(params.i, params.u)
-                    )
-                    .subscribe((data) => {
-                        if (data == null || data.length === 0)
-                            this.noServiceReturn(this.serviceType.route);
+        // verify params courseId & university have been given
+        if (!params.i || !params.u) return;
 
-                        // List of services obtained
-                        this.services = data;
-                        this.course = data[0].course;
-                    });
+        /*
+			  TODO: validate that the user (if authenticated) is not already registered in this services
+			If so, redirect to the page of validation & payment.
+		 */
+
+        // Get list of services that have the CourseID and the serviceType
+        this.serviceService
+            .findServiceByServiceTypeAndCourse_CourseId(
+                this.serviceType.key,
+                new CourseId(params.i, params.u)
+            )
+            .subscribe((data) => {
+                if (data == null || data.length === 0)
+                    this.noServiceReturn(this.serviceType.route);
+
+                // List of services obtained
+                this.services = data;
+                this.course = data[0].course;
             });
-        });
     }
 
     error() {
-        this.router.navigate(['/error']);
+        this.router.navigate(['/error']).then();
     }
 
     noServiceReturn(serviceType: string) {
-        console.log('No services available for this course and service type');
-        this.router.navigate(['/service', serviceType]);
+        console.log('No services available for this course and services type');
+        this.router.navigate(['/services', serviceType]).then();
     }
 }
+
+/*
+
+this.route.params.subscribe((params)=>{});
+
+this.route.queryParams.subscribe((params) => {
+            // verify params courseId & university have been given
+            if (!params.i || !params.u) return;
+
+// Get list of services that have the CourseID and the serviceType
+this.serviceService
+	.findServiceByServiceTypeAndCourse_CourseId(
+		this.serviceType.key,
+		new CourseId(params.i, params.u)
+	)
+	.subscribe((data) => {
+		if (data == null || data.length === 0)
+			this.noServiceReturn(this.serviceType.route);
+		
+		// List of services obtained
+		this.services = data;
+		this.course = data[0].course;
+	});
+});
+
+ */

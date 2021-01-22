@@ -9,6 +9,7 @@ import { ServicesComponent } from './levelfy/services/services.component';
 import { GeneralServiceComponent } from './levelfy-services/general-service/general-service.component';
 import { ClientServiceFormComponent } from './levelfy-services/client-service-form/client-service-form.component';
 import { BlogComponent } from './levelfy/blog/blog.component';
+import { LoginComponent } from './levelfy/login/login.component';
 
 /*
 More specific paths should be first
@@ -17,12 +18,12 @@ More specific paths should be first
 const routes: Routes = [
     // List services navigation (no login required)
     {
-        path: 'service/:type/form',
+        path: 'services/:type/form',
         component: ClientServiceFormComponent,
         pathMatch: 'full',
     },
     {
-        path: 'service/:type',
+        path: 'services/:type',
         component: GeneralServiceComponent,
         pathMatch: 'full',
     },
@@ -33,6 +34,7 @@ const routes: Routes = [
     { path: 'service', component: ServicesComponent, pathMatch: 'full' },
     { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
+    { path: 'login', component: LoginComponent, pathMatch: 'full' },
     { path: 'signup', component: UsComponent, pathMatch: 'full' },
 
     // Error Handler 404

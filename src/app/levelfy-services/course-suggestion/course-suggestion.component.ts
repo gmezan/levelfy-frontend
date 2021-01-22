@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseSuggestionService } from '../../core/service/course-suggestion.service';
+import { CourseSuggestionService } from '../../core/services/course-suggestion.service';
 import { CourseSuggestion } from '../../shared/_models/course-suggestion.model';
 
 /*
-	The course suggestion section at the end of every service page
+	The course suggestion section at the end of every services page
  */
 
 @Component({
@@ -20,7 +20,7 @@ export class CourseSuggestionComponent implements OnInit {
         if (!this.value) return;
         let courseSuggestion = new CourseSuggestion();
         courseSuggestion.name = this.value;
-        this.courseSuggestionService.sendCourseSuggestion(courseSuggestion);
+        this.courseSuggestionService.create(courseSuggestion).subscribe();
         this.value = '';
     }
 

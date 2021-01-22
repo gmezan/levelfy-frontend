@@ -1,4 +1,4 @@
-export class TestimonialModel {
+export class Testimonial {
     constructor(
         private _message?: string,
         private _name?: string,

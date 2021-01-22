@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { servicesTypes } from '../../../levelfy/utils/services-types';
 
 /*
-	This component just manage the <form></fom> tag of the client-service-form component
-	It changes according of the type of service
+	This component just manage the <form></fom> tag of the client-services-form component
+	It changes according of the type of services
  */
 
 @Component({
@@ -17,7 +17,7 @@ export class ServiceFormComponent implements OnInit {
     	Load the servicesTypes Object
      */
     servicesTypes = servicesTypes;
-    @Input('service-type') serviceType: typeof servicesTypes[0];
+    @Input('services-type') serviceType: typeof servicesTypes[0];
 
     constructor() {}
 

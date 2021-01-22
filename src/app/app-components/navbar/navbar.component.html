@@ -10,7 +10,7 @@
                     <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                         <div *ngFor="let serv of services">
-                            <a class="dropdown-item py-3" [routerLink]="['/service', serv.route]" >
+                            <a class="dropdown-item py-3" [routerLink]="['/services', serv.route]" >
                                 <!--<div class="icon-stack bg-gray-300 text-dark mr-4">
                                     <fa-icon [icon]="['fas','book-open']"></fa-icon>
                                 </div>-->
@@ -20,7 +20,7 @@
                             </a>
                             <div class="dropdown-divider m-0"></div>
                         </div>
-                        <a class="dropdown-item py-3" [routerLink]="['/service']">
+                        <a class="dropdown-item py-3" [routerLink]="['/services']">
                             <div class="icon-stack bg-gray-300 text-dark mr-4">
                                 <fa-icon [icon]="['fas','book-open']"></fa-icon>
                             </div>
@@ -42,7 +42,7 @@
 
 
             </ul>
-            <a class="btn font-weight-500 rounded-pill btn-success" href="#">Iniciar Sesión</a>
+            <a class="btn font-weight-500 rounded-pill btn-success" routerLink="/login">Iniciar Sesión</a>
         </div>
     </div>
 </nav>

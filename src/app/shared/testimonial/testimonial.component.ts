@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TestimonialModel } from '../_dto/testimonial.model';
+import { Testimonial } from '../_dto/testimonial';
 
 @Component({
     selector: 'app-testimonial',
@@ -7,7 +7,7 @@ import { TestimonialModel } from '../_dto/testimonial.model';
     styleUrls: ['./testimonial.component.css'],
 })
 export class TestimonialComponent implements OnInit {
-    @Input('testimonial') testimonial: TestimonialModel;
+    @Input('testimonial') testimonial: Testimonial;
 
     stars: any = [
         ['far', 'star'],

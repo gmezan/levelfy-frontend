@@ -1,11 +1,11 @@
 /*
-	* serviceName: 		is the name that is displayed in the listing of services for each service
-	* route: 			is used for the routing module: '/service/:route'
-	* imageUrl:			is the url address for the image that is displayed in the bg of the service listing page
-	* description:		is the description used in '/service'
-	* buttonMessage:	is the button message in '/service'
+	* serviceName: 		is the name that is displayed in the listing of services for each services
+	* route: 			is used for the routing module: '/services/:route'
+	* imageUrl:			is the url address for the image that is displayed in the bg of the services listing page
+	* description:		is the description used in '/services'
+	* buttonMessage:	is the button message in '/services'
 	* key:			 	KEY property must be the same as the key that is used to store in the database
-	* offers:			the list that is displayed in the form for registering in some service
+	* offers:			the list that is displayed in the form for registering in some services
 	
  */
 const service1 = {

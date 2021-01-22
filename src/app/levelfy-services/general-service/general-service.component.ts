@@ -5,10 +5,10 @@ import {
 } from '../../levelfy/utils/services-types';
 import { Course } from '../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../core/service/course.service';
+import { CourseService } from '../../core/services/course.service';
 
 /*
-	This component LISTS the courses available for each service
+	This component LISTS the courses available for each services
  */
 
 @Component({
@@ -42,10 +42,15 @@ export class GeneralServiceComponent implements OnInit {
             }
             this.courseService
                 .getAvailableCoursesByService(this.service.key)
-                .subscribe((data) => {
-                    this.courses = data;
-                    this.noCourses = data == null || data.length === 0;
-                });
+                .subscribe(
+                    (data) => {
+                        this.courses = data;
+                        this.noCourses = data == null || data.length === 0;
+                    },
+                    (error: Response) => {
+                        console.log(error);
+                    }
+                );
         });
     }
 

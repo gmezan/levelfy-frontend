@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { servicesTypes } from '../utils/services-types';
-import { TestimonialService } from '../../core/service/testimonial.service';
+import { TestimonialService } from '../../core/services/testimonial.service';
 
 const blogSection = [
     {
