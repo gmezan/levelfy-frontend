@@ -7,7 +7,6 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { Course } from '../../shared/_models/course.model';
-import 'rxjs/add/operator/catch';
 import { DataService } from '../common/data-service.service';
 
 const uri = '/model/course';

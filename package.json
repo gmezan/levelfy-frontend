@@ -1,10 +1,10 @@
 {
-  "name": "paper-kit-2-angular",
+  "name": "levelfy-frontend",
   "version": "1.4.0",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/creativetimofficial/pk2-angular.git"
+    "url": "https://github.com/gmezan/levelfy-frontend.git"
   },
   "scripts": {
     "ng": "ng",
@@ -36,8 +36,6 @@
     "core-js": "3.8.1",
     "jquery": "^3.5.1",
     "jw-bootstrap-switch-ng2": "2.0.5",
-    "ng2-nouislider": "1.8.2",
-    "nouislider": "14.6.3",
     "popper.js": "^1.16.1",
     "rxjs": "6.6.3",
     "rxjs-compat": "6.6.3",
