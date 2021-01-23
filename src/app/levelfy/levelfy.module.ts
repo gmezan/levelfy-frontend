@@ -6,7 +6,6 @@ import { UsComponent } from './us/us.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CoreModule } from '../core/core.module';
 import { ServicesComponent } from './services/services.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -25,7 +24,6 @@ import { LoginComponent } from './login/login.component';
         CommonModule,
         SharedModule,
         FormsModule,
-        NgbModule,
         RouterModule,
         CoreModule,
         FontAwesomeModule,

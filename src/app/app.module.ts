@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing';
 
@@ -30,7 +29,6 @@ import { ClientRoleModule } from './_roles/client-role/client-role.module';
     declarations: [AppComponent, NavbarComponent, FooterComponent],
     imports: [
         BrowserModule,
-        NgbModule,
         FormsModule,
         FontAwesomeModule,
         RouterModule,

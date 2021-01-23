@@ -39,7 +39,7 @@ const routes: Routes = [
     // Main navigation (NavBar)
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, pathMatch: 'full' },
-    { path: 'service', component: ServicesComponent, pathMatch: 'full' },
+    { path: 'services', component: ServicesComponent, pathMatch: 'full' },
     { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent, pathMatch: 'full' },
