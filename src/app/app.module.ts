@@ -22,6 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
 import { LevelfyServicesModule } from './levelfy-services/levelfy-services.module';
 import { MyErrorHandler } from './core/common/app-error-handler';
+import { AdminRoleModule } from './_roles/admin-role/admin-role.module';
+import { TeachRoleModule } from './_roles/teach-role/teach-role.module';
+import { ClientRoleModule } from './_roles/client-role/client-role.module';
 
 @NgModule({
     declarations: [AppComponent, NavbarComponent, FooterComponent],
@@ -36,8 +39,12 @@ import { MyErrorHandler } from './core/common/app-error-handler';
         LevelfyModule,
         LevelfyServicesModule,
         HttpClientModule,
+
+        AdminRoleModule,
+        TeachRoleModule,
+        ClientRoleModule,
     ],
-    providers: [{provide: ErrorHandler, useClass: MyErrorHandler}],
+    providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
     bootstrap: [AppComponent],
 })
 export class AppModule {

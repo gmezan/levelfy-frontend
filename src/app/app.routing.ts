@@ -10,6 +10,14 @@ import { GeneralServiceComponent } from './levelfy-services/general-service/gene
 import { ClientServiceFormComponent } from './levelfy-services/client-service-form/client-service-form.component';
 import { BlogComponent } from './levelfy/blog/blog.component';
 import { LoginComponent } from './levelfy/login/login.component';
+import { AdminComponent } from './_roles/admin-role/admin/admin.component';
+import { AdminAuthGuard } from './core/auth-guards/admin-auth-guard.service';
+import { TeachComponent } from './_roles/teach-role/teach/teach.component';
+import { TeachAuthGuard } from './core/auth-guards/teach-auth-guard.service';
+import { ClientComponent } from './_roles/client-role/client/client.component';
+import { ClientAuthGuard } from './core/auth-guards/client-auth-guard.service';
+import { ModComponent } from './_roles/mod-role/mod/mod.component';
+import { ModAuthGuard } from './core/auth-guards/mod-auth-guard.service';
 
 /*
 More specific paths should be first
@@ -36,6 +44,28 @@ const routes: Routes = [
     { path: 'us', component: UsComponent, pathMatch: 'full' },
     { path: 'login', component: LoginComponent, pathMatch: 'full' },
     { path: 'signup', component: UsComponent, pathMatch: 'full' },
+
+    // Admin navigation
+    {
+        path: 'a',
+        component: AdminComponent,
+        canActivate: [AdminAuthGuard],
+    },
+    {
+        path: 'm',
+        component: ModComponent,
+        canActivate: [ModAuthGuard],
+    },
+    {
+        path: 't',
+        component: TeachComponent,
+        canActivate: [TeachAuthGuard],
+    },
+    {
+        path: 'c',
+        component: ClientComponent,
+        canActivate: [ClientAuthGuard],
+    },
 
     // Error Handler 404
     { path: '**', component: UsComponent },

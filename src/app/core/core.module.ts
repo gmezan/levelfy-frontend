@@ -5,7 +5,10 @@ import { CourseService } from './services/course.service';
 import { TestimonialService } from './services/testimonial.service';
 import { CourseSuggestionService } from './services/course-suggestion.service';
 import { ServiceService } from './services/service.service';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './common/auth.service';
+import { AdminAuthGuard } from './auth-guards/admin-auth-guard.service';
+import { TeachAuthGuard } from './auth-guards/teach-auth-guard.service';
+import { ClientAuthGuard } from './auth-guards/client-auth-guard.service';
 
 @NgModule({
     declarations: [],
@@ -17,6 +20,9 @@ import { AuthService } from './services/auth.service';
         CourseSuggestionService,
         ServiceService,
         AuthService,
+        AdminAuthGuard,
+        TeachAuthGuard,
+        ClientAuthGuard,
     ],
 })
 export class CoreModule {}
