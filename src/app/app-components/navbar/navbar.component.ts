@@ -5,6 +5,7 @@ import {
     PathLocationStrategy,
 } from '@angular/common';
 import { servicesTypes } from '../../levelfy/utils/services-types';
+import { AuthService } from '../../core/common/auth.service';
 
 @Component({
     selector: 'app-navbar',
@@ -17,7 +18,7 @@ export class NavbarComponent implements OnInit {
     private toggleButton: any;
     private sidebarVisible: boolean;
 
-    constructor(public location: Location, private element: ElementRef) {
+    constructor(public location: Location, private element: ElementRef, public authService: AuthService) {
         this.sidebarVisible = false;
     }
 

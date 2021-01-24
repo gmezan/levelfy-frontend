@@ -36,13 +36,22 @@
                 <li routerLinkActive="active current" class="nav-item" >
                     <a routerLink="/blog" class="nav-link">Blog</a>
                 </li>
+
                 <li routerLinkActive="active current" class="nav-item" >
                     <a routerLink="/us" class="nav-link">Nosotros</a>
                 </li>
 
+                <li *ngIf='authService.isLoggedIn()' class="nav-item dropdown no-caret">
+                    <a class="nav-link dropdown-toggle" id="menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="font-weight-bold small">{{authService.currentUser.fullName}}</span><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+
+                    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
+                        <input (click)='authService.logout()' class="btn-danger btn fa-power-off dropdown-item py-0" type="submit" value="Cerrar sesión"/>
+                    </div>
+                </li>
+
 
             </ul>
-            <a class="btn font-weight-500 rounded-pill btn-success" routerLink="/login">Iniciar Sesión</a>
+            <a *ngIf='!authService.isLoggedIn()' class="btn font-weight-500 rounded-pill btn-success" routerLink="/login">Iniciar Sesión</a>
         </div>
     </div>
 </nav>

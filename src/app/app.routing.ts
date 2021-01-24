@@ -18,6 +18,7 @@ import { ClientComponent } from './_roles/client-role/client/client.component';
 import { ClientAuthGuard } from './core/auth-guards/client-auth-guard.service';
 import { ModComponent } from './_roles/mod-role/mod/mod.component';
 import { ModAuthGuard } from './core/auth-guards/mod-auth-guard.service';
+import { AnonAuthGuard } from './core/auth-guards/anon-auth-guard.service';
 
 /*
 More specific paths should be first
@@ -42,8 +43,9 @@ const routes: Routes = [
     { path: 'services', component: ServicesComponent, pathMatch: 'full' },
     { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
-    { path: 'login', component: LoginComponent, pathMatch: 'full' },
-    { path: 'signup', component: UsComponent, pathMatch: 'full' },
+
+    { path: 'login', component: LoginComponent, pathMatch: 'full', canActivate: [AnonAuthGuard] },
+    { path: 'signup', component: UsComponent, pathMatch: 'full', canActivate: [AnonAuthGuard] },
 
     // Admin navigation
     {

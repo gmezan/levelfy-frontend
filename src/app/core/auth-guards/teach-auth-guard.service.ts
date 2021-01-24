@@ -24,7 +24,7 @@ export class TeachAuthGuard implements CanActivate {
         let user = this.authService.currentUser;
 
         if (!user) this.router.navigate(['/login']);
-        else if (user.teach) return true;
+        else if (parseInt(user.role.idRole)===2) return true;
         else this.router.navigate(['/no-access']);
 
         return false;

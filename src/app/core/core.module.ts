@@ -9,6 +9,7 @@ import { AuthService } from './common/auth.service';
 import { AdminAuthGuard } from './auth-guards/admin-auth-guard.service';
 import { TeachAuthGuard } from './auth-guards/teach-auth-guard.service';
 import { ClientAuthGuard } from './auth-guards/client-auth-guard.service';
+import { AnonAuthGuard } from './auth-guards/anon-auth-guard.service';
 
 @NgModule({
     declarations: [],
@@ -23,6 +24,7 @@ import { ClientAuthGuard } from './auth-guards/client-auth-guard.service';
         AdminAuthGuard,
         TeachAuthGuard,
         ClientAuthGuard,
+        AnonAuthGuard
     ],
 })
 export class CoreModule {}
