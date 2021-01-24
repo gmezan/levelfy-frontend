@@ -13,8 +13,8 @@ import {
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { NavbarComponent } from './app-components/navbar/navbar.component';
-import { FooterComponent } from './app-components/footer/footer.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { LevelfyModule } from './levelfy/levelfy.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -26,7 +26,7 @@ import { TeachRoleModule } from './_roles/teach-role/teach-role.module';
 import { ClientRoleModule } from './_roles/client-role/client-role.module';
 
 @NgModule({
-    declarations: [AppComponent, NavbarComponent, FooterComponent],
+    declarations: [AppComponent,],
     imports: [
         BrowserModule,
         FormsModule,
@@ -41,6 +41,7 @@ import { ClientRoleModule } from './_roles/client-role/client-role.module';
         AdminRoleModule,
         TeachRoleModule,
         ClientRoleModule,
+        SharedModule
     ],
     providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
     bootstrap: [AppComponent],

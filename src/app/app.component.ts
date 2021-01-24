@@ -10,7 +10,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { DOCUMENT } from '@angular/common';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
-import { NavbarComponent } from './app-components/navbar/navbar.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { AuthService } from './core/common/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -19,6 +20,8 @@ import { NavbarComponent } from './app-components/navbar/navbar.component';
 })
 export class AppComponent implements OnInit {
     private _router: Subscription;
+    hideNavBar = false;
+
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
     constructor(
@@ -26,7 +29,8 @@ export class AppComponent implements OnInit {
         private router: Router,
         @Inject(DOCUMENT) private document: any,
         private element: ElementRef,
-        public location: Location
+        public location: Location,
+        private authService: AuthService
     ) {}
 
     ngOnInit(): void {
@@ -35,10 +39,6 @@ export class AppComponent implements OnInit {
             if (!(evt instanceof NavigationEnd)) return;
             window.scrollTo(0, 0); // Go to top after page change
 
-            if (!navbar) {
-                console.log("no navbar");
-                return;
-            }
 
             let pageHeader: HTMLElement = this.document.getElementById(
                 'pageHeader'
@@ -50,6 +50,11 @@ export class AppComponent implements OnInit {
 				
 				Just change the NavBar styles.
 			 */
+            let navbar: HTMLElement = this.document.getElementById('pageNavbar');
+            if (!navbar) {
+                console.log("no navbar");
+                return;
+            }
 
             if (!pageHeader) {
                 // Has no header
@@ -71,6 +76,8 @@ export class AppComponent implements OnInit {
                 navbar.classList.add('bg-transparent');
                 navbar.classList.add('fixed-top');
             }
+
+
         });
     }
 

@@ -6,6 +6,8 @@ import { CourseCardComponent } from './course-card/course-card.component';
 import { TestimonialComponent } from './testimonial/testimonial.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
     declarations: [
@@ -13,6 +15,8 @@ import { RouterModule } from '@angular/router';
         MenuServicesComponent,
         CourseCardComponent,
         TestimonialComponent,
+        NavbarComponent,
+        FooterComponent
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -20,6 +24,8 @@ import { RouterModule } from '@angular/router';
         TestimonialComponent,
         MenuServicesComponent,
         CourseCardComponent,
+        NavbarComponent,
+        FooterComponent
     ],
 })
 export class SharedModule {}

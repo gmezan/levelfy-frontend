@@ -2,7 +2,7 @@
 
 .navbar {
     .dropdown-menu {
-        top: calc(100% + #{$navbar-padding-y} + 0.5rem) !important;
+        top: calc(100% + #{$navbar-padding-y} ) !important;
         font-size: 0.9rem;
         .dropdown-header {
             font-size: 0.7rem;
