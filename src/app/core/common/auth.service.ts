@@ -23,10 +23,11 @@ export class AuthService {
     }
 
     isLoggedIn(): boolean {
-        return this.currentUser != null;
+        let user = this.getCurrentUser();
+        return user != null;
     }
 
-    get currentUser(): any {
+    getCurrentUser(): any {
         return this.tokenService.getUser();
     }
 }

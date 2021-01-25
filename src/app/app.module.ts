@@ -32,6 +32,7 @@ import {
     GoogleLoginProvider,
     FacebookLoginProvider,
 } from 'angularx-social-login';
+import { resourceInterceptor } from './core/interceptors/resource.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -73,6 +74,8 @@ import {
                 ],
             } as SocialAuthServiceConfig,
         },
+
+        resourceInterceptor,
     ],
     bootstrap: [AppComponent],
 })

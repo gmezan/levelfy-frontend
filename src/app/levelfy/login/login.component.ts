@@ -34,9 +34,7 @@ export class LoginComponent implements OnInit {
     socialUser: SocialUser;
 
     ngOnInit(): void {
-        this.socialAuthService.authState.subscribe((data) => {
-            console.log(data);
-        });
+        this.socialAuthService.authState.subscribe((data) => {});
     }
 
     signInWithGoogle(): void {
@@ -47,22 +45,18 @@ export class LoginComponent implements OnInit {
                 const tokenGoogle = new TokenDto(this.socialUser.idToken);
                 this.oauthService.google(tokenGoogle).subscribe(
                     (res) => {
-                        console.log(res.value);
                         this.tokenService.setToken(res.value);
 
-                        //   TODO: redirection
-
-                        //this.router.navigate(['/']).then();
                         // Getting current user:
                         this.userService.getCurrent().subscribe(
                             (res) => {
                                 this.tokenService.setUser(res);
+                                this.router
+                                    .navigate([this.redirectByRole()])
+                                    .then();
                             },
                             (error) => {
                                 console.log(error);
-                                /*
-                                    FIXME: check why the user cannot access to the current user????
-                                 */
                                 this.tokenService.logOut();
                             }
                         );
@@ -103,6 +97,27 @@ export class LoginComponent implements OnInit {
             .catch((err) => {
                 console.log(err);
             });
+    }
+
+    private redirectByRole(): string {
+        let route;
+        switch (this.tokenService.getUser().role[0].idRole) {
+            case 1:
+                route = 'c';
+                break;
+            case 2:
+                route = 't';
+                break;
+            case 3:
+                route = 'm';
+                break;
+            case 4:
+                route = 'a';
+                break;
+            default:
+                route = 'home';
+        }
+        return route;
     }
 }
 

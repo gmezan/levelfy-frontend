@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../shared/_models/user.model';
+import { Router } from '@angular/router';
+import { SocialAuthService } from 'angularx-social-login';
 
 const TOKEN_KEY = 'AuthToken';
 const CURRENT_USER_KEY = 'User';
@@ -12,7 +14,10 @@ const CURRENT_USER_KEY = 'User';
     providedIn: 'root',
 })
 export class TokenService {
-    constructor() {}
+    constructor(
+        private router: Router,
+        private socialAuthService: SocialAuthService
+    ) {}
 
     public getToken(): string {
         return localStorage.getItem(TOKEN_KEY);
@@ -23,8 +28,8 @@ export class TokenService {
     }
 
     public getUser(): User {
-        let json = localStorage.getItem(CURRENT_USER_KEY);
-        if (!json) {
+        let json: string = localStorage.getItem(CURRENT_USER_KEY);
+        if (json) {
             return JSON.parse(json);
         }
         return null;
@@ -35,6 +40,16 @@ export class TokenService {
     }
 
     logOut(): void {
-        localStorage.clear();
+        this.socialAuthService
+            .signOut()
+            .then((data) => {
+                localStorage.clear();
+                this.router.navigate(['login']).then();
+            })
+            .catch((err) => {
+                alert('Something went wrong: ' + err);
+                localStorage.clear();
+                this.router.navigate(['login']).then();
+            });
     }
 }

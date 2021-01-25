@@ -42,7 +42,7 @@
                 </li>
 
                 <li *ngIf='authService.isLoggedIn()' class="nav-item dropdown no-caret">
-                    <a class="nav-link dropdown-toggle" id="menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="font-weight-bold small">{{authService.currentUser.fullName}}</span><i class="fas fa-chevron-right dropdown-arrow"></i></a>
+                    <a class="nav-link dropdown-toggle" id="menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="font-weight-bold small">{{authService.getCurrentUser().fullName}}</span><i class="fas fa-chevron-right dropdown-arrow"></i></a>
 
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                         <input (click)='authService.logout()' class="btn-danger btn fa-power-off dropdown-item py-0" type="submit" value="Cerrar sesión"/>

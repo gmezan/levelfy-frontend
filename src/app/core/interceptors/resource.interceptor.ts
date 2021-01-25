@@ -9,7 +9,9 @@ import {
 import { Observable } from 'rxjs';
 import { TokenService } from '../common/token.service';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ResourceInterceptor implements HttpInterceptor {
     constructor(private tokenService: TokenService) {}
 
@@ -19,7 +21,7 @@ export class ResourceInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         let authReq = request;
         const token = this.tokenService.getToken();
-        if (!token) {
+        if (token) {
             authReq = authReq.clone({
                 headers: request.headers.set(
                     'Authorization',

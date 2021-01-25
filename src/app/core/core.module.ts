@@ -32,8 +32,6 @@ import { resourceInterceptor } from './interceptors/resource.interceptor';
 
         TokenService,
         OauthService,
-
-        resourceInterceptor,
     ],
 })
 export class CoreModule {}

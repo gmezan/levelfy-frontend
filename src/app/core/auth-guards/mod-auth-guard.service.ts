@@ -21,10 +21,10 @@ export class ModAuthGuard implements CanActivate {
         | Promise<boolean | UrlTree>
         | boolean
         | UrlTree {
-        let user = this.authService.currentUser;
+        let user = this.authService.getCurrentUser();
 
         if (!user) this.router.navigate(['/login']);
-        else if (parseInt(user.role.idRole)===3) return true;
+        else if (user.role[0].idRole === 3) return true;
         else this.router.navigate(['/no-access']);
 
         return false;

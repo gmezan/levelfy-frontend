@@ -21,7 +21,7 @@ export class User extends Auditable implements Deserializable {
     university: string;
     token: string;
     birthday: Date;
-    role: Role;
+    role: Role[];
 
     invitingId: number;
     // "transient"
