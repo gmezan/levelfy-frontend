@@ -30,4 +30,37 @@ export class AuthService {
     getCurrentUser(): any {
         return this.tokenService.getUser();
     }
+
+    /*
+        Users can Fool this validation,
+        but when consuming API REST, the backend always verify the user authenticity.
+     */
+
+    isAdmin(): boolean {
+        let user = this.getCurrentUser();
+        if (!user) return false;
+        return user.role[0].idRole === 4;
+    }
+
+    isMod(): boolean {
+        let user = this.getCurrentUser();
+        if (!user) return false;
+        return user.role[0].idRole === 3;
+    }
+
+    isTeach(): boolean {
+        let user = this.getCurrentUser();
+        if (!user) return false;
+        return user.role[0].idRole === 2;
+    }
+
+    isClient(): boolean {
+        let user = this.getCurrentUser();
+        if (!user) return false;
+        return user.role[0].idRole === 1;
+    }
+
+    isAnon() {
+        return this.getCurrentUser() == null;
+    }
 }

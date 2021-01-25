@@ -24,7 +24,7 @@ export class ClientAuthGuard implements CanActivate {
         let user = this.authService.getCurrentUser();
 
         if (!user) this.router.navigate(['/login']);
-        else if (user.role[0].idRole === 1) return true;
+        else if (this.authService.isClient()) return true;
         else this.router.navigate(['/no-access']);
 
         return false;

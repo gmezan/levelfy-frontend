@@ -30,15 +30,23 @@
                         </a>
                     </div>
                 </li>
-                <li routerLinkActive="active current" class="nav-item" >
+                <li *ngIf='authService.isAnon()'  routerLinkActive="active current" class="nav-item" >
                     <a routerLink="/course"  class="nav-link">Cursos</a>
                 </li>
-                <li routerLinkActive="active current" class="nav-item" >
+                <li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
                     <a routerLink="/blog" class="nav-link">Blog</a>
                 </li>
 
-                <li routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/us" class="nav-link">Nosotros</a>
+                <li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/" class="nav-link">Nosotros</a>
+                </li>
+
+                <li *ngIf='authService.isMod()' routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/" class="nav-link">Asesores</a>
+                </li>
+
+                <li *ngIf='authService.isAdmin()' routerLinkActive="active current" class="nav-item" >
+                    <a routerLink="/" class="nav-link">Asesores</a>
                 </li>
 
                 <li *ngIf='authService.isLoggedIn()' class="nav-item dropdown no-caret">

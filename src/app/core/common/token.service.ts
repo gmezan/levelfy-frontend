@@ -47,7 +47,6 @@ export class TokenService {
                 this.router.navigate(['login']).then();
             })
             .catch((err) => {
-                alert('Something went wrong: ' + err);
                 localStorage.clear();
                 this.router.navigate(['login']).then();
             });

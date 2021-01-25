@@ -24,7 +24,7 @@ export class ModAuthGuard implements CanActivate {
         let user = this.authService.getCurrentUser();
 
         if (!user) this.router.navigate(['/login']);
-        else if (user.role[0].idRole === 3) return true;
+        else if (this.authService.isMod()) return true;
         else this.router.navigate(['/no-access']);
 
         return false;
