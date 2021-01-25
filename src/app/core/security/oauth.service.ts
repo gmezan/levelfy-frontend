@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenDto } from '../../shared/_models/token-dto.model';
 import { Observable } from 'rxjs';
+import { url } from '../util/url.data';
 
 const headers = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -15,10 +16,7 @@ const headers = {
     providedIn: 'root',
 })
 export class OauthService {
-    /*
-        TODO: url
-     */
-    oauthURL = 'http://localhost:8080/oauth/';
+    oauthURL = url + '/oauth/';
 
     constructor(private httpClient: HttpClient) {}
 

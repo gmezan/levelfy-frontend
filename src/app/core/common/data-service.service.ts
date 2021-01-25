@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { url } from '../util/url.data';
+
 /*
 	General Framework for services
 	Services DOES NOT subscribe to Observables
@@ -18,7 +20,7 @@ const headers = {
 
 @Injectable()
 export abstract class DataService<T> {
-    private basePath: string = 'http://localhost:8080';
+    private basePath: string = url;
     private readonly url: string;
 
     protected constructor(private uri: string, protected http: HttpClient) {

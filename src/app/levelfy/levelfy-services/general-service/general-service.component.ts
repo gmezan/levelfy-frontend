@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
-} from '../../utils/services-types';
+} from '../../../core/util/services-types';
 import { Course } from '../../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';

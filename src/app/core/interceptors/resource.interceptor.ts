@@ -7,7 +7,7 @@ import {
     HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TokenService } from '../common/token.service';
+import { TokenService } from '../security/token.service';
 
 @Injectable({
     providedIn: 'root',

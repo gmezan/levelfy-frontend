@@ -4,8 +4,11 @@ import {
     LocationStrategy,
     PathLocationStrategy,
 } from '@angular/common';
-import { servicesTypes } from '../../levelfy/utils/services-types';
-import { AuthService } from '../../core/common/auth.service';
+import { servicesTypes } from '../../core/util/services-types';
+import { AuthService } from '../../core/security/auth.service';
+import { universitiesData } from '../../core/util/universities.data';
+
+const baseTitle = 'LEVELFY';
 
 @Component({
     selector: 'app-navbar',
@@ -15,11 +18,9 @@ import { AuthService } from '../../core/common/auth.service';
 export class NavbarComponent implements OnInit {
     services = servicesTypes;
 
-    constructor( public authService: AuthService) {
-    }
+    universities = universitiesData;
 
-    ngOnInit() {
+    constructor(public authService: AuthService) {}
 
-    }
-
+    ngOnInit() {}
 }

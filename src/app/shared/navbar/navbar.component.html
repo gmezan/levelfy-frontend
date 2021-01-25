@@ -1,65 +1,95 @@
 <nav id="pageNavbar" class="navbar navbar-marketing navbar-expand-lg bg-transparent navbar-light fixed-top">
     <div class="container">
-        <a class="navbar-brand" [routerLink]="['/home']">LEVELFY</a>
+        <a class="navbar-brand" [routerLink]="['/home']">{{this.authService.navBarTitle()}}</a>
         <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <fa-icon [icon]="['fas','bars']"></fa-icon>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto mr-lg-4">
-                <li class="nav-item dropdown no-caret">
+
+
+                <app-navbar-anon [auth-service]='authService' *ngIf='authService.isAnon()'></app-navbar-anon>
+                <app-navbar-admin [auth-service]='authService' *ngIf='authService.isAdmin()'></app-navbar-admin>
+                <app-navbar-mod [auth-service]='authService' *ngIf='authService.isMod()'></app-navbar-mod>
+                <app-navbar-teach [auth-service]='authService' *ngIf='authService.isTeach()'></app-navbar-teach>
+                <app-navbar-client [auth-service]='authService' *ngIf='authService.isClient()'></app-navbar-client>
+
+    </div>
+</nav>
+
+
+<!--
+<li class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownDocs" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Servicios<i class="fas fa-chevron-right dropdown-arrow"></i></a>
                     <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
                         <div *ngFor="let serv of services">
                             <a class="dropdown-item py-3" [routerLink]="['/services', serv.route]" >
-                                <!--<div class="icon-stack bg-gray-300 text-dark mr-4">
-                                    <fa-icon [icon]="['fas','book-open']"></fa-icon>
-                                </div>-->
-                                <div>
-                                    <div class="small text-gray-500">{{serv.serviceName}}</div>
-                                </div>
-                            </a>
-                            <div class="dropdown-divider m-0"></div>
-                        </div>
-                        <a class="dropdown-item py-3" [routerLink]="['/services']">
-                            <div class="icon-stack bg-gray-300 text-dark mr-4">
-                                <fa-icon [icon]="['fas','book-open']"></fa-icon>
-                            </div>
-                            <div>
-                                <div class="small text-gray-500">Ver Más</div>
-                            </div>
-                        </a>
-                    </div>
-                </li>
-                <li *ngIf='authService.isAnon()'  routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/course"  class="nav-link">Cursos</a>
-                </li>
-                <li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/blog" class="nav-link">Blog</a>
-                </li>
 
-                <li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/" class="nav-link">Nosotros</a>
-                </li>
+<div>
+    <div class="small text-gray-500">{{serv.serviceName}}</div>
+</div>
+</a>
+<div class="dropdown-divider m-0"></div>
+</div>
+<a class="dropdown-item py-3" [routerLink]="['/services']">
+    <div class="icon-stack bg-gray-300 text-dark mr-4">
+        <fa-icon [icon]="['fas','book-open']"></fa-icon>
+    </div>
+    <div>
+        <div class="small text-gray-500">Ver Más</div>
+    </div>
+</a>
+</div>
+</li>
 
-                <li *ngIf='authService.isMod()' routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/" class="nav-link">Asesores</a>
-                </li>
+<li *ngIf='authService.isAnon()'  routerLinkActive="active current" class="nav-item" >
+    <a routerLink="/course"  class="nav-link">Cursos</a>
+</li>
+<li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
+    <a routerLink="/blog" class="nav-link">Blog</a>
+</li>
 
-                <li *ngIf='authService.isAdmin()' routerLinkActive="active current" class="nav-item" >
-                    <a routerLink="/" class="nav-link">Asesores</a>
-                </li>
+<li *ngIf='authService.isAnon() || authService.isClient()' routerLinkActive="active current" class="nav-item" >
+    <a routerLink="/us" class="nav-link">Nosotros</a>
+</li>
 
-                <li *ngIf='authService.isLoggedIn()' class="nav-item dropdown no-caret">
+<li *ngIf='authService.isMod()' routerLinkActive="active current" class="nav-item" >
+    <a routerLink="/us" class="nav-link">Asesores</a>
+</li>
+
+<li *ngIf='authService.isAdmin()' routerLinkActive="active current" class="nav-item" >
+    <a routerLink="/us" class="nav-link">Asesores</a>
+</li>
+
+<li *ngIf='authService.isAdmin()' routerLinkActive="active current" class="nav-item dropdown no-caret">
+    <a class="nav-link dropdown-toggle" id="navbarDropdownCoursesAdmin" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cursos<i class="fas fa-chevron-right dropdown-arrow"></i></a>
+    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownCoursesAdmin">
+        <div *ngFor="let univ of universities">
+            <a class="dropdown-item py-3" [routerLink]="['/a/courses']" [queryParams]="{u: univ}" >
+                <div>
+                    <div class="small text-gray-500">{{univ}}</div>
+                </div>
+            </a>
+            <div class="dropdown-divider m-0"></div>
+        </div>
+        <a class="dropdown-item py-3" [routerLink]="['/a/courses']">
+            <div>
+                <div class="small text-gray-500"><b>Todas</b></div>
+            </div>
+        </a>
+    </div>
+</li>
+<li *ngIf='authService.isLoggedIn()' class="nav-item dropdown no-caret">
                     <a class="nav-link dropdown-toggle" id="menu" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="font-weight-bold small">{{authService.getCurrentUser().fullName}}</span><i class="fas fa-chevron-right dropdown-arrow"></i></a>
 
-                    <div class="dropdown-menu dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
-                        <input (click)='authService.logout()' class="btn-danger btn fa-power-off dropdown-item py-0" type="submit" value="Cerrar sesión"/>
+                    <div class="dropdown-menu bg-danger  dropdown-menu-right animated--fade-in-up" aria-labelledby="navbarDropdownDocs">
+                        <a  (click)='authService.logout()' type='button'  class="bg-danger  dropdown-item py-1">
+                            <div class='text-gray-100'>
+                                <b>Cerrar Sesión</b>
+                            </div>
+                        </a>
                     </div>
                 </li>
 
 
             </ul>
             <a *ngIf='!authService.isLoggedIn()' class="btn font-weight-500 rounded-pill btn-success" routerLink="/login">Iniciar Sesión</a>
-        </div>
-    </div>
-</nav>
+        </div>-->

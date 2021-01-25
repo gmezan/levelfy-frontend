@@ -1,0 +1,78 @@
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto mr-lg-4">
+        <!-- TODO: Order the navbar -->
+        <li
+            routerLinkActive="active current"
+            class="nav-item dropdown no-caret"
+        >
+            <a
+                class="nav-link dropdown-toggle"
+                id="navbarDropdownCoursesAdmin"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >Cursos<i class="fas fa-chevron-right dropdown-arrow"></i
+            ></a>
+            <div
+                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
+                aria-labelledby="navbarDropdownCoursesAdmin"
+            >
+                <div *ngFor="let univ of universities">
+                    <a
+                        class="dropdown-item py-3"
+                        [routerLink]="['/a/courses']"
+                        [queryParams]="{ u: univ }"
+                    >
+                        <div>
+                            <div class="small text-gray-500">{{ univ }}</div>
+                        </div>
+                    </a>
+                    <div class="dropdown-divider m-0"></div>
+                </div>
+                <a class="dropdown-item py-3" [routerLink]="['/a/courses']">
+                    <div>
+                        <div class="small text-gray-500"><b>All</b></div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">
+            <a
+                class="nav-link dropdown-toggle"
+                id="menu"
+                href="#"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                ><span class="font-weight-bold small">{{
+                    authService.getCurrentUser().fullName
+                }}</span
+                ><i class="fas fa-chevron-right dropdown-arrow"></i
+            ></a>
+
+            <div
+                class="dropdown-menu bg-danger dropdown-menu-right animated--fade-in-up"
+                aria-labelledby="navbarDropdownDocs"
+            >
+                <a
+                    (click)="authService.logout()"
+                    type="button"
+                    class="bg-danger dropdown-item py-1"
+                >
+                    <div class="text-gray-100">
+                        <b>Cerrar Sesión</b>
+                    </div>
+                </a>
+            </div>
+        </li>
+    </ul>
+    <a
+        *ngIf="!authService.isLoggedIn()"
+        class="btn font-weight-500 rounded-pill btn-success"
+        routerLink="/login"
+        >Iniciar Sesión</a
+    >
+</div>

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DataService } from './data-service.service';
 import { User } from '../../shared/_models/user.model';
 import jwt_decode from 'jwt-decode';
 import { Router } from '@angular/router';
@@ -16,6 +15,22 @@ export class AuthService {
         private tokenService: TokenService
     ) {
         // AuthController
+    }
+
+    navBarTitle(): string {
+        let base = 'LEVELFY';
+        let title = base;
+        if (this.isAnon() || this.isClient()) {
+            title = base;
+        } else if (this.isAdmin()) {
+            title = base + ' Admin';
+        } else if (this.isMod()) {
+            title = base + ' Mod';
+        } else if (this.isTeach()) {
+            title = base + ' Teach';
+        }
+
+        return title;
     }
 
     logout(): void {

@@ -1,0 +1,125 @@
+<section class='py-5 bg-light'>
+    <div class='container-fluid'>
+
+        <nav class="navbar navbar-light bg-light justify-content-between py-2">
+            <h2 class='font-weight-800'>{{title}} {{selectedUniv}} </h2>
+            <form class="form-inline">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search">
+            </form>
+        </nav>
+        <nav class="navbar navbar-light bg-light justify-content-end">
+            <form class="form-inline">
+                <button (click)='modalCreate()' class="btn btn-success" type="button" data-toggle="modal" data-target="#crudModal">
+                    Create
+                </button>
+            </form>
+        </nav>
+
+
+        <div *ngIf='courses.length>0' class='table-responsive py-4'>
+            <table id='dataTable' class="table table-hover table-dark table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">CourseId</th>
+                    <th scope="col">University</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Cycle</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">description</th>
+                    <th scope="col">univNameString</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr class='courseRow' *ngFor='let course of courses; let index = index' >
+                        <th scope="row">{{index}}</th>
+                        <td>{{course.courseId.idCourse}}</td>
+                        <td>{{course.courseId.university}}</td>
+                        <td class='courseName'>{{course.name}}</td>
+                        <td>{{course.cycle}}</td>
+                        <td>{{course.photo}}</td>
+                        <td>{{course.description}}</td>
+                        <td>{{course.univNameStr}}</td>
+                        <td>
+                            <button (click)='modalEdit(course.courseId)' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)='modalDelete(course.courseId)' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf='courses.length===0' class='container py-5'>
+                <h3 class='text-primary'>Empty list</h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form *ngIf='!modal.isDelete'>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCourse">Course</label>
+                            <input [readOnly]='modal.isEdit' type="text"  [value]='courseModal.courseId.idCourse' class="form-control" id="inputCourse" placeholder="Course">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputUniversity">University</label>
+                            <input [readOnly]='modal.isEdit' type="text" [value]='courseModal.courseId.university' class="form-control" id="inputUniversity" placeholder="University">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputName">Name</label>
+                            <input type="text" [value]='courseModal.name' class="form-control" id="inputName" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCycle">Cycle</label>
+                            <input type="text" [value]='courseModal.cycle' class="form-control" id="inputCycle" placeholder="Cycle">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <input type="text" [value]='courseModal.description' class="form-control" id="inputDescription" placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPhoto">Photo</label>
+                        <input type="text" [value]='courseModal.photo' class="form-control" id="inputPhoto" placeholder="Photo">
+                    </div>
+
+                </form>
+                <p *ngIf='modal.isDelete'>
+                    Are you sure you want to delete: {{courseModal.courseId.idCourse}}:{{courseModal.courseId.university}}?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn"
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+

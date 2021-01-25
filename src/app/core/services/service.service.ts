@@ -11,13 +11,13 @@ import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { DataService } from '../common/data-service.service';
 
-const uri = '/model/services';
+const uri = '/model/service';
 
 @Injectable({
     providedIn: 'root',
 })
 export class ServiceService extends DataService<Service> {
-    apiUriServiceForm = 'model/services/form';
+    apiUriServiceForm = '/model/service/form';
 
     constructor(http: HttpClient) {
         super(uri, http);
@@ -36,8 +36,9 @@ export class ServiceService extends DataService<Service> {
                 .set('i', courseId.idCourse),
         };
 
-        return this.http
-            .get<Service[]>(this.buildPath(this.apiUriServiceForm), options)
-            .pipe(catchError(this.handleError));
+        return this.http.get<Service[]>(
+            this.buildPath(this.apiUriServiceForm),
+            options
+        );
     }
 }

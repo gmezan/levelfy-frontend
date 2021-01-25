@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/common/auth.service';
+import { AuthService } from '../../core/security/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import {
@@ -8,8 +8,8 @@ import {
     SocialAuthService,
     SocialUser,
 } from 'angularx-social-login';
-import { OauthService } from '../../core/common/oauth.service';
-import { TokenService } from '../../core/common/token.service';
+import { OauthService } from '../../core/security/oauth.service';
+import { TokenService } from '../../core/security/token.service';
 import { TokenDto } from '../../shared/_models/token-dto.model';
 import { UserService } from '../../core/services/user.service';
 

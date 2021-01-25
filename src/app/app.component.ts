@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { DOCUMENT } from '@angular/common';
 import { Location } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { AuthService } from './core/common/auth.service';
+import { AuthService } from './core/security/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -39,7 +39,6 @@ export class AppComponent implements OnInit {
             if (!(evt instanceof NavigationEnd)) return;
             window.scrollTo(0, 0); // Go to top after page change
 
-
             let pageHeader: HTMLElement = this.document.getElementById(
                 'pageHeader'
             ); // Getting the pageHeader element
@@ -50,9 +49,11 @@ export class AppComponent implements OnInit {
 				
 				Just change the NavBar styles.
 			 */
-            let navbar: HTMLElement = this.document.getElementById('pageNavbar');
+            let navbar: HTMLElement = this.document.getElementById(
+                'pageNavbar'
+            );
             if (!navbar) {
-                console.log("no navbar");
+                console.log('no navbar');
                 return;
             }
 
@@ -76,9 +77,6 @@ export class AppComponent implements OnInit {
                 navbar.classList.add('bg-transparent');
                 navbar.classList.add('fixed-top');
             }
-
-
         });
     }
-
 }

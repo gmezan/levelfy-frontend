@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
-} from '../../utils/services-types';
+} from '../../../core/util/services-types';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../../../core/services/service.service';
 import { CourseId } from '../../../shared/_dto/courseId.model';
@@ -59,14 +59,17 @@ export class ClientServiceFormComponent implements OnInit {
                 this.serviceType.key,
                 new CourseId(params.i, params.u)
             )
-            .subscribe((data) => {
-                if (data == null || data.length === 0)
-                    this.noServiceReturn(this.serviceType.route);
+            .subscribe(
+                (data) => {
+                    if (data == null || data.length === 0)
+                        this.noServiceReturn(this.serviceType.route);
 
-                // List of services obtained
-                this.services = data;
-                this.course = data[0].course;
-            });
+                    // List of services obtained
+                    this.services = data;
+                    this.course = data[0].course;
+                },
+                (error) => {}
+            );
     }
 
     error() {

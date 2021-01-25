@@ -7,6 +7,12 @@ export class Course extends Auditable implements Deserializable {
         Object.assign(this, input);
         return this;
     }
+
+    constructor() {
+        super();
+        this.courseId = new CourseId();
+    }
+
     courseId: CourseId;
     name: string;
     cycle: number;

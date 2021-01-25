@@ -5,13 +5,13 @@ import { CourseService } from './services/course.service';
 import { TestimonialService } from './services/testimonial.service';
 import { CourseSuggestionService } from './services/course-suggestion.service';
 import { ServiceService } from './services/service.service';
-import { AuthService } from './common/auth.service';
+import { AuthService } from './security/auth.service';
 import { AdminAuthGuard } from './auth-guards/admin-auth-guard.service';
 import { TeachAuthGuard } from './auth-guards/teach-auth-guard.service';
 import { ClientAuthGuard } from './auth-guards/client-auth-guard.service';
 import { AnonAuthGuard } from './auth-guards/anon-auth-guard.service';
-import { TokenService } from './common/token.service';
-import { OauthService } from './common/oauth.service';
+import { TokenService } from './security/token.service';
+import { OauthService } from './security/oauth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { resourceInterceptor } from './interceptors/resource.interceptor';
 

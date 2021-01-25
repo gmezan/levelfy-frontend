@@ -7,7 +7,7 @@ import {
     UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from '../common/auth.service';
+import { AuthService } from '../security/auth.service';
 
 @Injectable()
 export class ClientAuthGuard implements CanActivate {

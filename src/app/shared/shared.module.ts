@@ -8,6 +8,11 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+import { NavbarAnonComponent } from './navbar/navbar-anon/navbar-anon.component';
+import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.component';
+import { NavbarClientComponent } from './navbar/navbar-client/navbar-client.component';
+import { NavbarTeachComponent } from './navbar/navbar-teach/navbar-teach.component';
+import { NavbarModComponent } from './navbar/navbar-mod/navbar-mod.component';
 
 @NgModule({
     declarations: [
@@ -17,6 +22,11 @@ import { FooterComponent } from './footer/footer.component';
         TestimonialComponent,
         NavbarComponent,
         FooterComponent,
+        NavbarAnonComponent,
+        NavbarAdminComponent,
+        NavbarClientComponent,
+        NavbarTeachComponent,
+        NavbarModComponent,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
