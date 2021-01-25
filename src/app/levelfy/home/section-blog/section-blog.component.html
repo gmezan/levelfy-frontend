@@ -1,0 +1,16 @@
+<div class="section bg-dark section-image py-10" style="background-image: url('assets/img/backgrounds/pattern-shapes.png');">
+    <div class="container">
+        <div class="row">
+            <div *ngFor="let blog of blogSection" class="col-lg-4 col-md-12">
+                <div class="card h-100 justify-content-center text-center">
+                    <div class="card-body">
+                        <p>{{blog.message}}</p>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <button [routerLink]="blog.route" class="btn btn-dark">{{blog.buttonMessage}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

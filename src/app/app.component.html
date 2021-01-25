@@ -1,14 +1,13 @@
 <!-- Layout for SB UI Kit-->
-<div id="layoutDefault_content">
-    <main>
-
-        <router-outlet></router-outlet>
-    </main>
-
-    <div id="layoutDefault_footer">
-        <app-footer></app-footer>
+<div id="layoutDefault">
+    <div id="layoutDefault_content">
+        <main>
+            <!-- Navbar-->
+            <app-navbar></app-navbar>
+            <router-outlet></router-outlet>
+        </main>
+        <div id="layoutDefault_footer">
+            <app-footer></app-footer>
+        </div>
     </div>
 </div>
-
-
-

@@ -5,9 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './levelfy/home/home.component';
 import { UsComponent } from './levelfy/us/us.component';
-import { ServicesComponent } from './levelfy/services/services.component';
-import { GeneralServiceComponent } from './levelfy-services/general-service/general-service.component';
-import { ClientServiceFormComponent } from './levelfy-services/client-service-form/client-service-form.component';
+import { ServicesComponent } from './levelfy/levelfy-services/services/services.component';
+import { GeneralServiceComponent } from './levelfy/levelfy-services/general-service/general-service.component';
+import { ClientServiceFormComponent } from './levelfy/levelfy-services/client-service-form/client-service-form.component';
 import { BlogComponent } from './levelfy/blog/blog.component';
 import { LoginComponent } from './levelfy/login/login.component';
 import { AdminComponent } from './_roles/admin-role/admin/admin.component';
@@ -25,22 +25,12 @@ More specific paths should be first
  */
 
 const routes: Routes = [
-    // List services navigation (no login required)
-    {
-        path: 'services/:type/form',
-        component: ClientServiceFormComponent,
-        pathMatch: 'full',
-    },
-    {
-        path: 'services/:type',
-        component: GeneralServiceComponent,
-        pathMatch: 'full',
-    },
+
 
     // Main navigation (NavBar)
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent, pathMatch: 'full' },
-    { path: 'services', component: ServicesComponent, pathMatch: 'full' },
+    { path: 'services', loadChildren: () => import('./levelfy/levelfy-services/levelfy-services.module').then(m => m.LevelfyServicesModule) },
     { path: 'blog', component: BlogComponent, pathMatch: 'full' },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
 
@@ -50,22 +40,22 @@ const routes: Routes = [
     // Admin navigation
     {
         path: 'a',
-        component: AdminComponent,
+        loadChildren: () => import('./_roles/admin-role/admin-role.module').then(m => m.AdminRoleModule),
         canActivate: [AdminAuthGuard],
     },
     {
         path: 'm',
-        component: ModComponent,
+        loadChildren: () => import('./_roles/mod-role/mod-role.module').then(m => m.ModRoleModule),
         canActivate: [ModAuthGuard],
     },
     {
         path: 't',
-        component: TeachComponent,
+        loadChildren: () => import('./_roles/teach-role/teach-role.module').then(m => m.TeachRoleModule),
         canActivate: [TeachAuthGuard],
     },
     {
         path: 'c',
-        component: ClientComponent,
+        loadChildren: () => import('./_roles/client-role/client-role.module').then(m => m.ClientRoleModule),
         canActivate: [ClientAuthGuard],
     },
 
@@ -82,5 +72,6 @@ const routes: Routes = [
         }),
     ],
     exports: [],
+
 })
 export class AppRoutingModule {}

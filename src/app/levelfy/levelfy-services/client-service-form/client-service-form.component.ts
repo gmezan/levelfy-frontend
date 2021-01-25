@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
-} from '../../levelfy/utils/services-types';
+} from '../../utils/services-types';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceService } from '../../core/services/service.service';
-import { CourseId } from '../../shared/_dto/courseId.model';
-import { Service } from '../../shared/_models/service.model';
-import { Course } from '../../shared/_models/course.model';
+import { ServiceService } from '../../../core/services/service.service';
+import { CourseId } from '../../../shared/_dto/courseId.model';
+import { Service } from '../../../shared/_models/service.model';
+import { Course } from '../../../shared/_models/course.model';
 
 /*
 	This component manages the inscription form of every services

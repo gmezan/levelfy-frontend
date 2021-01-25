@@ -17,7 +17,7 @@ const uri = '/model/services';
     providedIn: 'root',
 })
 export class ServiceService extends DataService<Service> {
-    apiUriServiceForm = '/services/form';
+    apiUriServiceForm = 'model/services/form';
 
     constructor(http: HttpClient) {
         super(uri, http);

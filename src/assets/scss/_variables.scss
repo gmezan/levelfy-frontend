@@ -2,44 +2,44 @@
 // * * Import color variables  * *
 // * * * * * * * * * * * * * * * *
 
-@import './variables/colors.scss';
+@import 'src/assets/scss/variables/colors';
 
 // * * * * * * * * * * * * * * * * * * *
 // * * Import custom color variables * *
 // * * * * * * * * * * * * * * * * * * *
 
 // Add color overrides in this file, or replace this file with a file exported from the customizer
-@import './variables-colors-overrides.scss';
+@import 'src/assets/scss/variables-colors-overrides';
 
 // * * * * * * * * * * * * * * * *
 // * * Import global variables * *
 // * * * * * * * * * * * * * * * *
 
-@import './variables/colors-expanded.scss';
-@import './variables/spacing.scss';
-@import './variables/body.scss';
-@import './variables/grid.scss';
-@import './variables/components.scss';
-@import './variables/typography.scss';
+@import 'src/assets/scss/variables/colors-expanded';
+@import 'src/assets/scss/variables/spacing';
+@import 'src/assets/scss/variables/body';
+@import 'src/assets/scss/variables/grid';
+@import 'src/assets/scss/variables/components';
+@import 'src/assets/scss/variables/typography';
 
 // * * * * * * * * * * * * * * * * * *
 // * * Import component variables  * *
 // * * * * * * * * * * * * * * * * * *
 
-@import './variables/alerts.scss';
-@import './variables/page-header.scss';
-@import './variables/navbar.scss';
-@import './variables/error.scss';
-@import './variables/buttons-forms.scss';
-@import './variables/navigation.scss';
-@import './variables/cards.scss';
-@import './variables/dropdowns.scss';
-@import './variables/code.scss';
-@import './variables/tables.scss';
-@import './variables/badges.scss';
+@import 'src/assets/scss/variables/alerts';
+@import 'src/assets/scss/variables/page-header';
+@import 'src/assets/scss/variables/navbar';
+@import 'src/assets/scss/variables/error';
+@import 'src/assets/scss/variables/buttons-forms';
+@import 'src/assets/scss/variables/navigation';
+@import 'src/assets/scss/variables/cards';
+@import 'src/assets/scss/variables/dropdowns';
+@import 'src/assets/scss/variables/code';
+@import 'src/assets/scss/variables/tables';
+@import 'src/assets/scss/variables/badges';
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // * * Import custom styles - add your own custom variables here!  * *
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-@import './variables-sb-ui-kit-pro-overrides.scss';
+@import 'src/assets/scss/variables-sb-ui-kit-pro-overrides';

@@ -13,20 +13,28 @@ import {
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { FooterComponent } from './shared/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { LevelfyModule } from './levelfy/levelfy.module';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from './shared/shared.module';
-import { LevelfyServicesModule } from './levelfy-services/levelfy-services.module';
+import { LevelfyServicesModule } from './levelfy/levelfy-services/levelfy-services.module';
 import { MyErrorHandler } from './core/common/app-error-handler';
 import { AdminRoleModule } from './_roles/admin-role/admin-role.module';
 import { TeachRoleModule } from './_roles/teach-role/teach-role.module';
 import { ClientRoleModule } from './_roles/client-role/client-role.module';
 
+// Social Login
+import {
+    SocialLoginModule,
+    SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import {
+    GoogleLoginProvider,
+    FacebookLoginProvider,
+} from 'angularx-social-login';
+
 @NgModule({
-    declarations: [AppComponent,],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         FormsModule,
@@ -41,9 +49,31 @@ import { ClientRoleModule } from './_roles/client-role/client-role.module';
         AdminRoleModule,
         TeachRoleModule,
         ClientRoleModule,
-        SharedModule
+        SharedModule,
+
+        SocialLoginModule,
     ],
-    providers: [{ provide: ErrorHandler, useClass: MyErrorHandler }],
+    providers: [
+        { provide: ErrorHandler, useClass: MyErrorHandler },
+        {
+            provide: 'SocialAuthServiceConfig',
+            useValue: {
+                autoLogin: false,
+                providers: [
+                    {
+                        id: GoogleLoginProvider.PROVIDER_ID,
+                        provider: new GoogleLoginProvider(
+                            '50340193168-296shkdcb8ossqrgh769vuqqh8pr58mm.apps.googleusercontent.com'
+                        ),
+                    },
+                    {
+                        id: FacebookLoginProvider.PROVIDER_ID,
+                        provider: new FacebookLoginProvider('433412491137225'),
+                    },
+                ],
+            } as SocialAuthServiceConfig,
+        },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {

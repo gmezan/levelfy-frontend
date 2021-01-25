@@ -1,0 +1,48 @@
+<div class="section py-10">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 ">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div id="carouselIndicatorsTestimonial" class="carousel slide text-dark" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li class="text-dark"
+                                        *ngFor="let testimonial of testimonials; let index = index"
+                                        data-target="#carouselIndicatorsTestimonial"
+                                        attr.data-slide-to="{{index}}"
+                                        [class.active]="index==0"></li>
+
+                                </ol>
+                                <div class="carousel-inner pb-5">
+                                    <div *ngFor="let testimonial of testimonials; let index = index" class="carousel-item" [class.active]="index==0">
+                                        <app-testimonial [testimonial]="testimonial"></app-testimonial>
+                                    </div>
+
+                                </div>
+                                <a class="carousel-control-prev text-dark"  href="#carouselIndicatorsTestimonial" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next text-dark"  href="#carouselIndicatorsTestimonial" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 ">
+                <div class="container">
+                    <div class="h1 title section-titles-home pb-2">Testimonios</div>
+                    <h5>Nuestros alumnos están satisfechos con su enseñanza</h5>
+                    <button class="btn btn-round btn-primary">¡Dejanos tus recomendaciones!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

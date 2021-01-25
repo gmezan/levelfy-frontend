@@ -1,5 +1,3 @@
-<!-- Navbar-->
-<app-navbar></app-navbar>
 <!-- Page Header-->
 <header id="pageHeader" class="page-header page-header-light bg-white">
     <div class="page-header-content pt-5">
@@ -22,243 +20,26 @@
 
 
 <!-- Section Basic Icons -->
-<section class="bg-light py-10">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h3>Clases personalizadas</h3>
-                <p class="mb-0">Las asesorías y clases que brindamos se adecúan a tu forma de aprendizaje. </p>
-            </div>
-            <div class="col-lg-4 mb-5 mb-lg-0">
-                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-user-friends"></i></div>
-                <h3>Asesores capacitados</h3>
-                <p class="mb-0">Nuestro equipo de asesores consiste de estudiantes destacados, que manejan los temas más complejos de los cursos.</p>
-            </div>
-            <div class="col-lg-4">
-                <div class="icon-stack icon-stack-xl bg-gradient-dark-to-darker text-white mb-4"><i class="fas fa-book-open"></i></div>
-                <h3>Material Académico</h3>
-                <p class="mb-0">Contamos con material académico para el desarrollo de las asesorías. </p>
-            </div>
-        </div>
-    </div>
-</section>
+<app-section-icons></app-section-icons>
 
 
 <!-- Section: Carousel Offer-->
-<div class="section py-10 bg-dark text-center" >
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 mr-auto ml-auto">
-                <h2 class="h1 title section-titles-home text-white">Ofrecemos</h2>
-                <br>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 mr-auto ml-auto">
-
-                <div class="card card-img rounded-lg h-100">
-                    <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li *ngFor="let serv of services; let index = index"
-                                data-target="#carouselIndicators" attr.data-slide-to="{{index}}" [class.active]="index==0"></li>
-
-                        </ol>
-                        <div class="carousel-inner">
-                            <div *ngFor="let serv of services; let index = index" class="carousel-item" [class.active]="index==0">
-                                <img class="d-block w-100" [src]="serv.imageUrl" alt="First slide">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>{{serv.serviceName}}</h5>
-                                    <p></p>
-                                </div>
-                            </div>
-
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
+<app-section-carousel></app-section-carousel>
 
 <!-- Section: Universities-->
-<div class="section bg-light text-center py-10" >
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 py-5">
-                <div class="container">
-                    <div class="h1 title section-titles-home pb-4">Universidades en las que nos encontramos</div>
-                    <h4>¿No encuentras tu universidad?</h4>
-                    <button class="btn btn-round btn-primary">¡Avísanos!</button>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12">
-                <div class="row justify-content-center pl-3">
-                    <div *ngFor="let univ of ['PUCP','ULIMA','UDEP']" class="col-lg-6 col-md-4 pb-4">
-                        <a class="card lift border-bottom-lg border-dark">
-                            <div class="card-body text-center">
-                                <div class="icon-stack icon-stack-xl bg-dark text-white mb-2"><i class="fas fa-university"></i></div>
-                                <div class="small text-gray-600">{{univ}}</div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+<app-section-universities></app-section-universities>
 
 <!-- Section: Numbers-->
-<section class="bg-dark py-10">
-    <div class="container">
-        <!--
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="text-center mb-10">
-                    <h2>Nuestros números nos avalan</h2>
-                    <p class="lead">Sabemos lo que hacemos, queremos que aprendas y pases todo con buena nota</p>
-                </div>
-            </div>
-        </div>-->
-        <div class="row">
-            <div class="col-lg-4 text-center mb-5">
-                <div class="display-1 font-weight-bold">500+</div>
-                <div class="h5 text-gray-300">Horas dictadas</div>
-                <p>Asesorías con los mejores estudiantes con clases dinámicas y entretenidas.</p>
-            </div>
-            <div class="col-lg-4 text-center mb-5">
-                <div class="display-1 font-weight-bold">200+</div>
-                <div class="h5 text-gray-300">Alumnos</div>
-                <p>Como Fast Trainer conseguimos más de 200 alumnos y mejoraron sus calificaciones.</p>
-            </div>
-            <div class="col-lg-4 text-center mb-5">
-                <div class="display-1 font-weight-bold"><fa-icon [icon]="['fas','user-plus']"></fa-icon></div>
-                <div class="h5 text-gray-300">Únete</div>
-                <p>Sé parte de esta gran comunidad que tiene el propósito de que pases tus cursos con las mejores notas.</p>
-            </div>
-        </div>
-    </div>
-    <div class="svg-border-rounded text-dark">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
-    </div>
-</section>
+<app-section-numbers></app-section-numbers>
 
 
 <!-- Section testimonials -->
-<div class="section py-10">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-lg-6 col-md-12 ">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-
-                            <div id="carouselIndicatorsTestimonial" class="carousel slide text-dark" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li class="text-dark"
-                                        *ngFor="let testimonial of testimonials; let index = index"
-                                        data-target="#carouselIndicatorsTestimonial"
-                                        attr.data-slide-to="{{index}}"
-                                        [class.active]="index==0"></li>
-
-                                </ol>
-                                <div class="carousel-inner pb-5">
-                                    <div *ngFor="let testimonial of testimonials; let index = index" class="carousel-item" [class.active]="index==0">
-                                        <app-testimonial [testimonial]="testimonial"></app-testimonial>
-                                    </div>
-
-                                </div>
-                                <a class="carousel-control-prev text-dark"  href="#carouselIndicatorsTestimonial" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next text-dark"  href="#carouselIndicatorsTestimonial" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-12 ">
-                <div class="container">
-                    <div class="h1 title section-titles-home pb-2">Testimonios</div>
-                    <h5>Nuestros alumnos están satisfechos con su enseñanza</h5>
-                    <button class="btn btn-round btn-primary">¡Dejanos tus recomendaciones!</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-section-testimonial></app-section-testimonial>
 
 
 <!-- Section Blog -->
-<div class="section bg-dark section-image py-10" style="background-image: url('assets/img/backgrounds/pattern-shapes.png');">
-    <div class="container">
-        <div class="row">
-            <div *ngFor="let blog of blogSection" class="col-lg-4 col-md-12">
-                <div class="card h-100 justify-content-center text-center">
-                    <div class="card-body">
-                        <p>{{blog.message}}</p>
-                    </div>
-                    <div class="card-footer bg-white">
-                        <button [routerLink]="blog.route" class="btn btn-dark">{{blog.buttonMessage}}</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-section-blog></app-section-blog>
 
 
 <!-- Section partners -->
-<section class="bg-white py-10">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="text-center mb-5">
-                    <h1>Contamos con el respaldo de</h1>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-3 mb-1 mt-1">
-                <a class="card lift h-100" >
-                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/equipu.jpeg" alt="..."/>
-                </a>
-            </div>
-            <div class="col-lg-3 mb-1 mt-1">
-                <a class="card lift h-100" >
-                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/makerlab.jpeg" alt="..."/>
-                </a>
-            </div>
-            <div class="col-lg-3 mb-1 mt-1">
-                <a class="card lift h-100" >
-                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/gestion.jpeg" alt="..."/>
-                </a>
-            </div>
-            <div class="col-lg-3 mb-1 mt-1">
-                <a class="card lift h-100" >
-                    <img class="card-img-top" src="https://myuniversityclass.s3-sa-east-1.amazonaws.com/photos/startup.jpeg" alt="..."/>
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="svg-border-rounded text-dark">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
-    </div>
-</section>
+<app-section-partners></app-section-partners>

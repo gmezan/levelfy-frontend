@@ -7,8 +7,14 @@ const uri = '/model/user';
 
 @Injectable()
 export class UserService extends DataService<User> {
+    apiCurrent = '/model/user/me';
+
     constructor(http: HttpClient) {
         super(uri, http);
+    }
+
+    getCurrent() {
+        return this.http.get<User>(this.buildPath(this.apiCurrent));
     }
 
     getUsers() {

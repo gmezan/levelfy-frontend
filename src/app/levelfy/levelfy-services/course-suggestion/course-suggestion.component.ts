@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseSuggestionService } from '../../core/services/course-suggestion.service';
-import { CourseSuggestion } from '../../shared/_models/course-suggestion.model';
+import { CourseSuggestionService } from '../../../core/services/course-suggestion.service';
+import { CourseSuggestion } from '../../../shared/_models/course-suggestion.model';
 
 /*
 	The course suggestion section at the end of every services page

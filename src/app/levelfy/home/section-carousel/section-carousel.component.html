@@ -1,0 +1,43 @@
+<div class="section py-10 bg-dark text-center" >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+                <h2 class="h1 title section-titles-home text-white">Ofrecemos</h2>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 mr-auto ml-auto">
+
+                <div class="card card-img rounded-lg h-100">
+                    <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li *ngFor="let serv of services; let index = index"
+                                data-target="#carouselIndicators" attr.data-slide-to="{{index}}" [class.active]="index==0"></li>
+
+                        </ol>
+                        <div class="carousel-inner">
+                            <div *ngFor="let serv of services; let index = index" class="carousel-item" [class.active]="index==0">
+                                <img class="d-block w-100" [src]="serv.imageUrl" alt="First slide">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{serv.serviceName}}</h5>
+                                    <p></p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
-} from '../../levelfy/utils/services-types';
-import { Course } from '../../shared/_models/course.model';
+} from '../../utils/services-types';
+import { Course } from '../../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../core/services/course.service';
+import { CourseService } from '../../../core/services/course.service';
 
 /*
 	This component LISTS the courses available for each services

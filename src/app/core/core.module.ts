@@ -10,10 +10,14 @@ import { AdminAuthGuard } from './auth-guards/admin-auth-guard.service';
 import { TeachAuthGuard } from './auth-guards/teach-auth-guard.service';
 import { ClientAuthGuard } from './auth-guards/client-auth-guard.service';
 import { AnonAuthGuard } from './auth-guards/anon-auth-guard.service';
+import { TokenService } from './common/token.service';
+import { OauthService } from './common/oauth.service';
+import { HttpClientModule } from '@angular/common/http';
+import { resourceInterceptor } from './interceptors/resource.interceptor';
 
 @NgModule({
     declarations: [],
-    imports: [CommonModule],
+    imports: [CommonModule, HttpClientModule],
     providers: [
         UserService,
         CourseService,
@@ -24,7 +28,12 @@ import { AnonAuthGuard } from './auth-guards/anon-auth-guard.service';
         AdminAuthGuard,
         TeachAuthGuard,
         ClientAuthGuard,
-        AnonAuthGuard
+        AnonAuthGuard,
+
+        TokenService,
+        OauthService,
+
+        resourceInterceptor,
     ],
 })
 export class CoreModule {}

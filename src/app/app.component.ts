@@ -9,7 +9,7 @@ import {
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import { DOCUMENT } from '@angular/common';
-import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AuthService } from './core/common/auth.service';
 

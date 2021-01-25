@@ -1,4 +1,8 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {
+    HttpClient,
+    HttpErrorResponse,
+    HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -8,9 +12,13 @@ import { catchError } from 'rxjs/operators';
 	Services DOES NOT subscribe to Observables
  */
 
+const headers = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+};
+
 @Injectable()
 export abstract class DataService<T> {
-    private basePath: string = 'http://localhost:8080/webapi';
+    private basePath: string = 'http://localhost:8080';
     private readonly url: string;
 
     protected constructor(private uri: string, protected http: HttpClient) {

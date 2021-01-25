@@ -2,7 +2,7 @@
 // * * Import variables  * *
 // * * * * * * * * * * * * *
 
-@import './variables.scss';
+@import 'src/assets/scss/variables';
 
 // * * * * * * * * * * * * *
 // * * Import Bootstrap  * *
@@ -14,110 +14,111 @@
 // * * Import global styling * *
 // * * * * * * * * * * * * * * *
 
-@import './global.scss';
+@import 'src/assets/scss/global';
 
 // * * * * * * * * * * * *
 // * * Import layouts  * *
 // * * * * * * * * * * * *
 
-@import './layout/default.scss';
+@import 'src/assets/scss/layout/default';
 
 // * * * * * * * * * * * * *
 // * * Import utilities  * *
 // * * * * * * * * * * * * *
 
-@import './utilities/animation.scss';
-@import './utilities/background.scss';
-@import './utilities/border.scss';
-@import './utilities/dropdown.scss';
-@import './utilities/general.scss';
-@import './utilities/images.scss';
-@import './utilities/lift.scss';
-@import './utilities/shadow.scss';
-@import './utilities/text.scss';
-@import './utilities/zindex.scss';
+@import 'src/assets/scss/utilities/animation';
+@import 'src/assets/scss/utilities/background';
+@import 'src/assets/scss/utilities/border';
+@import 'src/assets/scss/utilities/dropdown';
+@import 'src/assets/scss/utilities/general';
+@import 'src/assets/scss/utilities/images';
+@import 'src/assets/scss/utilities/lift';
+@import 'src/assets/scss/utilities/shadow';
+@import 'src/assets/scss/utilities/text';
+@import 'src/assets/scss/utilities/zindex';
 
 // * * * * * * * * * * * * * * * *
 // * * Import component styles * *
 // * * * * * * * * * * * * * * * *
 
 // -- Alerts
-@import './components/alerts/icon.scss';
-@import './components/alerts/solid.scss';
+@import 'src/assets/scss/components/alerts/icon';
+@import 'src/assets/scss/components/alerts/solid';
 
 // -- Avatars
-@import './components/avatars.scss';
+@import 'src/assets/scss/components/avatars';
 
 // -- Buttons
-@import './components/buttons/global.scss';
-@import './components/buttons/icon.scss';
-@import './components/buttons/sizing.scss';
-@import './components/buttons/social.scss';
-@import './components/buttons/transparent.scss';
+@import 'src/assets/scss/components/buttons/global';
+@import 'src/assets/scss/components/buttons/icon';
+@import 'src/assets/scss/components/buttons/sizing';
+@import 'src/assets/scss/components/buttons/social';
+@import 'src/assets/scss/components/buttons/transparent';
 
 // -- Cards
-@import './components/cards/global.scss';
-@import './components/cards/advanced.scss';
-@import './components/cards/collapsable.scss';
-@import './components/cards/icon.scss';
-@import './components/cards/scrollable.scss';
-@import './components/cards/progress.scss';
-@import './components/cards/link.scss';
-@import './components/cards/portfolio.scss';
-@import './components/cards/flags.scss';
+@import 'src/assets/scss/components/cards/global';
+@import 'src/assets/scss/components/cards/advanced';
+@import 'src/assets/scss/components/cards/collapsable';
+@import 'src/assets/scss/components/cards/icon';
+@import 'src/assets/scss/components/cards/scrollable';
+@import 'src/assets/scss/components/cards/progress';
+@import 'src/assets/scss/components/cards/link';
+@import 'src/assets/scss/components/cards/portfolio';
+@import 'src/assets/scss/components/cards/flags';
 
 // -- Forms
-@import './components/forms/checkboxes.scss';
-@import './components/forms/form-control.scss';
+@import 'src/assets/scss/components/forms/checkboxes';
+@import 'src/assets/scss/components/forms/form-control';
 
 // -- Navigation
-@import './components/navigation/navbar.scss';
-@import './components/navigation/navbar-marketing.scss';
-@import './components/navigation/topnav.scss';
-@import './components/navigation/nav-sticky.scss';
+@import 'src/assets/scss/components/navigation/navbar';
+@import 'src/assets/scss/components/navigation/navbar-marketing';
+@import 'src/assets/scss/components/navigation/topnav';
+@import 'src/assets/scss/components/navigation/nav-sticky';
 
 // -- Dropdowns
-@import './components/dropdowns/global.scss';
-@import './components/dropdowns/user.scss';
-@import './components/dropdowns/notifications.scss';
-@import './components/dropdowns/mega.scss';
+@import 'src/assets/scss/components/dropdowns/global';
+@import 'src/assets/scss/components/dropdowns/user';
+@import 'src/assets/scss/components/dropdowns/notifications';
+@import 'src/assets/scss/components/dropdowns/mega';
 
 // -- Icons
-@import './components/icons.scss';
+@import 'src/assets/scss/components/icons';
 
 // -- Video
-@import './components/video.scss';
+@import 'src/assets/scss/components/video';
 
 // -- Media
-@import './components/media.scss';
+@import 'src/assets/scss/components/media';
 
 // -- Accordion
-@import './components/accordion.scss';
+@import 'src/assets/scss/components/accordion';
 
 // -- Badges
-@import './components/badges.scss';
+@import 'src/assets/scss/components/badges';
 
 // -- Pagination
-@import './components/pagination.scss';
+@import 'src/assets/scss/components/pagination';
 
 // -- List Group
-@import './components/list-group.scss';
+@import 'src/assets/scss/components/list-group';
 
 // * * * * * * * * * * * * * * *
 // * * Import section styles * *
 // * * * * * * * * * * * * * * *
 
-@import './sections/borders.scss';
-@import './sections/header.scss';
-@import './sections/footer.scss';
-@import './sections/device.scss';
-@import './sections/brands.scss';
-@import './sections/testimonials.scss';
-@import './sections/pricing.scss';
-@import './sections/blog.scss';
-@import './sections/company.scss';
+@import 'src/assets/scss/sections/borders';
+@import 'src/assets/scss/sections/header';
+@import 'src/assets/scss/sections/footer';
+@import 'src/assets/scss/sections/device';
+@import 'src/assets/scss/sections/brands';
+@import 'src/assets/scss/sections/testimonials';
+@import 'src/assets/scss/sections/pricing';
+@import 'src/assets/scss/sections/blog';
+@import 'src/assets/scss/sections/company';
 
 // * * * * * * * * * * * * * * *
 // * * Import custom styles  * *
 // * * * * * * * * * * * * * * *
-@import './project-global.scss';
+@import 'src/assets/scss/project-global';
+

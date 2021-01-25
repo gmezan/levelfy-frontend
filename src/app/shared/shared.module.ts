@@ -16,7 +16,7 @@ import { FooterComponent } from './footer/footer.component';
         CourseCardComponent,
         TestimonialComponent,
         NavbarComponent,
-        FooterComponent
+        FooterComponent,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -25,7 +25,7 @@ import { FooterComponent } from './footer/footer.component';
         MenuServicesComponent,
         CourseCardComponent,
         NavbarComponent,
-        FooterComponent
-    ],
+        FooterComponent,
+    ]
 })
 export class SharedModule {}
