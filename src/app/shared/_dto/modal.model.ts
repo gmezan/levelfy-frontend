@@ -8,25 +8,25 @@ export class Modal {
         private _isEdit?: boolean
     ) {}
 
-    modalCreate(title: string, submitButton: string, cancelButton: string) {
+    modalCreate({ title, submit, cancel }) {
         this.isCreate = true;
         this.title = title;
-        this.submitButton = submitButton;
-        this.cancelButton = cancelButton;
+        this.submitButton = submit;
+        this.cancelButton = cancel;
     }
 
-    modalEdit(title: string, submitButton: string, cancelButton: string) {
+    modalEdit({ title, submit, cancel }) {
         this.isEdit = true;
         this.title = title;
-        this.submitButton = submitButton;
-        this.cancelButton = cancelButton;
+        this.submitButton = submit;
+        this.cancelButton = cancel;
     }
 
-    modalDelete(title: string, submitButton: string, cancelButton: string) {
+    modalDelete({ title, submit, cancel }) {
         this.isDelete = true;
         this.title = title;
-        this.submitButton = submitButton;
-        this.cancelButton = cancelButton;
+        this.submitButton = submit;
+        this.cancelButton = cancel;
     }
 
     get title(): string {

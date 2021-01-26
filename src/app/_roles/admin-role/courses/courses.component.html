@@ -2,7 +2,7 @@
     <div class='container-fluid'>
 
         <nav class="navbar navbar-light bg-light justify-content-between py-2">
-            <h2 class='font-weight-800'>{{title}} {{selectedUniv}} </h2>
+            <h2 class='font-weight-800'>{{title}}</h2>
             <form class="form-inline">
                 <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search">
             </form>
@@ -16,7 +16,7 @@
         </nav>
 
 
-        <div *ngIf='courses.length>0' class='table-responsive py-4'>
+        <div *ngIf='resources.length>0' class='table-responsive py-4'>
             <table id='dataTable' class="table table-hover table-dark table-bordered">
                 <thead>
                 <tr>
@@ -26,14 +26,15 @@
                     <th scope="col">Name</th>
                     <th scope="col">Cycle</th>
                     <th scope="col">Photo</th>
-                    <th scope="col">description</th>
-                    <th scope="col">univNameString</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Modified</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
                 </thead>
                 <tbody>
-                    <tr class='courseRow' *ngFor='let course of courses; let index = index' >
+                    <tr class='courseRow' *ngFor='let course of resources; let index = index' >
                         <th scope="row">{{index}}</th>
                         <td>{{course.courseId.idCourse}}</td>
                         <td>{{course.courseId.university}}</td>
@@ -41,14 +42,15 @@
                         <td>{{course.cycle}}</td>
                         <td>{{course.photo}}</td>
                         <td>{{course.description}}</td>
-                        <td>{{course.univNameStr}}</td>
+                        <td>{{course.created  | date:'mediumDate'}}</td>
+                        <td>{{course.modified  | date:'mediumDate'}}</td>
                         <td>
-                            <button (click)='modalEdit(course.courseId)' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
+                            <button (click)='modalEdit(this.getId(course))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
                                 <i class="fas fa-edit"></i>
                             </button>
                         </td>
                         <td>
-                            <button (click)='modalDelete(course.courseId)' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                            <button (click)='modalDelete(this.getId(course))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </td>
@@ -57,7 +59,7 @@
             </table>
         </div>
 
-        <div *ngIf='courses.length===0' class='container py-5'>
+        <div *ngIf='resources.length===0' class='container py-5'>
                 <h3 class='text-primary'>Empty list</h3>
         </div>
     </div>
@@ -75,45 +77,18 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form *ngIf='!modal.isDelete'>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputCourse">Course</label>
-                            <input [readOnly]='modal.isEdit' type="text"  [value]='courseModal.courseId.idCourse' class="form-control" id="inputCourse" placeholder="Course">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputUniversity">University</label>
-                            <input [readOnly]='modal.isEdit' type="text" [value]='courseModal.courseId.university' class="form-control" id="inputUniversity" placeholder="University">
-                        </div>
-                    </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="inputName">Name</label>
-                            <input type="text" [value]='courseModal.name' class="form-control" id="inputName" placeholder="Name">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="inputCycle">Cycle</label>
-                            <input type="text" [value]='courseModal.cycle' class="form-control" id="inputCycle" placeholder="Cycle">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="inputDescription">Description</label>
-                        <input type="text" [value]='courseModal.description' class="form-control" id="inputDescription" placeholder="Description">
-                    </div>
-                    <div class="form-group">
-                        <label for="inputPhoto">Photo</label>
-                        <input type="text" [value]='courseModal.photo' class="form-control" id="inputPhoto" placeholder="Photo">
-                    </div>
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
 
-                </form>
                 <p *ngIf='modal.isDelete'>
-                    Are you sure you want to delete: {{courseModal.courseId.idCourse}}:{{courseModal.courseId.university}}?
+                    Are you sure you want to delete: {{resource.courseId.idCourse}}:{{resource.courseId.university}}?
                 </p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
-                <button type="button" class="btn"
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='submitModalForm()'
+                        [disabled]='!modal.isDelete && (!form.dirty || form.invalid)'
                         [ngClass]="{'btn-primary' : modal.isEdit,
                                     'btn-danger' : modal.isDelete,
                                     'btn-success' : modal.isCreate}"
@@ -123,3 +98,81 @@
     </div>
 </div>
 
+
+<ng-template #formModal>
+    <form [hidden]='modal.isDelete' [formGroup]='form' >
+        <div class="form-row" formGroupName='courseId'>
+            <div class="form-group col-md-6">
+                <label for="idCourse">Course Id</label>
+                <input
+                    formControlName='idCourse'
+                    [readOnly]='modal.isEdit'
+                    type="text"
+                    class="form-control"
+                    id="idCourse"
+                    placeholder="Course">
+                <div class='alert alert-danger p-1' *ngIf="form.get('courseId').get('idCourse').touched && form.get('courseId').get('idCourse').invalid">
+                    <div *ngIf="form.get('courseId').get('idCourse').errors.required">Course Id is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="university">University</label>
+                <input [readOnly]='modal.isEdit'
+                       type="text"
+                       formControlName='university'
+                       class="form-control"
+                       id="university"
+                       placeholder="University">
+                <div class='alert alert-danger p-1' *ngIf="form.get('courseId').get('university').touched && form.get('courseId').get('university').invalid">
+                    <div *ngIf="form.get('courseId').get('university').errors.required">University is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Name</label>
+                <input type="text" formControlName='name' class="form-control" id="inputName" placeholder="Name">
+                <div class='alert alert-danger p-1' *ngIf="form.get('name').touched && form.get('name').invalid">
+                    <div *ngIf="form.get('name').errors.required">Name is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputCycle">Cycle</label>
+                <input type="number" formControlName='cycle' class="form-control" id="inputCycle" placeholder="Cycle">
+                <div class='alert alert-danger p-1' *ngIf="form.get('cycle').touched && form.get('cycle').invalid">
+                    <div *ngIf="form.get('cycle').errors.required">Cycle is required</div>
+                    <div *ngIf="form.get('cycle').errors.min">Minimum = 1</div>
+                    <div *ngIf="form.get('cycle').errors.max">Maximum = 10</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="inputDescription">Description <i class='small'>Optional</i></label>
+            <input type="text" formControlName='description' class="form-control" id="inputDescription" placeholder="Description">
+            <div class='alert alert-danger p-1' *ngIf="form.get('description').touched && form.get('description').invalid">
+                <div *ngIf="form.get('description').errors.required">Description is required</div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="inputPhoto">Photo</label>
+            <input type="text" formControlName='photo' class="form-control" id="inputPhoto" placeholder="Photo">
+            <div class='alert alert-danger p-1' *ngIf="form.get('photo').touched && form.get('photo').invalid">
+                <div *ngIf="form.get('photo').errors.required">Photo is required</div>
+            </div>
+        </div>
+
+        <button hidden type="submit" [disabled]="!form.valid" data-dismiss="modal" >Submit</button>
+
+    </form>
+
+</ng-template>

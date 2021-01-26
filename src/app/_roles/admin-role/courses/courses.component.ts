@@ -1,79 +1,128 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../shared/_models/course.model';
-import { Modal } from '../../../shared/_dto/modal.model';
-import { CourseId } from '../../../shared/_dto/courseId.model';
+import { Validators, FormBuilder } from '@angular/forms';
+import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
+import { IdGetterModel } from '../../../shared/_dto/id-getter.model';
+
+const modalStrings = {
+    create: { title: 'Create Course', submit: 'Create', cancel: 'Cancel' },
+    edit: { title: 'Edit Course', submit: 'Save', cancel: 'Cancel' },
+    delete: { title: 'Delete Course', submit: 'Delete', cancel: 'Cancel' },
+};
 
 @Component({
     selector: 'app-courses',
     templateUrl: './courses.component.html',
     styleUrls: ['./courses.component.css'],
 })
-export class CoursesComponent implements OnInit {
-    selectedUniv: string;
-    title: string = 'Curso por universidad: ';
-    courses: Course[];
-
-    courseModal: Course = new Course();
-    modal = new Modal();
-
+export class CoursesComponent
+    extends ModalCrudComponent<Course>
+    implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
-        private elementRef: ElementRef
-    ) {}
+        private elementRef: ElementRef,
+        private fb: FormBuilder
+    ) {
+        super(courseService, modalStrings, new Course());
+        this.form = this.fillModal();
+    }
 
     ngOnInit(): void {
-        //let university = this.route.snapshot.paramMap.get('type');
-
         this.route.queryParams.subscribe((params) => {
-            this.courses = [];
-            this.selectedUniv = params.u || 'All';
+            this.resources = [];
+            this.title = 'Curso por universidad: ' + params.u || 'All';
             if (params.u) {
                 this.courseService
                     .findCourseByCourseId_University(params.u)
-                    .subscribe((data) => {
-                        this.courses = data;
-                    });
+                    .subscribe((data) => (this.resources = data));
             } else {
                 // No params, list all
-                this.courseService.getAll().subscribe((data) => {
-                    this.courses = data;
-                });
+                this.courseService
+                    .getAll()
+                    .subscribe((data) => (this.resources = data));
             }
         });
     }
 
-    modalEdit(courseId: CourseId) {
-        this.modal.modalEdit('Edit Course', 'Save', 'Cancel');
-        this.courseService
-            .get(courseId.idCourse.concat('/', courseId.university))
-            .subscribe(
-                (data) => (this.courseModal = data),
+    submitModalForm() {
+        if (!this.form.valid) {
+            alert('Invalid submit');
+        }
+
+        // Using Pessimistic update
+        let form = this.form.value;
+        let id: string = form.courseId.idCourse.concat(
+            '/',
+            form.courseId.university
+        );
+        let index: number = this.resources.indexOf(
+            this.resources.filter((r) => this.getId(r) === id)[0]
+        );
+
+        if (this.modal.isDelete) {
+            this.dataService.delete(id).subscribe(
+                (data) => {
+                    this.resources.splice(index, 1);
+                },
                 (error) => {
-                    alert('Something wrong happened');
+                    console.log(error);
                 }
             );
-    }
-
-    modalCreate() {
-        this.courseModal = new Course();
-        this.modal.modalCreate('Create Course', 'Create', 'Cancel');
-    }
-
-    modalDelete(courseId: CourseId) {
-        this.modal.modalDelete('Delete Course', 'Delete', 'Cancel');
-        this.courseService
-            .get(courseId.idCourse.concat('/', courseId.university))
-            .subscribe(
-                (data) => (this.courseModal = data),
+        } else if (this.modal.isCreate) {
+            let originalLength = this.resources.length;
+            this.dataService.create(form).subscribe(
+                (data) => {
+                    this.resources.splice(originalLength - 1, 0, data);
+                },
                 (error) => {
-                    alert('Something wrong happened');
+                    console.log(error);
                 }
             );
+        } else if (this.modal.isEdit) {
+            let originalCourse = this.resources[index];
+            this.dataService.update(form).subscribe(
+                (data) => {
+                    data.created = originalCourse.created;
+                    this.resources.splice(index, 1, data);
+                },
+                (error) => {
+                    console.log(error);
+                }
+            );
+        }
     }
 
+    fillModal() {
+        // Validations must be according to the database
+        return this.fb.group({
+            courseId: this.fb.group({
+                idCourse: [
+                    this.resource.courseId.idCourse,
+                    Validators.required,
+                ],
+                university: [
+                    this.resource.courseId.university,
+                    Validators.required,
+                ],
+            }),
+            name: [this.resource.name, Validators.required],
+            cycle: [
+                this.resource.cycle,
+                [Validators.min(1), Validators.max(10), Validators.required],
+            ],
+            photo: [this.resource.photo],
+            description: [this.resource.description],
+        });
+    }
+
+    getId(course: Course): string {
+        return course.courseId.idCourse.concat('/', course.courseId.university);
+    }
+
+    // Methods for the search bar:
     keyupEnterSearchBar($event) {
         this.elementRef.nativeElement
             .querySelectorAll('.courseName')

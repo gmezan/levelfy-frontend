@@ -1,4 +1,4 @@
 export class Auditable {
-    created;
-    modified;
+    created: Date;
+    modified: Date;
 }

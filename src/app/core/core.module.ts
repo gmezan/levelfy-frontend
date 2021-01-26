@@ -14,6 +14,7 @@ import { TokenService } from './security/token.service';
 import { OauthService } from './security/oauth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { resourceInterceptor } from './interceptors/resource.interceptor';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [],
@@ -32,6 +33,7 @@ import { resourceInterceptor } from './interceptors/resource.interceptor';
 
         TokenService,
         OauthService,
+        ReactiveFormsModule,
     ],
 })
 export class CoreModule {}

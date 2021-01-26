@@ -1,19 +1,9 @@
 export class CourseId {
-    constructor(private _idCourse?: string, private _university?: string) {}
+    idCourse;
+    university;
 
-    get idCourse(): string {
-        return this._idCourse;
-    }
-
-    set idCourse(value: string) {
-        this._idCourse = value;
-    }
-
-    get university(): string {
-        return this._university;
-    }
-
-    set university(value: string) {
-        this._university = value;
+    constructor(idCourse?: string, university?: string) {
+        this.idCourse = idCourse || '';
+        this.university = university || '';
     }
 }
