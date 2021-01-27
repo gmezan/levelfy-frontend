@@ -4,7 +4,6 @@ import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../shared/_models/course.model';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
-import { IdGetterModel } from '../../../shared/_dto/id-getter.model';
 
 const modalStrings = {
     create: { title: 'Create Course', submit: 'Create', cancel: 'Cancel' },

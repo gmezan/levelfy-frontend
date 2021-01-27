@@ -6,10 +6,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { CoursesComponent } from './courses/courses.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CoursesFormComponent } from './courses/courses-form/courses-form.component';
 
 @NgModule({
-    declarations: [AdminComponent, CoursesComponent, CoursesFormComponent],
+    declarations: [AdminComponent, CoursesComponent],
     imports: [
         CommonModule,
         AdminRoleRoutingModule,
