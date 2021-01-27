@@ -46,6 +46,13 @@ export class CoursesComponent
         });
     }
 
+    onSelectFile(event) {
+        // called each time file input changes
+
+        this.modal.hasFile = true;
+        this.modal.file = event.target.files[0];
+    }
+
     submitModalForm() {
         if (!this.form.valid) {
             alert('Invalid submit');
@@ -74,7 +81,34 @@ export class CoursesComponent
             let originalLength = this.resources.length;
             this.dataService.create(form).subscribe(
                 (data) => {
-                    this.resources.splice(originalLength - 1, 0, data);
+                    // upload file
+                    if (this.modal.hasFile) {
+                        const formData = new FormData();
+                        formData.append(
+                            'file',
+                            this.modal.file,
+                            this.modal.file.name
+                        );
+                        this.courseService
+                            .uploadImageCourse(id, formData)
+                            .subscribe(
+                                (data2) => {
+                                    data.photo = data2.url;
+                                    this.resources.splice(
+                                        originalLength - 1,
+                                        0,
+                                        data
+                                    );
+                                },
+                                (error) => {
+                                    this.resources.splice(
+                                        originalLength - 1,
+                                        0,
+                                        data
+                                    );
+                                }
+                            );
+                    }
                 },
                 (error) => {
                     console.log(error);
@@ -85,7 +119,29 @@ export class CoursesComponent
             this.dataService.update(form).subscribe(
                 (data) => {
                     data.created = originalCourse.created;
-                    this.resources.splice(index, 1, data);
+                    if (this.modal.hasFile) {
+                        const formData = new FormData();
+                        formData.append(
+                            'file',
+                            this.modal.file,
+                            this.modal.file.name
+                        );
+                        this.courseService
+                            .uploadImageCourse(id, formData)
+                            .subscribe(
+                                (data2) => {
+                                    data.photo = data2.url;
+                                    this.resources.splice(index, 1, data);
+                                },
+                                (error) => {
+                                    alert(
+                                        'Something went wrong uploading the image: ' +
+                                            error
+                                    );
+                                    this.resources.splice(index, 1, data);
+                                }
+                            );
+                    }
                 },
                 (error) => {
                     console.log(error);

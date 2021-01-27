@@ -40,7 +40,9 @@
                         <td>{{course.courseId.university}}</td>
                         <td class='courseName'>{{course.name}}</td>
                         <td>{{course.cycle}}</td>
-                        <td>{{course.photo}}</td>
+                        <td class='text-center'>
+                            <img width='200' height='auto' class="img rounded-lg px-auto mx-auto" [src]='course.photo' alt="">
+                        </td>
                         <td>{{course.description}}</td>
                         <td>{{course.created  | date:'mediumDate'}}</td>
                         <td>{{course.modified  | date:'mediumDate'}}</td>
@@ -88,7 +90,7 @@
                 <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
                 <button type="button" class="btn" data-dismiss="modal"
                         (click)='submitModalForm()'
-                        [disabled]='!modal.isDelete && (!form.dirty || form.invalid)'
+                        [disabled]='!modal.isDelete && ((!form.dirty || form.invalid) && !modal.hasFile)'
                         [ngClass]="{'btn-primary' : modal.isEdit,
                                     'btn-danger' : modal.isDelete,
                                     'btn-success' : modal.isCreate}"
@@ -163,15 +165,19 @@
         </div>
 
 
-        <div class="form-group">
+        <div [hidden]='true' class="form-group">
             <label for="inputPhoto">Photo</label>
-            <input type="text" formControlName='photo' class="form-control" id="inputPhoto" placeholder="Photo">
+            <input type="text" formControlName='photo' class="form-control"  placeholder="Photo">
             <div class='alert alert-danger p-1' *ngIf="form.get('photo').touched && form.get('photo').invalid">
                 <div *ngIf="form.get('photo').errors.required">Photo is required</div>
             </div>
         </div>
 
-        <button hidden type="submit" [disabled]="!form.valid" data-dismiss="modal" >Submit</button>
+        <div class='form-group'>
+            <label for="inputPhoto">Photo</label>
+            <img class='img card-img rounded-lg p-2' [src]="form.get('photo').value"> <br/>
+            <input [value]='modal.file' id="inputPhoto" type='file' (change)="onSelectFile($event)">
+        </div>
 
     </form>
 

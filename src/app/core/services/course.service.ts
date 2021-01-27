@@ -16,6 +16,7 @@ export class CourseService extends DataService<Course> {
     // URI for all courses
     apiUriService = '/model/course/list';
     apiUriCourseByUniv = '/model/course/univ';
+    apiUploadImage = '/aws/';
 
     constructor(http: HttpClient) {
         super(uri, http);
@@ -40,6 +41,12 @@ export class CourseService extends DataService<Course> {
         return this.http
             .get<Course[]>(this.buildPath(this.apiUriCourseByUniv), options)
             .pipe(catchError(this.handleError));
+    }
+
+    uploadImageCourse(id: string, formData: FormData): Observable<any> {
+        if (!id) return null;
+        let url = this.buildPath(this.apiUploadImage + id);
+        return this.http.post<any>(url, formData);
     }
 
     /*
