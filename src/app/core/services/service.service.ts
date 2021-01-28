@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from '../../shared/_models/course.model';
-import {
-    HttpClient,
-    HttpErrorResponse,
-    HttpParams,
-} from '@angular/common/http';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { DataService } from '../common/data-service.service';
