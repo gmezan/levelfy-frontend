@@ -15,6 +15,7 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
+import { CourseValidator } from '../../../core/validators/course.validator';
 
 const modalStrings = {
     create: { title: 'Create Course', submit: 'Create', cancel: 'Cancel' },
