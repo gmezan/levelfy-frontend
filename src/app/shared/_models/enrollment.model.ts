@@ -2,6 +2,7 @@ import { Auditable } from '../_dto/auditable.model';
 import { Deserializable } from '../_dto/deserializable.model';
 import { User } from './user.model';
 import { Sale } from './sale.model';
+import { Service } from './service.model';
 
 export class Enrollment extends Auditable implements Deserializable {
     deserialize(input: any): this {
@@ -10,6 +11,7 @@ export class Enrollment extends Auditable implements Deserializable {
     }
 
     idEnrollment: number;
+    class: Service;
     student: User;
     payed: boolean;
     numberOfStudents: number;
