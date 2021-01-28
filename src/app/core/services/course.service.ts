@@ -16,7 +16,7 @@ export class CourseService extends DataService<Course> {
     // URI for all courses
     apiUriService = '/model/course/list';
     apiUriCourseByUniv = '/model/course/univ';
-    apiUploadImage = '/aws/';
+    apiUploadImage = '/s3/course/';
 
     constructor(http: HttpClient) {
         super(uri, http);
