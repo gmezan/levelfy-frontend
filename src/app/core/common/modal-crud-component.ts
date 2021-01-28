@@ -1,7 +1,8 @@
 import { FormGroup } from '@angular/forms';
 import { Modal } from '../../shared/_dto/modal.model';
 import { DataService } from './data-service.service';
-import { ViewChild } from '@angular/core';
+import { ViewChild, ViewContainerRef } from '@angular/core';
+import { Course } from '../../shared/_models/course.model';
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
@@ -32,7 +33,6 @@ export abstract class ModalCrudComponent<T> {
     // Methods to be implemented by the Component
     abstract getId(resource: T): string;
     abstract fillModal(): FormGroup;
-    abstract submitModalForm(): void;
 
     // Methods for the modal
     modalEdit(id: string) {
@@ -65,5 +65,51 @@ export abstract class ModalCrudComponent<T> {
                 alert('Something wrong happened: ' + error);
             }
         );
+    }
+
+    onSelectFile(event) {
+        // called each time file input changes
+
+        this.modal.hasFile = true;
+        this.modal.fileFormData = event.target.files[0];
+    }
+
+    submitModalForm() {
+        // Using Pessimistic update
+        if (!this.form.valid) {
+            alert('Invalid submit');
+            return;
+        }
+        // Getting utils variables
+        let resource: T = this.form.value;
+        let id: string = this.getId(resource);
+        let index: number = this.resources.indexOf(
+            this.resources.filter((r) => this.getId(r) === id)[0]
+        );
+        this.onSubmitModalForm(resource, index, id);
+    }
+
+    abstract onSubmitModalForm(resource: T, index: number, id: string): void;
+
+    protected obtainImageFormData(): FormData {
+        const formData = new FormData();
+        formData.append(
+            'file',
+            this.modal.fileFormData,
+            this.modal.fileFormData.name
+        );
+        return formData;
+    }
+
+    protected addResourceAt(index: number, resource: T): void {
+        this.resources.splice(index, 0, resource);
+    }
+
+    protected replaceResourceAt(index: number, resource: T): void {
+        this.resources.splice(index, 1, resource);
+    }
+
+    protected deleteResourceAt(index: number): void {
+        this.resources.splice(index, 1);
     }
 }

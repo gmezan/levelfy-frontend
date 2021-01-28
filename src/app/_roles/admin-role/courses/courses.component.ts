@@ -1,14 +1,44 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import {
+    Component,
+    ComponentFactory,
+    ComponentFactoryResolver,
+    ComponentRef,
+    ElementRef,
+    OnInit,
+    ViewChild,
+    ViewContainerRef,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../shared/_models/course.model';
 import { Validators, FormBuilder } from '@angular/forms';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
+import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
+import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 
 const modalStrings = {
     create: { title: 'Create Course', submit: 'Create', cancel: 'Cancel' },
     edit: { title: 'Edit Course', submit: 'Save', cancel: 'Cancel' },
     delete: { title: 'Delete Course', submit: 'Delete', cancel: 'Cancel' },
+};
+
+const messagesAlert = {
+    create: {
+        success: 'Course created successfully',
+        error: 'There was an error creating this course, try again later',
+    },
+    edit: {
+        success: 'Course edited successfully',
+        error: 'There was an error updating this course, try again later',
+    },
+    delete: {
+        success: 'Course deleted correctly',
+        error: 'There was an error deleting this course, try again later',
+    },
+    image: {
+        success: 'Image uploaded correctly',
+        error: 'There was an error uploading the image, try again later',
+    },
 };
 
 @Component({
@@ -19,17 +49,23 @@ const modalStrings = {
 export class CoursesComponent
     extends ModalCrudComponent<Course>
     implements OnInit {
+    // For Alert:
+    @ViewChild(CustomAlertDirective, { static: true })
+    alertDirective: CustomAlertDirective;
+
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
         private elementRef: ElementRef,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private componentFactoryResolver: ComponentFactoryResolver
     ) {
         super(courseService, modalStrings, new Course());
         this.form = this.fillModal();
     }
 
     ngOnInit(): void {
+        // For multiple Courses
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
             this.title = 'Curso por universidad: ' + params.u || 'All';
@@ -44,110 +80,6 @@ export class CoursesComponent
                     .subscribe((data) => (this.resources = data));
             }
         });
-    }
-
-    onSelectFile(event) {
-        // called each time file input changes
-
-        this.modal.hasFile = true;
-        this.modal.file = event.target.files[0];
-    }
-
-    submitModalForm() {
-        if (!this.form.valid) {
-            alert('Invalid submit');
-        }
-
-        // Using Pessimistic update
-        let form = this.form.value;
-        let id: string = form.courseId.idCourse.concat(
-            '/',
-            form.courseId.university
-        );
-        let index: number = this.resources.indexOf(
-            this.resources.filter((r) => this.getId(r) === id)[0]
-        );
-
-        if (this.modal.isDelete) {
-            this.dataService.delete(id).subscribe(
-                (data) => {
-                    this.resources.splice(index, 1);
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        } else if (this.modal.isCreate) {
-            let originalLength = this.resources.length;
-            this.dataService.create(form).subscribe(
-                (data) => {
-                    // upload file
-                    if (this.modal.hasFile) {
-                        const formData = new FormData();
-                        formData.append(
-                            'file',
-                            this.modal.file,
-                            this.modal.file.name
-                        );
-                        this.courseService
-                            .uploadImageCourse(id, formData)
-                            .subscribe(
-                                (data2) => {
-                                    data.photo = data2.url;
-                                    this.resources.splice(
-                                        originalLength - 1,
-                                        0,
-                                        data
-                                    );
-                                },
-                                (error) => {
-                                    this.resources.splice(
-                                        originalLength - 1,
-                                        0,
-                                        data
-                                    );
-                                }
-                            );
-                    }
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        } else if (this.modal.isEdit) {
-            let originalCourse = this.resources[index];
-            this.dataService.update(form).subscribe(
-                (data) => {
-                    data.created = originalCourse.created;
-                    if (this.modal.hasFile) {
-                        const formData = new FormData();
-                        formData.append(
-                            'file',
-                            this.modal.file,
-                            this.modal.file.name
-                        );
-                        this.courseService
-                            .uploadImageCourse(id, formData)
-                            .subscribe(
-                                (data2) => {
-                                    data.photo = data2.url;
-                                    this.resources.splice(index, 1, data);
-                                },
-                                (error) => {
-                                    alert(
-                                        'Something went wrong uploading the image: ' +
-                                            error
-                                    );
-                                    this.resources.splice(index, 1, data);
-                                }
-                            );
-                    }
-                },
-                (error) => {
-                    console.log(error);
-                }
-            );
-        }
     }
 
     fillModal() {
@@ -207,5 +139,97 @@ export class CoursesComponent
             .join('o')
             .split('ú')
             .join('u');
+    }
+
+    onSubmitModalForm(resource, index, id) {
+        if (this.modal.isDelete)
+            this.dataService.delete(id).subscribe(
+                (data) => {
+                    this.deleteResourceAt(index);
+                    this.createAlertSuccess(messagesAlert.delete.success);
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.delete.error);
+                    console.log(error);
+                }
+            );
+        else if (this.modal.isCreate)
+            this.dataService.create(resource).subscribe(
+                (data) => {
+                    let originalLastIndex = this.resources.length - 1;
+                    this.addResourceAt(originalLastIndex, data);
+                    this.createAlertSuccess(messagesAlert.create.success);
+                    if (!this.modal.hasFile) return;
+                    this.courseService
+                        .uploadImage(id, this.obtainImageFormData())
+                        .subscribe(
+                            (imageData) => {
+                                data.photo = imageData.url;
+                                // Replace this new Data with the data (photo) updated
+                                this.replaceResourceAt(originalLastIndex, data);
+                            },
+                            (error) =>
+                                alert(
+                                    'Something went wrong uploading the image: ' +
+                                        error.toString()
+                                )
+                        );
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.create.error);
+                    console.log(error);
+                }
+            );
+        else if (this.modal.isEdit)
+            this.dataService.update(resource).subscribe(
+                (data) => {
+                    // Replace the Data with the data updated
+                    data.created = this.resources[index].created; //bug
+                    this.replaceResourceAt(index, data);
+                    this.createAlertSuccess(messagesAlert.edit.success);
+                    if (!this.modal.hasFile) return;
+                    this.courseService
+                        .uploadImage(id, this.obtainImageFormData())
+                        .subscribe(
+                            (imageData) => {
+                                data.photo = imageData.url;
+                                // Replace the updated Data with the data (photo) updated
+                                this.replaceResourceAt(index, data);
+                            },
+                            (error) =>
+                                alert(
+                                    'Something went wrong uploading the image: ' +
+                                        error.toString()
+                                )
+                        );
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.edit.error);
+                    console.log(error);
+                }
+            );
+    }
+
+    private createAlertSuccess(message: string) {
+        this.createAlert(true, message);
+    }
+
+    private createAlertError(message: string) {
+        this.createAlert(false, message);
+    }
+
+    private createAlert(isSuccess: boolean, message: string) {
+        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+            CustomAlertComponent
+        );
+
+        const viewContainerRef = this.alertDirective.viewContainerRef;
+        viewContainerRef.clear();
+
+        const componentRef = viewContainerRef.createComponent<CustomAlertComponent>(
+            componentFactory
+        );
+        componentRef.instance.isSuccess = isSuccess;
+        componentRef.instance.message = message;
     }
 }

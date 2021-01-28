@@ -13,6 +13,8 @@ import { NavbarAdminComponent } from './navbar/navbar-admin/navbar-admin.compone
 import { NavbarClientComponent } from './navbar/navbar-client/navbar-client.component';
 import { NavbarTeachComponent } from './navbar/navbar-teach/navbar-teach.component';
 import { NavbarModComponent } from './navbar/navbar-mod/navbar-mod.component';
+import { CustomAlertComponent } from './custom-alert/custom-alert.component';
+import { CustomAlertDirective } from './custom-alert/custom-alert.directive';
 
 @NgModule({
     declarations: [
@@ -27,6 +29,8 @@ import { NavbarModComponent } from './navbar/navbar-mod/navbar-mod.component';
         NavbarClientComponent,
         NavbarTeachComponent,
         NavbarModComponent,
+        CustomAlertComponent,
+        CustomAlertDirective,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -36,6 +40,7 @@ import { NavbarModComponent } from './navbar/navbar-mod/navbar-mod.component';
         CourseCardComponent,
         NavbarComponent,
         FooterComponent,
-    ]
+        CustomAlertDirective,
+    ],
 })
 export class SharedModule {}

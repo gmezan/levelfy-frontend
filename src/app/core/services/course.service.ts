@@ -43,10 +43,10 @@ export class CourseService extends DataService<Course> {
             .pipe(catchError(this.handleError));
     }
 
-    uploadImageCourse(id: string, formData: FormData): Observable<any> {
+    uploadImage(id: string, form: FormData): Observable<any> {
         if (!id) return null;
         let url = this.buildPath(this.apiUploadImage + id);
-        return this.http.post<any>(url, formData);
+        return this.http.post<any>(url, form);
     }
 
     /*

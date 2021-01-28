@@ -7,8 +7,11 @@ export class Modal {
         private _isCreate?: boolean,
         private _isEdit?: boolean,
         private _file?: any,
-        private _hasFile?: boolean
-    ) {}
+        private _hasFile?: boolean,
+        private _fileFormData?: any
+    ) {
+        this.file = '';
+    }
 
     modalCreate({ title, submit, cancel }) {
         this.isCreate = true;
@@ -16,7 +19,8 @@ export class Modal {
         this.submitButton = submit;
         this.cancelButton = cancel;
         this.hasFile = false;
-        this.file = null;
+        this.file = '';
+        this.fileFormData = null;
     }
 
     modalEdit({ title, submit, cancel }) {
@@ -25,7 +29,8 @@ export class Modal {
         this.submitButton = submit;
         this.cancelButton = cancel;
         this.hasFile = false;
-        this.file = null;
+        this.file = '';
+        this.fileFormData = null;
     }
 
     modalDelete({ title, submit, cancel }) {
@@ -34,7 +39,8 @@ export class Modal {
         this.submitButton = submit;
         this.cancelButton = cancel;
         this.hasFile = false;
-        this.file = null;
+        this.file = '';
+        this.fileFormData = null;
     }
 
     get title(): string {
@@ -105,5 +111,13 @@ export class Modal {
 
     set hasFile(value: boolean) {
         this._hasFile = value;
+    }
+
+    get fileFormData(): any {
+        return this._fileFormData;
+    }
+
+    set fileFormData(value: any) {
+        this._fileFormData = value;
     }
 }

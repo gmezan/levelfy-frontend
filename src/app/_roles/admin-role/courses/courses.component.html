@@ -15,6 +15,9 @@
             </form>
         </nav>
 
+        <div class='container'>
+            <ng-template appCustomAlert></ng-template>
+        </div>
 
         <div *ngIf='resources.length>0' class='table-responsive py-4'>
             <table id='dataTable' class="table table-hover table-dark table-bordered">
@@ -41,7 +44,7 @@
                         <td class='courseName'>{{course.name}}</td>
                         <td>{{course.cycle}}</td>
                         <td class='text-center'>
-                            <img width='200' height='auto' class="img rounded-lg px-auto mx-auto" [src]='course.photo' alt="">
+                            <img width='150' height='auto' class="img rounded-lg px-auto mx-auto" [src]='course.photo' alt="">
                         </td>
                         <td>{{course.description}}</td>
                         <td>{{course.created  | date:'mediumDate'}}</td>
