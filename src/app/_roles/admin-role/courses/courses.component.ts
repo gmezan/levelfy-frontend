@@ -70,16 +70,10 @@ export class CoursesComponent
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
             this.title = 'Curso por universidad: ' + params.u || 'All';
-            if (params.u) {
-                this.courseService
-                    .findCourseByCourseId_University(params.u)
-                    .subscribe((data) => (this.resources = data));
-            } else {
-                // No params, list all
-                this.courseService
-                    .getAll()
-                    .subscribe((data) => (this.resources = data));
-            }
+            let options = params.u ? { u: params.u } : null;
+            this.courseService
+                .getAll(options)
+                .subscribe((data) => (this.resources = data));
         });
     }
 

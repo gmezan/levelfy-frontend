@@ -15,7 +15,6 @@ const uri = '/model/course';
 export class CourseService extends DataService<Course> {
     // URI for all courses
     apiUriService = '/model/course/list';
-    apiUriCourseByUniv = '/model/course/univ';
     apiUploadImage = '/s3/course/';
 
     constructor(http: HttpClient) {
@@ -30,16 +29,6 @@ export class CourseService extends DataService<Course> {
 
         return this.http
             .get<Course[]>(this.buildPath(this.apiUriService), options)
-            .pipe(catchError(this.handleError));
-    }
-
-    findCourseByCourseId_University(u: string): Observable<Course[]> {
-        if (!u) return null;
-        let options = {
-            params: new HttpParams().set('u', u),
-        };
-        return this.http
-            .get<Course[]>(this.buildPath(this.apiUriCourseByUniv), options)
             .pipe(catchError(this.handleError));
     }
 
