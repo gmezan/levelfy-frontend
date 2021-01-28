@@ -29,8 +29,11 @@ export abstract class DataService<T> {
 
     // CRUD methods:
 
-    public getAll(): Observable<T[]> {
-        return this.http.get<T[]>(this.url).pipe(catchError(this.handleError));
+    public getAll(queryParams?: any): Observable<T[]> {
+        let params = queryParams || {};
+        return this.http
+            .get<T[]>(this.url, { params: params })
+            .pipe(catchError(this.handleError));
     }
 
     public get(id: string): Observable<T> {
