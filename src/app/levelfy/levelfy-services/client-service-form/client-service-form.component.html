@@ -42,21 +42,22 @@
 
                             </div>
 
-                            <!-- The actual form tag -->
-                            <app-service-form [service-type]="serviceType"></app-service-form>
+                            <!-- The actual form -->
+                            <ng-container [ngSwitch]="serviceType.key">
 
+                                <!-- Go to ../../../levelfy/util/services-types to check if the order is correct -->
+
+                                <app-ases-per [messageForTheButton]='messageForTheButton'  *ngSwitchCase="servicesTypes[0].key"></app-ases-per>
+
+                                <app-ases-paq [messageForTheButton]='messageForTheButton' *ngSwitchCase="servicesTypes[1].key"></app-ases-paq>
+
+                                <app-mar [messageForTheButton]='messageForTheButton' *ngSwitchCase="servicesTypes[2].key"></app-mar>
+
+                            </ng-container>
                         </div>
-
-
                     </div>
-
-
                 </div>
             </div>
-
-
-
-
         </div>
     </div>
 

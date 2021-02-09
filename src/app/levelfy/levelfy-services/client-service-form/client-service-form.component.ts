@@ -23,6 +23,9 @@ export class ClientServiceFormComponent implements OnInit {
     services: Service[] = [new Service()];
     course: Course = new Course();
 
+    messageForTheButton = 'La mejor asesoría a un click de distancia';
+    servicesTypes = servicesTypes;
+
     constructor(
         private route: ActivatedRoute,
         private serviceService: ServiceService,

@@ -4,14 +4,12 @@ import { SharedModule } from 'app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CourseSuggestionComponent } from './course-suggestion/course-suggestion.component';
-import { CoreModule } from '../../core/core.module';
 import { GeneralServiceComponent } from './general-service/general-service.component';
 import { ClientServiceFormComponent } from './client-service-form/client-service-form.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ServiceFormComponent } from './client-service-form/service-form/service-form.component';
-import { AsesPerComponent } from './client-service-form/service-form/ases-per/ases-per.component';
-import { AsesPaqComponent } from './client-service-form/service-form/ases-paq/ases-paq.component';
-import { MarComponent } from './client-service-form/service-form/mar/mar.component';
+import { AsesPerComponent } from './client-service-form/ases-per/ases-per.component';
+import { AsesPaqComponent } from './client-service-form/ases-paq/ases-paq.component';
+import { MarComponent } from './client-service-form/mar/mar.component';
 import { ServicesComponent } from './services/services.component';
 import { LevelfyServicesRoutingModule } from './levelfy-services.routing';
 
@@ -20,12 +18,10 @@ import { LevelfyServicesRoutingModule } from './levelfy-services.routing';
         CourseSuggestionComponent,
         GeneralServiceComponent,
         ClientServiceFormComponent,
-        ServiceFormComponent,
         AsesPerComponent,
         AsesPaqComponent,
         MarComponent,
         ServicesComponent,
-
     ],
     imports: [
         CommonModule,
@@ -33,8 +29,8 @@ import { LevelfyServicesRoutingModule } from './levelfy-services.routing';
         SharedModule,
         FontAwesomeModule,
         RouterModule,
-        LevelfyServicesRoutingModule
+        LevelfyServicesRoutingModule,
     ],
-    bootstrap: []
+    bootstrap: [],
 })
 export class LevelfyServicesModule {}
