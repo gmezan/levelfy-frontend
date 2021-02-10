@@ -1,7 +1,7 @@
 import { FormGroup } from '@angular/forms';
 import { Modal } from '../../shared/_dto/modal.model';
 import { DataService } from './data-service.service';
-import { ViewChild, ViewContainerRef } from '@angular/core';
+import { ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Course } from '../../shared/_models/course.model';
 
 export abstract class ModalCrudComponent<T> {
@@ -9,25 +9,19 @@ export abstract class ModalCrudComponent<T> {
     title: string;
     form: FormGroup;
     modal = new Modal();
-    dataService: DataService<T>;
-    modalStrings;
 
     // Resources
     resources: T[];
     resource: T;
 
-    // Must not change
-    newResource: T;
-
     protected constructor(
-        dataService: DataService<T>,
-        modalStrings: any,
-        newResource: T
+        protected dataService: DataService<T>,
+        protected modalStrings: any,
+        protected newResource: T,
+        protected searchBarSelector: string,
+        protected elementRef: ElementRef
     ) {
-        this.dataService = dataService;
-        this.modalStrings = modalStrings;
         this.resource = newResource;
-        this.newResource = newResource;
     }
 
     // Methods to be implemented by the Component
@@ -111,5 +105,39 @@ export abstract class ModalCrudComponent<T> {
 
     protected deleteResourceAt(index: number): void {
         this.resources.splice(index, 1);
+    }
+
+    // Methods for the search bar:
+    keyupEnterSearchBar($event) {
+        this.elementRef.nativeElement
+            .querySelectorAll(this.searchBarSelector)
+            .forEach((el) => {
+                el.parentElement.hidden =
+                    $event.target.value &&
+                    !ModalCrudComponent.refactorString(el.innerHTML)
+                        .toString()
+                        .includes(
+                            ModalCrudComponent.refactorString(
+                                $event.target.value
+                            )
+                        );
+            });
+
+        $event.preventDefault();
+    }
+
+    protected static refactorString(value: string): string {
+        return value
+            .toLowerCase()
+            .split('á')
+            .join('a')
+            .split('é')
+            .join('e')
+            .split('í')
+            .join('i')
+            .split('ó')
+            .join('o')
+            .split('ú')
+            .join('u');
     }
 }

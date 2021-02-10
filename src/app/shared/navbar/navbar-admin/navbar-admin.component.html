@@ -3,8 +3,7 @@
         <!-- TODO: Order the navbar -->
         <li
             routerLinkActive="active current"
-            class="nav-item dropdown no-caret"
-        >
+            class="nav-item dropdown no-caret">
             <a
                 class="nav-link dropdown-toggle"
                 id="navbarDropdownCoursesAdmin"
@@ -13,20 +12,17 @@
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                >Cursos<i class="fas fa-chevron-right dropdown-arrow"></i
-            ></a>
+                >Cursos<i class="fas fa-chevron-right dropdown-arrow"></i>
+            </a>
             <div
                 class="dropdown-menu dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownCoursesAdmin"
-            >
+                aria-labelledby="navbarDropdownCoursesAdmin">
                 <div *ngFor="let univ of universities">
                     <a
                         class="dropdown-item py-3"
                         [routerLink]="['/a/courses']"
-                        [queryParams]="{ u: univ }"
-                    >
-                        <div>
-                            <div class="small text-gray-500">{{ univ }}</div>
+                        [queryParams]="{ u: univ }">
+                        <div><div class="small text-gray-500">{{ univ }}</div>
                         </div>
                     </a>
                     <div class="dropdown-divider m-0"></div>
@@ -50,18 +46,16 @@
                 ><span class="font-weight-bold small">{{
                     authService.getCurrentUser().fullName
                 }}</span
-                ><i class="fas fa-chevron-right dropdown-arrow"></i
-            ></a>
+                ><i class="fas fa-chevron-right dropdown-arrow"></i>
+            </a>
 
             <div
                 class="dropdown-menu bg-danger dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownDocs"
-            >
+                aria-labelledby="navbarDropdownDocs">
                 <a
                     (click)="authService.logout()"
                     type="button"
-                    class="bg-danger dropdown-item py-1"
-                >
+                    class="bg-danger dropdown-item py-1">
                     <div class="text-gray-100">
                         <b>Cerrar Sesión</b>
                     </div>
@@ -72,7 +66,5 @@
     <a
         *ngIf="!authService.isLoggedIn()"
         class="btn font-weight-500 rounded-pill btn-success"
-        routerLink="/login"
-        >Iniciar Sesión</a
-    >
+        routerLink="/login">Iniciar Sesión</a>
 </div>
