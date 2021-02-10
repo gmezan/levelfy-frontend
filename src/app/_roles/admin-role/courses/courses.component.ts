@@ -1,12 +1,9 @@
 import {
     Component,
-    ComponentFactory,
     ComponentFactoryResolver,
-    ComponentRef,
     ElementRef,
     OnInit,
     ViewChild,
-    ViewContainerRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
@@ -42,6 +39,8 @@ const messagesAlert = {
     },
 };
 
+const searchBarSelector = '.courseName';
+
 @Component({
     selector: 'app-courses',
     templateUrl: './courses.component.html',
@@ -57,11 +56,17 @@ export class CoursesComponent
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
-        private elementRef: ElementRef,
+        protected elementRef: ElementRef,
         private fb: FormBuilder,
         private componentFactoryResolver: ComponentFactoryResolver
     ) {
-        super(courseService, modalStrings, new Course());
+        super(
+            courseService,
+            modalStrings,
+            new Course(),
+            searchBarSelector,
+            elementRef
+        );
         this.form = this.fillModal();
     }
 
@@ -102,38 +107,6 @@ export class CoursesComponent
 
     getId(course: Course): string {
         return course.courseId.idCourse.concat('/', course.courseId.university);
-    }
-
-    // Methods for the search bar:
-    keyupEnterSearchBar($event) {
-        this.elementRef.nativeElement
-            .querySelectorAll('.courseName')
-            .forEach((el) => {
-                el.parentElement.hidden =
-                    $event.target.value &&
-                    !CoursesComponent.refactorString(el.innerHTML)
-                        .toString()
-                        .includes(
-                            CoursesComponent.refactorString($event.target.value)
-                        );
-            });
-
-        $event.preventDefault();
-    }
-
-    private static refactorString(value: string): string {
-        return value
-            .toLowerCase()
-            .split('á')
-            .join('a')
-            .split('é')
-            .join('e')
-            .split('í')
-            .join('i')
-            .split('ó')
-            .join('o')
-            .split('ú')
-            .join('u');
     }
 
     onSubmitModalForm(resource, index, id) {
