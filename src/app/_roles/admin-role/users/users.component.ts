@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
+import { Roles } from '../../../core/util/roles.data';
 
 const modalStrings = {
   create: { title: 'Create User', submit: 'Create User', cancel: 'Cancel' },
@@ -32,6 +33,8 @@ const messagesAlert = {
   },
 };
 
+const searchBarSelector = '.fullName';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -48,17 +51,21 @@ export class UsersComponent
       private route: ActivatedRoute,
       private fb: FormBuilder,
       private userService: UserService,
-      private elementRef: ElementRef,
+      protected elementRef: ElementRef,
       private componentFactoryResolver: ComponentFactoryResolver
   ) {
-    super(userService, modalStrings, new User());
+    super(userService,
+        modalStrings,
+        new User(),
+        searchBarSelector,
+        elementRef);
     this.form = this.fillModal();
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.resources = [];
-      this.title = 'Personas: ' + (params.r || 'Moderadores') + ' - ' +
+      this.title = 'Personas: ' + (Roles[params.r - 1] || 'Moderadores') + ' - ' +
                    'Universidad: ' + (params.u || 'PUCP') ;
       let options = params.u ? {u: params.u, r: params.r} : null;
       this.userService
@@ -88,38 +95,6 @@ export class UsersComponent
 
   getId(user: User): string {
     return user.idUser.toString();
-  }
-
-  // Methods for the search bar:
-  keyupEnterSearchBar($event) {
-    this.elementRef.nativeElement
-        .querySelectorAll('.courseName')
-        .forEach((el) => {
-          el.parentElement.hidden =
-              $event.target.value &&
-              !UsersComponent.refactorString(el.innerHTML)
-                  .toString()
-                  .includes(
-                      UsersComponent.refactorString($event.target.value)
-                  );
-        });
-
-    $event.preventDefault();
-  }
-
-  private static refactorString(value: string): string {
-    return value
-        .toLowerCase()
-        .split('á')
-        .join('a')
-        .split('é')
-        .join('e')
-        .split('í')
-        .join('i')
-        .split('ó')
-        .join('o')
-        .split('ú')
-        .join('u');
   }
 
   onSubmitModalForm(resource: User, index, id) {
@@ -159,6 +134,11 @@ export class UsersComponent
             console.log(error);
           }
       );
+  }
+
+  key(event) {
+    console.log(event);
+    event.preventDefault();
   }
 
   private createAlertSuccess(message: string) {

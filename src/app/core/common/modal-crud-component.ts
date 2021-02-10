@@ -111,9 +111,11 @@ export abstract class ModalCrudComponent<T> {
 
     // Methods for the search bar:
     keyupEnterSearchBar($event) {
+        console.log('aea');
         this.elementRef.nativeElement
             .querySelectorAll(this.searchBarSelector)
             .forEach((el) => {
+                console.log('inside');
                 el.parentElement.hidden =
                     $event.target.value &&
                     !ModalCrudComponent.refactorString(el.innerHTML)
