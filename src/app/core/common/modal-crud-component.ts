@@ -65,6 +65,7 @@ export abstract class ModalCrudComponent<T> {
                 alert('Something wrong happened: ' + error);
             }
         );
+        console.log('modalDelete is okay');
     }
 
     onSelectFile(event) {
@@ -77,6 +78,7 @@ export abstract class ModalCrudComponent<T> {
     submitModalForm() {
         // Using Pessimistic update
         if (!this.form.valid) {
+            console.log()
             alert('Invalid submit');
             return;
         }

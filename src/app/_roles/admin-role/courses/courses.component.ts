@@ -69,7 +69,7 @@ export class CoursesComponent
         // For multiple Courses
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
-            this.title = 'Curso por universidad: ' + params.u || 'All';
+            this.title = 'Curso por universidad: ' + (params.u || 'All');
             let options = params.u ? { u: params.u } : null;
             this.courseService
                 .getAll(options)

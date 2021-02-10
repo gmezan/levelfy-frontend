@@ -1,0 +1,223 @@
+<section class='py-5 bg-light'>
+    <div class='container-fluid'>
+
+        <nav class="navbar navbar-light bg-light justify-content-between py-2">
+            <h2 class='font-weight-800'>{{title}}</h2>
+            <form class="form-inline">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search">
+            </form>
+        </nav>
+        <nav class="navbar navbar-light bg-light justify-content-end">
+            <form class="form-inline">
+                <button (click)='modalCreate()' class="btn btn-success" type="button" data-toggle="modal" data-target="#crudModal">
+                    Create
+                </button>
+            </form>
+        </nav>
+
+        <div class='container'>
+            <ng-template appCustomAlert></ng-template>
+        </div>
+
+        <div *ngIf='resources.length>0' class='table-responsive py-4'>
+            <table id='dataTable' class="table table-hover table-dark table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Fullname</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Balance</th>
+                    <th scope="col">University</th>
+                    <th scope='col'>Coupon</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class='courseRow' *ngFor='let user of resources | slice:0:10; let index = index' >
+                    <th scope="row">{{index}}</th>
+                    <td>{{user.code}}</td>
+                    <td class='fullname'>{{user.fullName}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.balance}}</td>
+                    <td>{{user.university}}</td>
+                    <td>{{user.coupon}}</td>
+                    <td>{{user.created  | date:'mediumDate'}}</td>
+                    <td>{{user.modified  | date:'mediumDate'}}</td>
+                    <td>
+                        <button (click)='modalEdit(this.getId(user))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button (click)='modalDelete(this.getId(user))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf='resources.length===0' class='container py-5'>
+            <h3 class='text-primary'>Empty list</h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
+
+                <p *ngIf='modal.isDelete'>
+                    Are you sure you want to delete: {{resource.idUser}}?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='submitModalForm()'
+                        [disabled]='!modal.isDelete && (!form.dirty || form.invalid)'
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+                <button type="button" class='btn' data-dismiss='modal'
+                        [disabled]='form.invalid'>CHECK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #formModal>
+    <form [hidden]='modal.isDelete' [formGroup]='form' >
+        <div class="form-row" >
+            <div class="form-group col-md-6">
+                <label for="idUser">User Id</label>
+                <input
+                    formControlName='idUser'
+                    [readOnly]='modal.isEdit'
+                    type="number"
+                    class="form-control"
+                    id="idUser"
+                    placeholder="idUser">
+                <div class='alert alert-danger p-1' *ngIf="form.get('idUser').touched && form.get('idUser').invalid">
+                    <div *ngIf="form.get('idUser').errors.required">User Id is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="code">Code</label>
+                <input [readOnly]='modal.isEdit'
+                       type="text"
+                       formControlName='code'
+                       class="form-control"
+                       id="code"
+                       placeholder="University">
+                <div class='alert alert-danger p-1' *ngIf="form.get('code').touched && form.get('code').invalid">
+                    <div *ngIf="form.get('code').errors.required">Code is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputName">Name</label>
+                <input type="text" formControlName='name' class="form-control" id="inputName" placeholder="Name">
+                <div class='alert alert-danger p-1' *ngIf="form.get('name').touched && form.get('name').invalid">
+                    <div *ngIf="form.get('name').errors.required">Name is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputLastName">LastName</label>
+                <input type="text" formControlName='lastname' class="form-control" id="inputLastName" placeholder="LastName">
+                <div class='alert alert-danger p-1' *ngIf="form.get('lastname').touched && form.get('lastname').invalid">
+                    <div *ngIf="form.get('lastname').errors.required">Cycle is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail">Email</label>
+                <input type="text" formControlName='email' class="form-control" id="inputEmail" placeholder="Email">
+                <div class='alert alert-danger p-1' *ngIf="form.get('email').touched && form.get('email').invalid">
+                    <div *ngIf="form.get('name').errors.required">Name is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputPhone">Phone</label>
+                <input type="number" formControlName='phone' class="form-control" id="inputPhone" placeholder="Phone">
+                <div class='alert alert-danger p-1' *ngIf="form.get('phone').touched && form.get('phone').invalid">
+                    <div *ngIf="form.get('phone').errors.required">Cycle is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputBalance">Balance</label>
+                <input type="number" formControlName='balance' class="form-control" id="inputBalance" placeholder="balance">
+                <div class='alert alert-danger p-1' *ngIf="form.get('balance').touched && form.get('balance').invalid">
+                    <div *ngIf="form.get('name').errors.required">Balance is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputCoupon">Coupon</label>
+                <input type="text" formControlName='coupon' class="form-control" id="inputCoupon" placeholder="Coupon">
+                <div class='alert alert-danger p-1' *ngIf="form.get('coupon').touched && form.get('coupon').invalid">
+                    <div *ngIf="form.get('coupon').errors.required">Coupon is required</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputUniversity">University</label>
+                <input type="text" formControlName='university' class="form-control" id="inputUniversity" placeholder="University">
+                <div class='alert alert-danger p-1' *ngIf="form.get('university').touched && form.get('university').invalid">
+                    <div *ngIf="form.get('university').errors.required">Balance is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputActive">Active</label>
+                <input type="text" formControlName='active' class="form-control" id="inputActive" placeholder="Active">
+                <div class='alert alert-danger p-1' *ngIf="form.get('active').touched && form.get('active').invalid">
+                    <div *ngIf="form.get('active').errors.required">Coupon is required</div>
+                </div>
+            </div>
+        </div>
+
+
+
+    </form>
+
+</ng-template>
