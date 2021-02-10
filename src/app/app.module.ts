@@ -65,7 +65,7 @@ import { resourceInterceptor } from './core/interceptors/resource.interceptor';
                     {
                         id: GoogleLoginProvider.PROVIDER_ID,
                         provider: new GoogleLoginProvider(
-                            '50340193168-296shkdcb8ossqrgh769vuqqh8pr58mm.apps.googleusercontent.com'
+                            '1072431320227-1jlu2vt2jras2d7ku1br4b0h51m0janc.apps.googleusercontent.com'
                         ),
                     },
                     {
