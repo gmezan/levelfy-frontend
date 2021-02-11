@@ -88,7 +88,10 @@ export class CoursesComponent
             let queryParams = params.u ? { u: params.u } : null;
             this.courseService
                 .getAll(queryParams)
-                .subscribe((data) => (this.resources = data));
+                .subscribe((data) => {
+                    this.resources = data;
+                    this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
+                });
         });
     }
 

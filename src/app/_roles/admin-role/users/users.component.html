@@ -42,6 +42,10 @@
         </div>
 
         <div *ngIf='resources.length>0' class='table-responsive py-4'>
+            <mat-paginator [length]='resources.length'
+                           [pageSize]='pageSize'
+                           [pageSizeOptions]='pageSizeOptions'
+                           (page)='handlePage($event)'></mat-paginator>
             <table id='dataTable' class="table table-hover table-dark table-bordered">
                 <thead>
                 <tr>
@@ -60,7 +64,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class='courseRow' *ngFor='let user of resources | slice:0:10; let index = index' >
+                <tr class='courseRow' *ngFor='let user of resourcesSliced; let index = index' >
                     <th scope="row">{{index}}</th>
                     <td>{{user.code}}</td>
                     <td class='fullName'>{{user.fullName}}</td>

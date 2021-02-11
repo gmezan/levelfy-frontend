@@ -51,6 +51,7 @@ export class UsersComponent
   @ViewChild(CustomAlertDirective, { static: true })
   alertDirective: CustomAlertDirective;
 
+  // variables used to find users by role and university
   queryParams = queryParams;
   rolesSelector: string[];
   universitiesSelector: string[];
@@ -92,8 +93,7 @@ export class UsersComponent
           .getAll(options)
           .subscribe((data) => {
             this.resources = data;
-            console.log(data[0]);
-            console.log(data);
+            this.resourcesSliced = this.resources.slice((this.pageNumber - 1)* this.pageSize,this.pageNumber*this.pageSize)
           });
     });
   }
@@ -179,11 +179,6 @@ export class UsersComponent
             console.log(error);
           }
       );
-  }
-
-  key(event) {
-    console.log(event);
-    event.preventDefault();
   }
 
   protected createAlert(isSuccess: boolean, message: string) {

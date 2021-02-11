@@ -1,16 +1,25 @@
 import { FormGroup } from '@angular/forms';
 import { Modal } from '../../shared/_dto/modal.model';
 import { DataService } from './data-service.service';
-import { ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { Course } from '../../shared/_models/course.model';
+import { ElementRef } from '@angular/core';
 import { universitiesData } from '../util/universities.data';
 import { Roles } from '../util/roles.data';
+import { PageEvent } from '@angular/material/paginator';
+import { Course } from '../../shared/_models/course.model';
+
+const pageSizeOptions = [5, 10, 20, 30];
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
     title: string;
     form: FormGroup;
     modal = new Modal();
+
+    // variables to paginate
+    pageSize = 5;
+    pageSizeOptions = pageSizeOptions;
+    pageNumber = 1;
+    resourcesSliced: T[];
 
     // Resources
     resources: T[];
@@ -114,6 +123,13 @@ export abstract class ModalCrudComponent<T> {
 
     protected deleteResourceAt(index: number): void {
         this.resources.splice(index, 1);
+    }
+
+    // Method to handle PageEvent
+    handlePage(e: PageEvent): void {
+        this.pageSize = e.pageSize;
+        this.pageNumber = e.pageIndex + 1;
+        this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
     }
 
     // Methods for the search bar:

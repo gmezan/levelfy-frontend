@@ -33,6 +33,7 @@ import {
     FacebookLoginProvider,
 } from 'angularx-social-login';
 import { resourceInterceptor } from './core/interceptors/resource.interceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [AppComponent],
@@ -54,6 +55,7 @@ import { resourceInterceptor } from './core/interceptors/resource.interceptor';
 
         SocialLoginModule,
         ReactiveFormsModule,
+        BrowserAnimationsModule,
     ],
     providers: [
         { provide: ErrorHandler, useClass: MyErrorHandler },

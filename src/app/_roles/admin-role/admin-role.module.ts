@@ -8,6 +8,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [AdminComponent, CoursesComponent, UsersComponent, ServicesComponent],
@@ -17,6 +18,7 @@ import { ServicesComponent } from './services/services.component';
         SharedModule,
         FontAwesomeModule,
         ReactiveFormsModule,
+        MatPaginatorModule
     ],
 })
 export class AdminRoleModule {}
