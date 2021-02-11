@@ -6,7 +6,7 @@
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title}}</label>
                     <select #mySelect2
-                            (change)='onOptionsSelected(null,mySelect2.value,"SearchUser")'
+                            (change)='onOptionsSelected(null,mySelect2.value)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='rolSelector'>
@@ -16,7 +16,7 @@
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title2}}</label>
                     <select #mySelect
-                            (change)='onOptionsSelected(mySelect.value,null, "SearchUser")'
+                            (change)='onOptionsSelected(mySelect.value,null)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='universitySelector'>

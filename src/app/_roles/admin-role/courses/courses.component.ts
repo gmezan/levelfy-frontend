@@ -58,7 +58,7 @@ export class CoursesComponent
     universitiesSelector: string[];
 
     constructor(
-        private router: Router,
+        protected router: Router,
         private route: ActivatedRoute,
         private courseService: CourseService,
         protected elementRef: ElementRef,
@@ -70,7 +70,9 @@ export class CoursesComponent
             modalStrings,
             new Course(),
             searchBarSelector,
-            elementRef
+            elementRef,
+            router,
+            path
         );
         this.form = this.fillModal();
         this.universitiesSelector = [];
@@ -93,12 +95,6 @@ export class CoursesComponent
                     this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
                 });
         });
-    }
-
-    onOptionsSelected(value: string) {
-        let queryParams = value != 'All' ? { u: value } : null;
-        console.log(value);
-        this.router.navigate([path], { queryParams: queryParams });
     }
 
     fillModal() {

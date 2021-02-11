@@ -55,7 +55,7 @@ export class ServicesComponent
     @ViewChild(CustomAlertDirective, { static: true })
     alertDirective: CustomAlertDirective;
     constructor(
-        private router: Router,
+        protected router: Router,
         private route: ActivatedRoute,
         private serviceService: ServiceService,
         protected elementRef: ElementRef,
@@ -67,7 +67,9 @@ export class ServicesComponent
             modalStrings,
             new Service(),
             searchBarSelector,
-            elementRef
+            elementRef,
+            router,
+            path
         );
         this.form = this.fillModal();
         this.universities.splice(0, 0, 'All');

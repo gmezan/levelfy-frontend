@@ -5,15 +5,21 @@ import { ElementRef } from '@angular/core';
 import { universitiesData } from '../util/universities.data';
 import { Roles } from '../util/roles.data';
 import { PageEvent } from '@angular/material/paginator';
-import { Course } from '../../shared/_models/course.model';
+import { Router } from '@angular/router';
 
 const pageSizeOptions = [5, 10, 20, 30];
+const queryParams = {u: 'PUCP', r: 'ADMIN'}
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
     title: string;
     form: FormGroup;
     modal = new Modal();
+    // variables used to find users by role and university
+    queryParams = queryParams;
+    rolesSelector: string[];
+    universitiesSelector: string[];
+    title2: string;
 
     // variables to paginate
     pageSize = 5;
@@ -35,7 +41,9 @@ export abstract class ModalCrudComponent<T> {
         protected modalStrings: any,
         protected newResource: T,
         protected searchBarSelector: string,
-        protected elementRef: ElementRef
+        protected elementRef: ElementRef,
+        protected router: Router,
+        protected path: string
     ) {
         this.resource = newResource;
     }
@@ -76,6 +84,25 @@ export abstract class ModalCrudComponent<T> {
             }
         );
         console.log('modalDelete is okay');
+    }
+
+    onOptionsSelected(univ: string, rol: string, type: string) {
+        console.log(univ,rol);
+        let queryParams2 = univ != 'All' ? { u: univ } : null;
+        if (univ!=null && type =='SearchUser') {
+            this.queryParams.u = univ;
+            this.queryParams.r = this.queryParams.r || '1';
+        } else if (rol!=null && type == 'SearchUser') {
+            this.queryParams.u = this.queryParams.u || 'PUCP';
+            this.queryParams.r = Roles[rol] + 1;
+        } else if (univ!=null && type =='SearchCourse') {
+            queryParams2 = univ != 'All' ? { u: univ } : null;
+        }
+        if (type == 'SearchUser') {
+            this.router.navigate([this.path], { queryParams: this.queryParams });
+        } else if (type == 'SearchCourse') {
+            this.router.navigate([this.path], { queryParams: queryParams2 });
+        }
     }
 
     onSelectFile(event) {

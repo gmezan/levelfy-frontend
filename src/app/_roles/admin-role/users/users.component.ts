@@ -10,8 +10,6 @@ import { Roles } from '../../../core/util/roles.data';
 
 const path = '/a/users'
 
-const queryParams = {u: 'PUCP', r: 'ADMIN'}
-
 const modalStrings = {
   create: { title: 'Create User', submit: 'Create User', cancel: 'Cancel' },
   edit: { title: 'Edit User', submit: 'Save', cancel: 'Cancel' },
@@ -51,14 +49,10 @@ export class UsersComponent
   @ViewChild(CustomAlertDirective, { static: true })
   alertDirective: CustomAlertDirective;
 
-  // variables used to find users by role and university
-  queryParams = queryParams;
-  rolesSelector: string[];
-  universitiesSelector: string[];
-  title2: string;
+
 
   constructor(
-      private router: Router,
+      protected router: Router,
       private route: ActivatedRoute,
       private fb: FormBuilder,
       private userService: UserService,
@@ -69,7 +63,9 @@ export class UsersComponent
         modalStrings,
         new User(),
         searchBarSelector,
-        elementRef);
+        elementRef,
+        router,
+        path);
     this.form = this.fillModal();
     this.universitiesSelector = [];
     this.universities.forEach((u) => {
@@ -96,19 +92,6 @@ export class UsersComponent
             this.resourcesSliced = this.resources.slice((this.pageNumber - 1)* this.pageSize,this.pageNumber*this.pageSize)
           });
     });
-  }
-
-  onOptionsSelected(univ: string, rol: string) {
-    console.log(univ,rol);
-    if (univ!=null) {
-      this.queryParams.u = univ;
-      this.queryParams.r = this.queryParams.r || '1';
-    } else if (rol!=null) {
-      this.queryParams.u = this.queryParams.u || 'PUCP';
-      this.queryParams.r = Roles[rol] + 1;
-    }
-    console.log(this.queryParams);
-    this.router.navigate([path], { queryParams: this.queryParams });
   }
 
   onUnivOptionsSelected(value: string) {
