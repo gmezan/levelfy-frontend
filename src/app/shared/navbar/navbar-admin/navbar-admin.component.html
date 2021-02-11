@@ -1,102 +1,19 @@
 <div class='collapse navbar-collapse' id='navbarSupportedContent' xmlns='http://www.w3.org/1999/html'>
     <ul class="navbar-nav ml-auto mr-lg-4">
         <!-- TODO: Order the navbar -->
-        <li
-            routerLinkActive="active current"
-            class="nav-item dropdown no-caret">
-            <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownUnivAdmin"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >Universidad: {{params.u}}<i class="fas fa-chevron-right dropdown-arrow"></i>
-            </a>
-            <div
-                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownUnivAdmin">
-                <div *ngFor="let univ of universities">
-                    <button
-                        class="dropdown-item py-3"
-                        (click)='setUnivParam(univ)'>
-                        <div><div class="small text-gray-500">{{ univ }}</div>
-                        </div>
-                    </button>
-                </div>
-            </div>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/a/users']" class="nav-link">Users</a>
         </li>
-        <li
-            routerLinkActive="active current"
-            class="nav-item dropdown no-caret">
-            <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownRolAdmin"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >Rol: {{rolStart}}<i class="fas fa-chevron-right dropdown-arrow"></i>
-            </a>
-            <div
-                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownRolAdmin">
-                <div *ngFor="let rol of roles">
-                    <button
-                        class="dropdown-item py-3"
-                        (click)='setRolParam(rol)'>
-                        <div><div class="small text-gray-500">{{ rol }}</div>
-                        </div>
-                    </button>
-                </div>
-            </div>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/a/services']" class="nav-link">Services</a>
         </li>
-        <li
-            routerLinkActive="active current"
-            class="nav-item button no-caret">
-            <a
-                class="nav-link"
-                id="searchUser"
-                href="#"
-                role="button"
-                [routerLink]="['/a/users']"
-                [queryParams]="{ u: params.u, r: params.r }">GO!</a>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/a/courses']" class="nav-link">Courses</a>
         </li>
-        <li
-            routerLinkActive="active current"
-            class="nav-item dropdown no-caret">
-            <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownCoursesAdmin"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                >Cursos<i class="fas fa-chevron-right dropdown-arrow"></i>
-            </a>
-            <div
-                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownCoursesAdmin">
-                <div *ngFor="let univ of universities">
-                    <a
-                        class="dropdown-item py-3"
-                        [routerLink]="['/a/courses']"
-                        [queryParams]="{ u: univ }">
-                        <div><div class="small text-gray-500">{{ univ }}</div>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider m-0"></div>
-                </div>
-                <a class="dropdown-item py-3" [routerLink]="['/a/courses']">
-                    <div>
-                        <div class="small text-gray-500"><b>All</b></div>
-                    </div>
-                </a>
-            </div>
-        </li>
+
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">
             <a
                 class="nav-link dropdown-toggle"

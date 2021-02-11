@@ -7,9 +7,10 @@ import { CoursesComponent } from './courses/courses.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
+import { ServicesComponent } from './services/services.component';
 
 @NgModule({
-    declarations: [AdminComponent, CoursesComponent, UsersComponent],
+    declarations: [AdminComponent, CoursesComponent, UsersComponent, ServicesComponent],
     imports: [
         CommonModule,
         AdminRoleRoutingModule,
