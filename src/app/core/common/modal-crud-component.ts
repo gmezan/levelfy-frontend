@@ -148,4 +148,14 @@ export abstract class ModalCrudComponent<T> {
             .split('ú')
             .join('u');
     }
+
+    protected createAlertSuccess(message: string) {
+        this.createAlert(true, message);
+    }
+
+    protected createAlertError(message: string) {
+        this.createAlert(false, message);
+    }
+
+    protected abstract createAlert(isSuccess: boolean, message: string);
 }

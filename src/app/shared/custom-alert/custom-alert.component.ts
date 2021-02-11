@@ -9,6 +9,11 @@ export class CustomAlertComponent implements OnInit {
     @Input() isSuccess: boolean = true;
     @Input() message: string = '';
 
+    public setValues(isSuccess: boolean, message: string) {
+        this.isSuccess = isSuccess;
+        this.message = message;
+    }
+
     constructor() {}
 
     ngOnInit(): void {}

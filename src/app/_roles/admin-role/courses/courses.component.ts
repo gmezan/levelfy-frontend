@@ -55,6 +55,8 @@ export class CoursesComponent
     @ViewChild(CustomAlertDirective, { static: true })
     alertDirective: CustomAlertDirective;
 
+    universitiesSelector: string[];
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -71,7 +73,11 @@ export class CoursesComponent
             elementRef
         );
         this.form = this.fillModal();
-        this.universities.splice(0, 0, 'All');
+        this.universitiesSelector = [];
+        this.universities.forEach((u) => {
+            this.universitiesSelector.push(u);
+        });
+        this.universitiesSelector.splice(0, 0, 'All');
     }
 
     ngOnInit(): void {
@@ -188,26 +194,16 @@ export class CoursesComponent
             );
     }
 
-    private createAlertSuccess(message: string) {
-        this.createAlert(true, message);
-    }
-
-    private createAlertError(message: string) {
-        this.createAlert(false, message);
-    }
-
-    private createAlert(isSuccess: boolean, message: string) {
-        const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-            CustomAlertComponent
-        );
-
+    protected createAlert(isSuccess: boolean, message: string) {
         const viewContainerRef = this.alertDirective.viewContainerRef;
         viewContainerRef.clear();
 
-        const componentRef = viewContainerRef.createComponent<CustomAlertComponent>(
-            componentFactory
-        );
-        componentRef.instance.isSuccess = isSuccess;
-        componentRef.instance.message = message;
+        viewContainerRef
+            .createComponent<CustomAlertComponent>(
+                this.componentFactoryResolver.resolveComponentFactory(
+                    CustomAlertComponent
+                )
+            )
+            .instance.setValues(isSuccess, message);
     }
 }

@@ -10,7 +10,7 @@
                             class='form-control custom-select mx-3'
                             name='university'
                             id='universitySelector'>
-                        <option *ngFor='let u of universities' [value]='u' >{{u}}</option>
+                        <option *ngFor='let u of universitiesSelector' [value]='u' >{{u}}</option>
                     </select>
                 </div>
             </form>
@@ -135,12 +135,12 @@
 
             <div class="form-group col-md-6">
                 <label for="university">University</label>
-                <input [readOnly]='modal.isEdit'
-                       type="text"
+                <select [attr.disabled]='modal.isEdit ? "" : null'
                        formControlName='university'
-                       class="form-control"
-                       id="university"
-                       placeholder="University">
+                       class="form-control custom-select"
+                       id="university">
+                    <option *ngFor='let u of universities' [value]='u' >{{u}}</option>
+                </select>
                 <div class='alert alert-danger p-1' *ngIf="form.get('courseId').get('university').touched && form.get('courseId').get('university').invalid">
                     <div *ngIf="form.get('courseId').get('university').errors.required">University is required</div>
                 </div>
