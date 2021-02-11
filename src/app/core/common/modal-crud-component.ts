@@ -3,6 +3,7 @@ import { Modal } from '../../shared/_dto/modal.model';
 import { DataService } from './data-service.service';
 import { ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Course } from '../../shared/_models/course.model';
+import { universitiesData } from '../util/universities.data';
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
@@ -13,6 +14,9 @@ export abstract class ModalCrudComponent<T> {
     // Resources
     resources: T[];
     resource: T;
+
+    // Additional
+    universities = universitiesData;
 
     protected constructor(
         protected dataService: DataService<T>,
@@ -72,7 +76,7 @@ export abstract class ModalCrudComponent<T> {
     submitModalForm() {
         // Using Pessimistic update
         if (!this.form.valid) {
-            console.log()
+            console.log();
             alert('Invalid submit');
             return;
         }

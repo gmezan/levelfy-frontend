@@ -5,7 +5,7 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
 import { Course } from '../../../shared/_models/course.model';
 import { Validators, FormBuilder } from '@angular/forms';
@@ -13,6 +13,8 @@ import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 import { CourseValidator } from '../../../core/validators/course.validator';
+
+const path = '/a/courses';
 
 const modalStrings = {
     create: { title: 'Create Course', submit: 'Create', cancel: 'Cancel' },
@@ -54,6 +56,7 @@ export class CoursesComponent
     alertDirective: CustomAlertDirective;
 
     constructor(
+        private router: Router,
         private route: ActivatedRoute,
         private courseService: CourseService,
         protected elementRef: ElementRef,
@@ -68,18 +71,25 @@ export class CoursesComponent
             elementRef
         );
         this.form = this.fillModal();
+        this.universities.splice(0, 0, 'All');
     }
 
     ngOnInit(): void {
         // For multiple Courses
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
-            this.title = 'Curso por universidad: ' + (params.u || 'All');
-            let options = params.u ? { u: params.u } : null;
+            this.title = 'Curso por universidad: ';
+            let queryParams = params.u ? { u: params.u } : null;
             this.courseService
-                .getAll(options)
+                .getAll(queryParams)
                 .subscribe((data) => (this.resources = data));
         });
+    }
+
+    onOptionsSelected(value: string) {
+        let queryParams = value != 'All' ? { u: value } : null;
+        console.log(value);
+        this.router.navigate([path], { queryParams: queryParams });
     }
 
     fillModal() {
