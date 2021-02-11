@@ -2,7 +2,29 @@
     <div class='container-fluid'>
 
         <nav class="navbar navbar-light bg-light justify-content-between py-2">
-            <h2 class='font-weight-800'>{{title}}</h2>
+            <form class='form-inline'>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title}}</label>
+                    <select #mySelect2
+                            (change)='onOptionsSelected(null,mySelect2.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='rolSelector'>
+                        <option *ngFor='let rol of rolesSelector' [value]='rol' >{{rol}}</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title2}}</label>
+                    <select #mySelect
+                            (change)='onOptionsSelected(mySelect.value,null)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='universitySelector'>
+                        <option *ngFor='let u of universitiesSelector' [value]='u' >{{u}}</option>
+                    </select>
+                </div>
+                <span> - </span>
+            </form>
             <form class="form-inline">
                 <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by FullName" aria-label="Search">
             </form>

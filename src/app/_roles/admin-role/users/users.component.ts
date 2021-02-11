@@ -2,11 +2,15 @@ import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } fr
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
 import { User } from '../../../shared/_models/user.model';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 import { Roles } from '../../../core/util/roles.data';
+
+const path = '/a/users'
+
+const queryParams = {u: 'PUCP', r: 'ADMIN'}
 
 const modalStrings = {
   create: { title: 'Create User', submit: 'Create User', cancel: 'Cancel' },
@@ -47,7 +51,13 @@ export class UsersComponent
   @ViewChild(CustomAlertDirective, { static: true })
   alertDirective: CustomAlertDirective;
 
+  queryParams = queryParams;
+  rolesSelector: string[];
+  universitiesSelector: string[];
+  title2: string;
+
   constructor(
+      private router: Router,
       private route: ActivatedRoute,
       private fb: FormBuilder,
       private userService: UserService,
@@ -60,14 +70,24 @@ export class UsersComponent
         searchBarSelector,
         elementRef);
     this.form = this.fillModal();
+    this.universitiesSelector = [];
+    this.universities.forEach((u) => {
+      this.universitiesSelector.push(u);
+    });
+    this.rolesSelector = [];
+    this.roles.forEach( (u) => {
+      this.rolesSelector.push(u);
+    })
+    this.rolesSelector.splice(3,1);
   }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.resources = [];
-      this.title = 'Personas: ' + (Roles[params.r - 1] || 'Moderadores') + ' - ' +
-                   'Universidad: ' + (params.u || 'PUCP') ;
-      let options = params.u ? {u: params.u, r: params.r} : null;
+      this.title = 'Rol: ';
+      this.title2 = 'Universidad: ';
+      let options = (params.u!=null && params.r!=null)? {u: params.u, r: params.r} : {u: 'PUCP', r:1};
+      console.log('Routing to: ',options);
       this.userService
           .getAll(options)
           .subscribe((data) => {
@@ -76,6 +96,31 @@ export class UsersComponent
             console.log(data);
           });
     });
+  }
+
+  onOptionsSelected(univ: string, rol: string) {
+    console.log(univ,rol);
+    if (univ!=null) {
+      this.queryParams.u = univ;
+      this.queryParams.r = this.queryParams.r || '1';
+    } else if (rol!=null) {
+      this.queryParams.u = this.queryParams.u || 'PUCP';
+      this.queryParams.r = Roles[rol] + 1;
+    }
+    console.log(this.queryParams);
+    this.router.navigate([path], { queryParams: this.queryParams });
+  }
+
+  onUnivOptionsSelected(value: string) {
+    let queryParams = value != null ? { u: value } : null;
+    console.log(value);
+    this.router.navigate([path], { queryParams: queryParams });
+  }
+
+  onRolOptionsSelected(value: string) {
+    let queryParams = value != null ? { r: Roles[value]+1 } : null;
+    console.log(value);
+    this.router.navigate([path], { queryParams: queryParams });
   }
 
   fillModal() {
@@ -141,15 +186,7 @@ export class UsersComponent
     event.preventDefault();
   }
 
-  private createAlertSuccess(message: string) {
-    this.createAlert(true, message);
-  }
-
-  private createAlertError(message: string) {
-    this.createAlert(false, message);
-  }
-
-  private createAlert(isSuccess: boolean, message: string) {
+  protected createAlert(isSuccess: boolean, message: string) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         CustomAlertComponent
     );

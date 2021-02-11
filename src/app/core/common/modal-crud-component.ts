@@ -4,6 +4,7 @@ import { DataService } from './data-service.service';
 import { ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Course } from '../../shared/_models/course.model';
 import { universitiesData } from '../util/universities.data';
+import { Roles } from '../util/roles.data';
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
@@ -17,6 +18,8 @@ export abstract class ModalCrudComponent<T> {
 
     // Additional
     universities = universitiesData;
+    roles = Object.keys(Roles)
+        .filter((key) => !isNaN(Number(Roles[key])));
 
     protected constructor(
         protected dataService: DataService<T>,
