@@ -1,3 +1,6 @@
 export enum Roles {
-    'CLIENT', 'TEACH', 'MOD', 'ADMIN'
+    'client' = 1,
+    'teach' = 2,
+    'mod' = 3,
+    'admin' = 4,
 }

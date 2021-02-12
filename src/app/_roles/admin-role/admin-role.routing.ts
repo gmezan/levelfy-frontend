@@ -5,6 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 import { CoursesComponent } from './courses/courses.component';
 import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 const routes: Routes = [
     {
@@ -25,6 +26,11 @@ const routes: Routes = [
     {
         path: 'services',
         component: ServicesComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'enrollments',
+        component: EnrollmentComponent,
         pathMatch: 'full',
     },
 ];

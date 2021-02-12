@@ -6,19 +6,17 @@ import { universitiesData } from '../util/universities.data';
 import { Roles } from '../util/roles.data';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { servicesTypes } from '../util/services-types';
 
 const pageSizeOptions = [5, 10, 20, 30];
-const queryParams = {u: 'PUCP', r: 'ADMIN'}
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
     title: string;
     form: FormGroup;
     modal = new Modal();
-    // variables used to find users by role and university
-    queryParams = queryParams;
-    rolesSelector: string[];
-    universitiesSelector: string[];
+
+    // Auxiliary title
     title2: string;
 
     // variables to paginate
@@ -33,8 +31,8 @@ export abstract class ModalCrudComponent<T> {
 
     // Additional
     universities = universitiesData;
-    roles = Object.keys(Roles)
-        .filter((key) => !isNaN(Number(Roles[key])));
+    roles = Object.keys(Roles).filter((key) => !isNaN(Number(Roles[key])));
+    services = servicesTypes;
 
     protected constructor(
         protected dataService: DataService<T>,
@@ -83,26 +81,6 @@ export abstract class ModalCrudComponent<T> {
                 alert('Something wrong happened: ' + error);
             }
         );
-        console.log('modalDelete is okay');
-    }
-
-    onOptionsSelected(univ: string, rol: string, type: string) {
-        console.log(univ,rol);
-        let queryParams2 = univ != 'All' ? { u: univ } : null;
-        if (univ!=null && type =='SearchUser') {
-            this.queryParams.u = univ;
-            this.queryParams.r = this.queryParams.r || '1';
-        } else if (rol!=null && type == 'SearchUser') {
-            this.queryParams.u = this.queryParams.u || 'PUCP';
-            this.queryParams.r = Roles[rol] + 1;
-        } else if (univ!=null && type =='SearchCourse') {
-            queryParams2 = univ != 'All' ? { u: univ } : null;
-        }
-        if (type == 'SearchUser') {
-            this.router.navigate([this.path], { queryParams: this.queryParams });
-        } else if (type == 'SearchCourse') {
-            this.router.navigate([this.path], { queryParams: queryParams2 });
-        }
     }
 
     onSelectFile(event) {
@@ -142,30 +120,34 @@ export abstract class ModalCrudComponent<T> {
 
     protected addResourceAt(index: number, resource: T): void {
         this.resources.splice(index, 0, resource);
+        this.updateResourcesSliced();
     }
 
     protected replaceResourceAt(index: number, resource: T): void {
         this.resources.splice(index, 1, resource);
+        this.updateResourcesSliced();
     }
 
     protected deleteResourceAt(index: number): void {
         this.resources.splice(index, 1);
+        this.updateResourcesSliced();
     }
 
     // Method to handle PageEvent
     handlePage(e: PageEvent): void {
         this.pageSize = e.pageSize;
         this.pageNumber = e.pageIndex + 1;
-        this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
+        this.resourcesSliced = this.resources.slice(
+            (this.pageNumber - 1) * this.pageSize,
+            this.pageNumber * this.pageSize
+        );
     }
 
     // Methods for the search bar:
     keyupEnterSearchBar($event) {
-        console.log('aea');
         this.elementRef.nativeElement
             .querySelectorAll(this.searchBarSelector)
             .forEach((el) => {
-                console.log('inside');
                 el.parentElement.hidden =
                     $event.target.value &&
                     !ModalCrudComponent.refactorString(el.innerHTML)
@@ -193,6 +175,13 @@ export abstract class ModalCrudComponent<T> {
             .join('o')
             .split('ú')
             .join('u');
+    }
+
+    protected updateResourcesSliced() {
+        this.resourcesSliced = this.resources.slice(
+            (this.pageNumber - 1) * this.pageSize,
+            this.pageNumber * this.pageSize
+        );
     }
 
     protected createAlertSuccess(message: string) {

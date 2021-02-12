@@ -9,9 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 @NgModule({
-    declarations: [AdminComponent, CoursesComponent, UsersComponent, ServicesComponent],
+    declarations: [AdminComponent, CoursesComponent, UsersComponent, ServicesComponent, EnrollmentComponent],
     imports: [
         CommonModule,
         AdminRoleRoutingModule,

@@ -88,12 +88,10 @@ export class CoursesComponent
             this.resources = [];
             this.title = 'Curso por universidad: ';
             let queryParams = params.u ? { u: params.u } : null;
-            this.courseService
-                .getAll(queryParams)
-                .subscribe((data) => {
-                    this.resources = data;
-                    this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
-                });
+            this.courseService.getAll(queryParams).subscribe((data) => {
+                this.resources = data;
+                this.updateResourcesSliced();
+            });
         });
     }
 
@@ -204,5 +202,11 @@ export class CoursesComponent
                 )
             )
             .instance.setValues(isSuccess, message);
+    }
+
+    onOptionsSelected(value: string) {
+        let queryParams = value != 'All' ? { u: value } : null;
+        console.log(value);
+        this.router.navigate([path], { queryParams: queryParams });
     }
 }

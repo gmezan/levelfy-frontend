@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { resourceInterceptor } from './interceptors/resource.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModAuthGuard } from './auth-guards/mod-auth-guard.service';
+import { EnrollmentService } from './services/enrollment.service';
 
 @NgModule({
     declarations: [],
@@ -26,6 +27,7 @@ import { ModAuthGuard } from './auth-guards/mod-auth-guard.service';
         TestimonialService,
         CourseSuggestionService,
         ServiceService,
+        EnrollmentService,
         AuthService,
         AdminAuthGuard,
         ModAuthGuard,
