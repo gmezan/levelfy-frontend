@@ -203,4 +203,10 @@ export class CoursesComponent
             )
             .instance.setValues(isSuccess, message);
     }
+
+    onOptionsSelected(value: string) {
+        let queryParams = value != 'All' ? { u: value } : null;
+        console.log(value);
+        this.router.navigate([path], { queryParams: queryParams });
+    }
 }
