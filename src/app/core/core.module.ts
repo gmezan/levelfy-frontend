@@ -15,6 +15,7 @@ import { OauthService } from './security/oauth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { resourceInterceptor } from './interceptors/resource.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EnrollmentService } from './services/enrollment.service';
 
 @NgModule({
     declarations: [],
@@ -25,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         TestimonialService,
         CourseSuggestionService,
         ServiceService,
+        EnrollmentService,
         AuthService,
         AdminAuthGuard,
         TeachAuthGuard,

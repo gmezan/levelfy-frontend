@@ -10,8 +10,21 @@ export class Enrollment extends Auditable implements Deserializable {
         return this;
     }
 
+    constructor(
+        idEnrollment?: number,
+        service?: Service,
+        student?: User,
+        payed?: boolean
+    ) {
+        super();
+        this.idEnrollment = idEnrollment || 0;
+        this.service = service || new Service();
+        this.student = student || new User();
+        this.payed = payed || false;
+    }
+
     idEnrollment: number;
-    class: Service;
+    service: Service;
     student: User;
     payed: boolean;
     numberOfStudents: number;

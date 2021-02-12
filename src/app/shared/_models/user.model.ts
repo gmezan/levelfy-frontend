@@ -8,6 +8,11 @@ export class User extends Auditable implements Deserializable {
         return this;
     }
 
+    constructor(idUser?: number) {
+        super();
+        this.idUser = idUser || 0;
+    }
+
     idUser: number;
     email: string;
     phone: number;

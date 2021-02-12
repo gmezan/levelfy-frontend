@@ -6,6 +6,7 @@ import { universitiesData } from '../util/universities.data';
 import { Roles } from '../util/roles.data';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
+import { servicesTypes } from '../util/services-types';
 
 const pageSizeOptions = [5, 10, 20, 30];
 
@@ -31,6 +32,7 @@ export abstract class ModalCrudComponent<T> {
     // Additional
     universities = universitiesData;
     roles = Object.keys(Roles).filter((key) => !isNaN(Number(Roles[key])));
+    services = servicesTypes;
 
     protected constructor(
         protected dataService: DataService<T>,
@@ -143,11 +145,9 @@ export abstract class ModalCrudComponent<T> {
 
     // Methods for the search bar:
     keyupEnterSearchBar($event) {
-        console.log('aea');
         this.elementRef.nativeElement
             .querySelectorAll(this.searchBarSelector)
             .forEach((el) => {
-                console.log('inside');
                 el.parentElement.hidden =
                     $event.target.value &&
                     !ModalCrudComponent.refactorString(el.innerHTML)

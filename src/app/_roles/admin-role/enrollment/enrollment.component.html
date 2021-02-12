@@ -26,7 +26,7 @@
                 <span> - </span>
             </form>
             <form class="form-inline">
-                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by TeacherName" aria-label="Search">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by ClientFullName" aria-label="Search">
             </form>
         </nav>
         <nav class="navbar navbar-light bg-light justify-content-end">
@@ -50,14 +50,13 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">idService</th>
-                    <th scope="col">course.courseId</th>
-                    <th scope="col">course.name</th>
-                    <th scope="col">teacher</th>
-                    <th scope="col">available</th>
-                    <th scope="col">serviceType</th>
-                    <th scope="col">price</th>
-                    <th scope="col">evaluation</th>
+                    <th scope="col">idEnrollment</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">CourseName</th>
+                    <th scope="col">Teacher</th>
+                    <th scope="col">Client FullName</th>
+                    <th scope="col">Payed</th>
+                    <th scope="col">Active</th>
                     <th scope="col">Created</th>
                     <th scope="col">Modified</th>
                     <th scope="col">Edit</th>
@@ -65,25 +64,24 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class='courseRow' *ngFor='let service of resourcesSliced; let index = index' >
+                <tr class='courseRow' *ngFor='let enrollment of resourcesSliced; let index = index' >
                     <th scope="row">{{index}}</th>
-                    <td>{{service.idService}}</td>
-                    <td>{{service?.course.courseId.idCourse}} : {{service.course.courseId.university}}</td>
-                    <td>{{service.course.name}}</td>
-                    <td class='teacherFulName'>{{service.teacher.fullName}}</td>
-                    <td>{{service?.available}}</td>
-                    <td>{{service?.idService }}</td>
-                    <td>{{service?.price}}</td>
-                    <td>{{service?.evaluation}}</td>
-                    <td>{{service?.created  | date:'mediumDate'}}</td>
-                    <td>{{service?.modified  | date:'mediumDate'}}</td>
+                    <td>{{enrollment.idEnrollment}}</td>
+                    <td>{{enrollment.service?.serviceType}} : {{enrollment.service?.course.courseId.university}}</td>
+                    <td>{{enrollment.service?.course.name}}</td>
+                    <td>{{enrollment.service.teacher.fullName}}</td>
+                    <td class='clientFullName'>{{enrollment.student.fullName}}</td>
+                    <td>{{enrollment.payed.toString() | uppercase}}</td>
+                    <td>{{enrollment.active.toString() | uppercase}}</td>
+                    <td>{{enrollment.created  | date:'mediumDate'}}</td>
+                    <td>{{enrollment.modified  | date:'mediumDate'}}</td>
                     <td>
-                        <button (click)='modalEdit(this.getId(service))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
+                        <button (click)='modalEdit(this.getId(enrollment))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
                             <i class="fas fa-edit"></i>
                         </button>
                     </td>
                     <td>
-                        <button (click)='modalDelete(this.getId(service))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                        <button (click)='modalDelete(this.getId(enrollment))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
@@ -114,8 +112,7 @@
                 <ng-container *ngTemplateOutlet='formModal'></ng-container>
 
                 <p *ngIf='modal.isDelete'>
-                    Are you sure you want to delete: {{resource.idService}} : {{resource.course.courseId.idCourse}}:{{resource.course.courseId.university}}
-                    by {{resource.teacher.fullName}}?
+                    Are you sure you want to delete: {{resource.idEnrollment}} : {{resource.student.fullName}}:{{resource.service.course.name}}?
                 </p>
             </div>
             <div class="modal-footer">

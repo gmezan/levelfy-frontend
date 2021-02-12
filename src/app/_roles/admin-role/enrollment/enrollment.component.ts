@@ -3,37 +3,33 @@ import {
     ComponentFactoryResolver,
     ElementRef,
     OnInit,
-    ViewChild,
 } from '@angular/core';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
-import { Course } from '../../../shared/_models/course.model';
-import { Service } from '../../../shared/_models/service.model';
-import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../../core/services/course.service';
+import { Enrollment } from '../../../shared/_models/enrollment.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../../../core/services/service.service';
-
-const path = '/a/services';
+import { Service } from '../../../shared/_models/service.model';
+import { EnrollmentService } from '../../../core/services/enrollment.service';
 
 const modalStrings = {
-    create: { title: 'Create Service', submit: 'Create', cancel: 'Cancel' },
-    edit: { title: 'Edit Service', submit: 'Save', cancel: 'Cancel' },
-    delete: { title: 'Delete Service', submit: 'Delete', cancel: 'Cancel' },
+    create: { title: 'Create Enrollment', submit: 'Create', cancel: 'Cancel' },
+    edit: { title: 'Edit Enrollment', submit: 'Save', cancel: 'Cancel' },
+    delete: { title: 'Delete Enrollment', submit: 'Delete', cancel: 'Cancel' },
 };
 
 const messagesAlert = {
     create: {
-        success: 'Service created successfully',
-        error: 'There was an error creating this course, try again later',
+        success: 'Enrollment created successfully',
+        error: 'There was an error creating this Enrollment, try again later',
     },
     edit: {
-        success: 'Service edited successfully',
-        error: 'There was an error updating this course, try again later',
+        success: 'Enrollment edited successfully',
+        error: 'There was an error updating this Enrollment, try again later',
     },
     delete: {
         success: 'Service deleted correctly',
-        error: 'There was an error deleting this Service, try again later',
+        error: 'There was an error deleting this Enrollment, try again later',
     },
     image: {
         success: 'Image uploaded correctly',
@@ -41,20 +37,17 @@ const messagesAlert = {
     },
 };
 
-const searchBarSelector = '.teacherFulName';
+const searchBarSelector = '.clientFullName';
+const path = '/a/enrollments';
 
 @Component({
-    selector: 'app-services',
-    templateUrl: './services.component.html',
-    styleUrls: ['./services.component.css'],
+    selector: 'app-enrollment',
+    templateUrl: './enrollment.component.html',
+    styleUrls: ['./enrollment.component.css'],
 })
-export class ServicesComponent
-    extends ModalCrudComponent<Service>
+export class EnrollmentComponent
+    extends ModalCrudComponent<Enrollment>
     implements OnInit {
-    // For Alert:
-    @ViewChild(CustomAlertDirective, { static: true })
-    alertDirective: CustomAlertDirective;
-
     // variables used to find users by role and university
     servicesSelector: string[];
     universitiesSelector: string[];
@@ -62,15 +55,15 @@ export class ServicesComponent
     constructor(
         protected router: Router,
         private route: ActivatedRoute,
-        private serviceService: ServiceService,
+        private enrollmentService: EnrollmentService,
         protected elementRef: ElementRef,
         private fb: FormBuilder,
         private componentFactoryResolver: ComponentFactoryResolver
     ) {
         super(
-            serviceService,
+            enrollmentService,
             modalStrings,
-            new Service(),
+            new Enrollment(),
             searchBarSelector,
             elementRef,
             router,
@@ -105,7 +98,7 @@ export class ServicesComponent
             else queryParams = null;
 
             //console.log('Routing to: ', queryParams);
-            this.serviceService.getAll(queryParams).subscribe((data) => {
+            this.enrollmentService.getAll(queryParams).subscribe((data) => {
                 this.resources = data;
                 this.resourcesSliced = this.resources.slice(
                     (this.pageNumber - 1) * this.pageSize,
@@ -113,10 +106,6 @@ export class ServicesComponent
                 );
             });
         });
-    }
-
-    getId(resource: Service): string {
-        return resource.idService.toString();
     }
 
     onOptionsSelected(university: string, service: string) {
@@ -136,39 +125,31 @@ export class ServicesComponent
         });
     }
 
-    fillModal(): FormGroup {
-        // Validations must be according to the database
-        return this.fb.group({
-            idService: [this.resource.idService, Validators.required],
-            course: this.fb.group({
-                courseId: this.fb.group({
-                    idCourse: [
-                        this.resource.course.courseId.idCourse,
-                        Validators.required,
-                    ],
-                    university: [
-                        this.resource.course.courseId.university,
-                        Validators.required,
-                    ],
-                }),
-            }),
-            teacher: this.fb.group({
-                idUser: [this.resource.teacher.idUser, Validators.required],
-            }),
-            photo: [this.resource.photo],
-            available: [this.resource.available],
-            serviceType: [this.resource.serviceType],
-            price: [this.resource.price],
-            evaluation: [this.resource.evaluation],
-            description: [this.resource.description],
-            expiration: [this.resource.expiration],
-            sessionsNumber: [this.resource.sessionsNumber],
-            archived: [this.resource.sessionsNumber],
-        });
-    }
-    onSubmitModalForm(resource: Service, index: number, id: string): void {
-        throw new Error('Method not implemented.');
+    getId(resource: Enrollment): string {
+        return resource.idEnrollment.toString();
     }
 
     protected createAlert(isSuccess: boolean, message: string) {}
+
+    fillModal(): FormGroup {
+        // Validations must be according to the database
+        return this.fb.group({
+            idEnrollment: [this.resource.idEnrollment, Validators.required],
+            service: this.fb.group({
+                idService: [this.resource.service.idService],
+            }),
+            student: this.fb.group({
+                idUser: [this.resource.student.idUser, Validators.required],
+            }),
+            payed: [this.resource.payed],
+            numberOfStudents: [this.resource.numberOfStudents],
+            start: [this.resource.start],
+            end: [this.resource.end],
+            info: [this.resource.info],
+            active: [this.resource.active],
+            url: [this.resource.url],
+        });
+    }
+
+    onSubmitModalForm(resource: Enrollment, index: number, id: string): void {}
 }
