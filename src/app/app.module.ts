@@ -34,6 +34,7 @@ import {
 } from 'angularx-social-login';
 import { resourceInterceptor } from './core/interceptors/resource.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModRoleModule } from './_roles/mod-role/mod-role.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -50,6 +51,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
         AdminRoleModule,
         TeachRoleModule,
+        ModRoleModule,
         ClientRoleModule,
         SharedModule,
 

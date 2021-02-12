@@ -15,6 +15,7 @@ import { OauthService } from './security/oauth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { resourceInterceptor } from './interceptors/resource.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModAuthGuard } from './auth-guards/mod-auth-guard.service';
 
 @NgModule({
     declarations: [],
@@ -27,6 +28,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ServiceService,
         AuthService,
         AdminAuthGuard,
+        ModAuthGuard,
         TeachAuthGuard,
         ClientAuthGuard,
         AnonAuthGuard,

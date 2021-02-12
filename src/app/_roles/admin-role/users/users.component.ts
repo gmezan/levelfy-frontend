@@ -94,18 +94,6 @@ export class UsersComponent
     });
   }
 
-  onUnivOptionsSelected(value: string) {
-    let queryParams = value != null ? { u: value } : null;
-    console.log(value);
-    this.router.navigate([path], { queryParams: queryParams });
-  }
-
-  onRolOptionsSelected(value: string) {
-    let queryParams = value != null ? { r: Roles[value]+1 } : null;
-    console.log(value);
-    this.router.navigate([path], { queryParams: queryParams });
-  }
-
   fillModal() {
     return this.fb.group({
       idUser: [this.resource.idUser],

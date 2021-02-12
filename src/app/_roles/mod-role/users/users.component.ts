@@ -1,10 +1,12 @@
 import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
 import { User } from '../../../shared/_models/user.model';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
+import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
+import { AuthService } from '../../../core/security/auth.service';
 
 const path = '/m/users'
 
@@ -56,6 +58,7 @@ export class UsersComponent
   title2: string;
 
   constructor(
+      private authService: AuthService,
       protected router: Router,
       private route: ActivatedRoute,
       private fb: FormBuilder,
@@ -83,20 +86,94 @@ export class UsersComponent
   }
 
   ngOnInit(): void {
-  }
-
-  protected createAlert(isSuccess: boolean, message: string) {
+    this.route.queryParams.subscribe((params) => {
+      this.resources = [];
+      this.title = 'Rol : ';
+      this.title2 = 'Universidad: ';
+      console.log(this.authService.getCurrentUser());
+      let options = (params.u!=null && params.r!=null)?
+          {u: this.authService.getCurrentUser().university, r: params.r } :
+          {u: 'PUCP', r: 1};
+      this.userService
+          .getAll(options)
+          .subscribe((data) => {
+            this.resources = data;
+            this.resourcesSliced = this.resources.slice((this.pageNumber-1)*this.pageSize,this.pageNumber*this.pageSize);
+          })
+    })
   }
 
   fillModal() {
-    return undefined;
+    return this.fb.group({
+      idUser: [this.resource.idUser],
+      email: [this.resource.email, Validators.compose([Validators.email,Validators.required])],
+      phone : [this.resource.phone],
+      balance : [this.resource.balance],
+      code : [this.resource.code],
+      name : [this.resource.name, Validators.required],
+      lastname : [this.resource.lastname],
+      active : [this.resource.active],
+      university : [this.resource.university],
+      coupon : [this.resource.coupon]
+    });
   }
 
-  getId(resource: User): string {
-    return '';
+  getId(user: User): string {
+    return user.idUser.toString();
   }
 
   onSubmitModalForm(resource: User, index: number, id: string): void {
+    if (this.modal.isDelete)
+      this.dataService.delete(id).subscribe(
+          (data) => {
+            this.deleteResourceAt(index);
+            this.createAlertSuccess(messagesAlert.delete.success);
+          },
+          (error) => {
+            this.createAlertError(messagesAlert.delete.error);
+            console.log(error);
+          }
+      );
+    else if (this.modal.isCreate)
+      this.dataService.create(resource).subscribe(
+          (data) => {
+            let originalLastIndex = this.resources.length - 1;
+            this.addResourceAt(originalLastIndex, data);
+            this.createAlertSuccess(messagesAlert.create.success);
+          },
+          (error) => {
+            this.createAlertError(messagesAlert.create.error);
+            console.log(error);
+          }
+      );
+    else if (this.modal.isEdit)
+      this.dataService.update(resource).subscribe(
+          (data) => {
+            // Replace the Data with the data updated
+            data.created = this.resources[index].created; //bug
+            this.replaceResourceAt(index, data);
+            this.createAlertSuccess(messagesAlert.edit.success);
+          },
+          (error) => {
+            this.createAlertError(messagesAlert.edit.error);
+            console.log(error);
+          }
+      );
+  }
+
+  protected createAlert(isSuccess: boolean, message: string) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+        CustomAlertComponent
+    );
+
+    const viewContainerRef = this.alertDirective.viewContainerRef;
+    viewContainerRef.clear();
+
+    const componentRef = viewContainerRef.createComponent<CustomAlertComponent>(
+        componentFactory
+    );
+    componentRef.instance.isSuccess = isSuccess;
+    componentRef.instance.message = message;
   }
 
 }
