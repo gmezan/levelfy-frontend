@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 
 const pageSizeOptions = [5, 10, 20, 30];
-const queryParams = {u: 'PUCP', r: 'ADMIN'}
+const queryParams = { u: 'PUCP', r: 'ADMIN' };
 
 export abstract class ModalCrudComponent<T> {
     // Must-haves
@@ -25,16 +25,15 @@ export abstract class ModalCrudComponent<T> {
     pageSize = 5;
     pageSizeOptions = pageSizeOptions;
     pageNumber = 1;
-    resourcesSliced: T[];
 
     // Resources
     resources: T[];
     resource: T;
+    resourcesSliced: T[];
 
     // Additional
     universities = universitiesData;
-    roles = Object.keys(Roles)
-        .filter((key) => !isNaN(Number(Roles[key])));
+    roles = Object.keys(Roles).filter((key) => !isNaN(Number(Roles[key])));
 
     protected constructor(
         protected dataService: DataService<T>,
@@ -87,19 +86,21 @@ export abstract class ModalCrudComponent<T> {
     }
 
     onOptionsSelected(univ: string, rol: string, type: string) {
-        console.log(univ,rol);
+        console.log(univ, rol);
         let queryParams2 = univ != 'All' ? { u: univ } : null;
-        if (univ!=null && type =='SearchUser') {
+        if (univ != null && type == 'SearchUser') {
             this.queryParams.u = univ;
             this.queryParams.r = this.queryParams.r || '1';
-        } else if (rol!=null && type == 'SearchUser') {
+        } else if (rol != null && type == 'SearchUser') {
             this.queryParams.u = this.queryParams.u || 'PUCP';
             this.queryParams.r = Roles[rol] + 1;
-        } else if (univ!=null && type =='SearchCourse') {
+        } else if (univ != null && type == 'SearchCourse') {
             queryParams2 = univ != 'All' ? { u: univ } : null;
         }
         if (type == 'SearchUser') {
-            this.router.navigate([this.path], { queryParams: this.queryParams });
+            this.router.navigate([this.path], {
+                queryParams: this.queryParams,
+            });
         } else if (type == 'SearchCourse') {
             this.router.navigate([this.path], { queryParams: queryParams2 });
         }
@@ -142,21 +143,27 @@ export abstract class ModalCrudComponent<T> {
 
     protected addResourceAt(index: number, resource: T): void {
         this.resources.splice(index, 0, resource);
+        this.updateResourcesSliced();
     }
 
     protected replaceResourceAt(index: number, resource: T): void {
         this.resources.splice(index, 1, resource);
+        this.updateResourcesSliced();
     }
 
     protected deleteResourceAt(index: number): void {
         this.resources.splice(index, 1);
+        this.updateResourcesSliced();
     }
 
     // Method to handle PageEvent
     handlePage(e: PageEvent): void {
         this.pageSize = e.pageSize;
         this.pageNumber = e.pageIndex + 1;
-        this.resourcesSliced = this.resources.slice((this.pageNumber - 1) * this.pageSize, this.pageNumber * this.pageSize);
+        this.resourcesSliced = this.resources.slice(
+            (this.pageNumber - 1) * this.pageSize,
+            this.pageNumber * this.pageSize
+        );
     }
 
     // Methods for the search bar:
@@ -193,6 +200,13 @@ export abstract class ModalCrudComponent<T> {
             .join('o')
             .split('ú')
             .join('u');
+    }
+
+    protected updateResourcesSliced() {
+        this.resourcesSliced = this.resources.slice(
+            (this.pageNumber - 1) * this.pageSize,
+            this.pageNumber * this.pageSize
+        );
     }
 
     protected createAlertSuccess(message: string) {
