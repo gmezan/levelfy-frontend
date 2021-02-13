@@ -44,8 +44,21 @@
         </li>
 
         <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/course" class="nav-link">Cursos</a>
+            <a [routerLink]="['/m/users']" class="nav-link">Users</a>
         </li>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/m/services']" class="nav-link">Services</a>
+        </li>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/m/enrollments']" class="nav-link">Enrollments</a>
+        </li>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/m/courses']" class="nav-link">Courses</a>
+        </li>
+
         <li routerLinkActive="active current" class="nav-item">
             <a routerLink="/blog" class="nav-link">Blog</a>
         </li>

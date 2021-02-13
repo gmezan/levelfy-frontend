@@ -7,6 +7,7 @@ import { UserService } from '../../../core/services/user.service';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { AuthService } from '../../../core/security/auth.service';
+import { Roles } from '../../../core/util/roles.data';
 
 const path = '/m/users'
 
@@ -93,12 +94,13 @@ export class UsersComponent
       console.log(this.authService.getCurrentUser());
       let options = (params.u!=null && params.r!=null)?
           {u: this.authService.getCurrentUser().university, r: params.r } :
-          {u: 'PUCP', r: 1};
+          {u: this.authService.getCurrentUser().university, r: Roles['client']};
       this.userService
           .getAll(options)
           .subscribe((data) => {
             this.resources = data;
-            this.resourcesSliced = this.resources.slice((this.pageNumber-1)*this.pageSize,this.pageNumber*this.pageSize);
+            console.log(data);
+            this.updateResourcesSliced();
           })
     })
   }
@@ -122,6 +124,12 @@ export class UsersComponent
     return user.idUser.toString();
   }
 
+  onOptionsSelected(rol: string) {
+    let queryParams = rol != null ? { u: this.authService.getCurrentUser().university,
+                                      r: Roles[rol] } : null;
+    this.router.navigate([path], { queryParams: queryParams });
+  }
+  
   onSubmitModalForm(resource: User, index: number, id: string): void {
     if (this.modal.isDelete)
       this.dataService.delete(id).subscribe(
