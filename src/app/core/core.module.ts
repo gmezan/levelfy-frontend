@@ -17,6 +17,8 @@ import { resourceInterceptor } from './interceptors/resource.interceptor';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModAuthGuard } from './auth-guards/mod-auth-guard.service';
 import { EnrollmentService } from './services/enrollment.service';
+import { SaleCanceledService } from './services/sale-canceled.service';
+import { SaleService } from './services/sale.service';
 
 @NgModule({
     declarations: [],
@@ -28,6 +30,8 @@ import { EnrollmentService } from './services/enrollment.service';
         CourseSuggestionService,
         ServiceService,
         EnrollmentService,
+        SaleCanceledService,
+        SaleService,
         AuthService,
         AdminAuthGuard,
         ModAuthGuard,

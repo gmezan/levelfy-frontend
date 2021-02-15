@@ -119,7 +119,7 @@ export class SaleCanceledComponent
             else queryParams = null;
 
             //console.log('Routing to: ', queryParams);
-            this.dataService.getAll(queryParams).subscribe((data) => {
+            this.saleCanceledService.getAll(queryParams).subscribe((data) => {
                 this.resources = data;
                 this.resourcesSliced = this.resources.slice(
                     (this.pageNumber - 1) * this.pageSize,
