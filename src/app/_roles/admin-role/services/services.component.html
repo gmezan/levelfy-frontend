@@ -50,14 +50,15 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">idService</th>
-                    <th scope="col">course.courseId</th>
+                    <th scope="col">id</th>
+                    <th scope="col">course</th>
                     <th scope="col">course.name</th>
                     <th scope="col">teacher</th>
                     <th scope="col">available</th>
                     <th scope="col">serviceType</th>
                     <th scope="col">price</th>
                     <th scope="col">evaluation</th>
+                    <th scope="col">photo</th>
                     <th scope="col">Created</th>
                     <th scope="col">Modified</th>
                     <th scope="col">Edit</th>
@@ -71,10 +72,13 @@
                     <td>{{service?.course.courseId.idCourse}} : {{service.course.courseId.university}}</td>
                     <td>{{service.course.name}}</td>
                     <td class='teacherFulName'>{{service.teacher.fullName}}</td>
-                    <td>{{service?.available}}</td>
-                    <td>{{service?.idService }}</td>
+                    <td>{{service?.available.toString() | uppercase}}</td>
+                    <td>{{service?.serviceType }}</td>
                     <td>{{service?.price}}</td>
                     <td>{{service?.evaluation}}</td>
+                    <td class='text-center'>
+                        <img width='120' height='auto' class="img rounded-lg px-auto mx-auto" [src]='service.photo' alt="">
+                    </td>
                     <td>{{service?.created  | date:'mediumDate'}}</td>
                     <td>{{service?.modified  | date:'mediumDate'}}</td>
                     <td>
@@ -134,5 +138,201 @@
 
 
 <ng-template #formModal>
+    <form [hidden]='modal.isDelete' [formGroup]='form' >
 
+        <div [hidden]='true' class="form-group">
+            <label for="inputId">Id</label>
+            <input type="number" id='inputId' formControlName='idService' class="form-control"  placeholder="Id">
+        </div>
+
+
+        <div formGroupName='course'>
+            <div class="form-row" >
+                <div class="form-group col-md-6" formGroupName='courseId'>
+                    <label for="university">University</label>
+                    <select #universitySelectorForm
+                            (change)='onUniversitySelected(universitySelectorForm.value)'
+                            [attr.disabled]='modal.isEdit ? "" : null'
+                            formControlName='university'
+                            class="form-control custom-select"
+                            id="university">
+                        <option *ngFor='let u of universities' [value]='u' >{{u}}</option>
+                    </select>
+                    <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('university').touched && form.get('course').get('courseId').get('university').invalid">
+                        <div *ngIf="form.get('course').get('courseId').get('university').errors.required">University is required</div>
+                    </div>
+                </div>
+
+                <div class="form-group col-md-6" formGroupName='courseId'>
+                    <label for="idCourse">Course Id</label>
+                    <select [attr.disabled]='modal.isEdit ? "" : null'
+                            formControlName='idCourse'
+                            class="form-control custom-select"
+                            id="idCourse">
+                        <option *ngFor='let c of courseSelector' [value]='c.courseId.idCourse' >{{c.name}}</option>
+                    </select>
+                    <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('idCourse').touched && form.get('course').get('courseId').get('idCourse').invalid">
+                        <div *ngIf="form.get('course').get('courseId').get('idCourse').errors.required">Course Id is required</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6" formGroupName='teacher'>
+                <label for="inputTeacher">Teacher </label>
+                <select formControlName='idUser'
+                        class="form-control custom-select"
+                        id="inputTeacher">
+                    <option *ngFor='let u of userSelector' [value]='u.idUser' >{{u.fullName}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('teacher').get('idUser').touched && form.get('teacher').get('idUser').invalid">
+                    <div *ngIf="form.get('teacher').get('idUser').errors.required">Description is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputServiceType">ServiceType</label>
+                <select [attr.disabled]='modal.isEdit ? "" : null'
+                        formControlName='serviceType'
+                        class="form-control custom-select"
+                        id="inputServiceType">
+                    <option *ngFor='let s of services' [value]='s.key' >{{s.serviceName}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
+                    <div *ngIf="form.get('serviceType').errors.required">ServiceType is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputPrice">Price</label>
+                <input type="number" id='inputPrice' formControlName='price' class="form-control"  placeholder="Price">
+                <div class='alert alert-danger p-1' *ngIf="form.get('price').touched && form.get('price').invalid">
+                    <div *ngIf="form.get('price').errors.required">Price is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputEvaluation">Evaluation</label>
+                <select formControlName='evaluation'
+                        class="form-control custom-select"
+                        id="inputEvaluation">
+                    <option *ngFor='let e of evaluations' [value]='e' >{{e.toString()}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
+                    <div *ngIf="form.get('serviceType').errors.required">ServiceType is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDescription">Description <i class='small'>Optional</i></label>
+                <input type="text" formControlName='description' class="form-control" id="inputDescription" placeholder="Description">
+                <div class='alert alert-danger p-1' *ngIf="form.get('description').touched && form.get('description').invalid">
+                    <div *ngIf="form.get('description').errors.required">Description is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputExpiration">Expiration <i class='small'>Optional</i></label>
+                <input type="datetime-local" id='inputExpiration' formControlName='expiration' class="form-control"  placeholder="Expiration">
+                <div class='alert alert-danger p-1' *ngIf="form.get('expiration').touched && form.get('expiration').invalid">
+                    <div *ngIf="form.get('expiration').errors.required">Expiration is required</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class='form-row'>
+            <div class="form-group col-md-6">
+                <label for="inputAvailable">Available</label>
+                <select formControlName='available'
+                        class="form-control custom-select"
+                        id="inputAvailable">
+                    <option [value]='true' >TRUE</option>
+                    <option [value]='false'>FALSE</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('available').touched && form.get('available').invalid">
+                    <div *ngIf="form.get('available').errors.required">Available is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputArchived">Archived</label>
+                <select formControlName='archived'
+                        class="form-control custom-select"
+                        id="inputArchived">
+                    <option [value]='true' >TRUE</option>
+                    <option [value]='false'>FALSE</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('archived').touched && form.get('archived').invalid">
+                    <div *ngIf="form.get('archived').errors.required">Archived is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='form-group'>
+            <label>Sessions</label>
+
+            <ng-container *ngIf='modal.isCreate'>
+                <button (click)='addServiceSession()' class='ml-3 btn-success rounded' type='button'><i class="fas fa-plus-circle"></i></button>
+                <button (click)='deleteServiceSession()' class='ml-1 btn-danger rounded' type='button'><i class="fas fa-minus-circle"></i></button>
+            </ng-container>
+
+            <div class='card rounded-lg mx-0 px-0'>
+                <div class='card-body mx-1 px-1'>
+                    <ng-container formArrayName='serviceSessionList'>
+                        <div class="form-row" *ngFor='let session of serviceSessionList.controls'>
+                            <ng-container [formGroup]='session'>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>date</label>
+                                    <input [readOnly]='!modal.isCreate' type="date"  formControlName='date' class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>start</label>
+                                    <input [readOnly]='!modal.isCreate' type="time" formControlName='start' class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>end</label>
+                                    <input [readOnly]='!modal.isCreate' type="time" formControlName='end' class="form-control">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class='alert alert-danger p-1' *ngIf="serviceSessionList.touched && serviceSessionList.invalid">
+                <div>All fields are required</div>
+            </div>
+        </div>
+
+        <!-- Photo -->
+
+        <div [hidden]='true' class="form-group">
+            <label for="inputPhoto">Photo</label>
+            <input type="text" formControlName='photo' class="form-control"  placeholder="Photo">
+            <div class='alert alert-danger p-1' *ngIf="form.get('photo').touched && form.get('photo').invalid">
+                <div *ngIf="form.get('photo').errors.required">Photo is required</div>
+            </div>
+        </div>
+
+        <div class='form-group'>
+            <label for="inputPhoto">Photo</label>
+            <img class='img card-img rounded-lg p-2' [src]="form.get('photo').value"> <br/>
+            <input [value]='modal.file' id="inputPhoto" type='file' (change)="onSelectFile($event)">
+        </div>
+
+
+    </form>
 </ng-template>

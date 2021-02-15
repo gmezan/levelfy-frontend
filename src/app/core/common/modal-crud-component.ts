@@ -7,6 +7,7 @@ import { Roles } from '../util/roles.data';
 import { PageEvent } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { servicesTypes } from '../util/services-types';
+import { Evaluations } from '../util/evaluations.data';
 
 const pageSizeOptions = [5, 10, 20, 30];
 
@@ -31,8 +32,9 @@ export abstract class ModalCrudComponent<T> {
 
     // Additional
     universities = universitiesData;
-    roles = Object.keys(Roles).filter((key) => !isNaN(Number(Roles[key])));
+    roles = Object.keys(Roles).filter((key) => key);
     services = servicesTypes;
+    evaluations = Object.keys(Evaluations).filter((key) => key);
 
     protected constructor(
         protected dataService: DataService<T>,

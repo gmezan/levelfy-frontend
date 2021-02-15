@@ -13,6 +13,7 @@ const uri = '/model/service';
 })
 export class ServiceService extends DataService<Service> {
     apiUriServiceForm = '/model/service/form';
+    apiUploadImage = '/s3/service/';
 
     constructor(http: HttpClient) {
         super(uri, http);
@@ -35,5 +36,11 @@ export class ServiceService extends DataService<Service> {
             this.buildPath(this.apiUriServiceForm),
             options
         );
+    }
+
+    uploadImage(id: string, form: FormData): Observable<any> {
+        if (!id) return null;
+        let url = this.buildPath(this.apiUploadImage + id);
+        return this.http.post<any>(url, form);
     }
 }

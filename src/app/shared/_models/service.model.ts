@@ -3,7 +3,8 @@ import { Deserializable } from '../_dto/deserializable.model';
 import { Course } from './course.model';
 import { User } from './user.model';
 import { Enrollment } from './enrollment.model';
-import { EnrollmentSession } from './enrollment-session.model';
+import { ServiceSession } from './service-session.model';
+import { Evaluations } from '../../core/util/evaluations.data';
 
 export class Service extends Auditable implements Deserializable {
     deserialize(input: any): this {
@@ -24,6 +25,7 @@ export class Service extends Auditable implements Deserializable {
         this.teacher = teacher || new User();
         this.photo = photo || '';
         this.available = available || false;
+        this.serviceSessionList = [];
     }
 
     idService: number;
@@ -33,11 +35,10 @@ export class Service extends Auditable implements Deserializable {
     available: boolean;
     serviceType: string;
     price: number;
-    evaluation: number;
+    evaluation: Evaluations;
     description: string;
     expiration: Date;
-    sessionsNumber: number;
     archived: boolean;
     enrollmentList: Enrollment[];
-    enrollmentSessionList: EnrollmentSession[];
+    serviceSessionList: ServiceSession[];
 }
