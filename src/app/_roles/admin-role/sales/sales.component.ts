@@ -173,7 +173,6 @@ export class SalesComponent extends ModalCrudComponent<Sale> implements OnInit {
     }
 
     onOptionsSelected(university: string, service: string, payed: string) {
-        console.log(university, service);
         if (
             !this.universitiesSelector.includes(university) ||
             university === 'All'

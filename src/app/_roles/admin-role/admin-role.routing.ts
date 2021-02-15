@@ -7,6 +7,7 @@ import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { SalesComponent } from './sales/sales.component';
+import { SaleCanceledComponent } from './sale-canceled/sale-canceled.component';
 
 const routes: Routes = [
     {
@@ -37,6 +38,11 @@ const routes: Routes = [
     {
         path: 'sales',
         component: SalesComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'canceled-sales',
+        component: SaleCanceledComponent,
         pathMatch: 'full',
     },
 ];

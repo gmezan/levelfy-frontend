@@ -22,6 +22,10 @@
             <a [routerLink]="['/a/sales']" class="nav-link">Sale</a>
         </li>
 
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/a/canceled-sales']" class="nav-link">CanSale</a>
+        </li>
+
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">
             <a
                 class="nav-link dropdown-toggle"

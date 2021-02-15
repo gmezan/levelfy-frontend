@@ -1,1 +1,134 @@
-<p>sale-camceled works!</p>
+<section class='py-5 bg-light'>
+    <div class='container-fluid'>
+
+        <nav class="navbar navbar-light bg-light justify-content-between py-2">
+            <form class='form-inline'>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title}}</label>
+                    <select #selectUniv
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectSolved.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='rolSelector'>
+                        <option *ngFor='let u of universitiesSelector' [value]='u' >{{u | uppercase}}</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title2}}</label>
+                    <select #selectService
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectSolved.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='universitySelector'>
+                        <option *ngFor='let s of servicesSelector' [value]='s' >{{s | uppercase}}</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title3}}</label>
+                    <select #selectSolved
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectSolved.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='activeSelector'>
+                        <option *ngFor='let a of solvedSelector' [value]='a' >{{a | uppercase}}</option>
+                    </select>
+                </div>
+                <span> - </span>
+            </form>
+            <form class="form-inline">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by ClientFullName" aria-label="Search">
+            </form>
+        </nav>
+
+        <div class='container'>
+            <ng-template appCustomAlert></ng-template>
+        </div>
+
+        <div *ngIf='resources.length>0' class='table-responsive py-4'>
+            <mat-paginator [length]='resources.length'
+                           [pageSize]='pageSize'
+                           [pageSizeOptions]='pageSizeOptions'
+                           (page)='handlePage($event)'></mat-paginator>
+            <table id='dataTable' class="table table-hover table-dark table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">idSale</th>
+                    <th scope="col">Enrollment</th>
+                    <th scope="col">DateTime Creation</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Client FullName</th>
+                    <th scope="col">Solved</th>
+                    <th scope="col">message</th>
+                    <th scope="col">Method</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Solve</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class='courseRow' *ngFor='let saleCanceled of resourcesSliced; let index = index' >
+                    <th scope="row">{{index}}</th>
+                    <td>{{saleCanceled.id}}</td>
+                    <td>{{saleCanceled.serviceType}}:{{saleCanceled.course.courseId.idCourse}}</td>
+                    <td>{{saleCanceled.dateTimeSaleCreation | date}}</td>
+                    <td>{{saleCanceled.amount | currency: 'PEN'}}</td>
+                    <td class='clientFullName'>{{saleCanceled.student.fullName}}</td>
+                    <td>{{saleCanceled.solved}}</td>
+                    <td>{{saleCanceled.message}}</td>
+                    <td>{{saleCanceled.method}}</td>
+                    <td>{{saleCanceled.created  | date:'mediumDate'}}</td>
+                    <td>{{saleCanceled.modified  | date:'mediumDate'}}</td>
+                    <td>
+                        <button *ngIf='!saleCanceled.solved' (click)='modalEdit(this.getId(saleCanceled))' class='btn btn-success' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf='resources.length===0' class='container py-5'>
+            <h3 class='text-primary'>Empty list</h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
+
+                <p *ngIf='modal.isEdit'>
+                    Are you sure you want to Solve: {{resource.id}}:{{resource.student.fullName}}?
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='submitModalForm()'
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #formModal>
+
+</ng-template>
