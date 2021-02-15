@@ -17,15 +17,17 @@ export class Service extends Auditable implements Deserializable {
         course?: Course,
         teacher?: User,
         photo?: string,
-        available?: boolean
+        available?: boolean,
+        archived?: boolean
     ) {
         super();
         this.idService = idService || 0;
         this.course = course || new Course();
         this.teacher = teacher || new User();
         this.photo = photo || '';
-        this.available = available || false;
+        this.available = available || true;
         this.serviceSessionList = [];
+        this.archived = archived || false;
     }
 
     idService: number;

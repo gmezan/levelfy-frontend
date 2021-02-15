@@ -6,7 +6,7 @@
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title}}</label>
                     <select #selectUniv
-                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectAvailable.value)'
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectPayed.value)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='rolSelector'>
@@ -16,7 +16,7 @@
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title2}}</label>
                     <select #selectService
-                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectAvailable.value)'
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectPayed.value)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='universitySelector'>
@@ -25,25 +25,18 @@
                 </div>
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title3}}</label>
-                    <select #selectAvailable
-                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectAvailable.value)'
+                    <select #selectPayed
+                            (change)='onOptionsSelected(selectUniv.value, selectService.value, selectPayed.value)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='activeSelector'>
-                        <option *ngFor='let a of activeSelector' [value]='a' >{{a | uppercase}}</option>
+                        <option *ngFor='let a of payedSelector' [value]='a' >{{a | uppercase}}</option>
                     </select>
                 </div>
                 <span> - </span>
             </form>
             <form class="form-inline">
                 <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by ClientFullName" aria-label="Search">
-            </form>
-        </nav>
-        <nav class="navbar navbar-light bg-light justify-content-end">
-            <form class="form-inline">
-                <button (click)='modalCreate()' class="btn btn-success" type="button" data-toggle="modal" data-target="#crudModal">
-                    Create
-                </button>
             </form>
         </nav>
 
@@ -60,33 +53,40 @@
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">idEnrollment</th>
-                    <th scope="col">Service</th>
-                    <th scope="col">CourseName</th>
-                    <th scope="col">Teacher</th>
+                    <th scope="col">idSale</th>
+                    <th scope="col">Enrollment</th>
+                    <th scope="col">DateTime</th>
+                    <th scope="col">Amount</th>
                     <th scope="col">Client FullName</th>
-                    <th scope="col">Payed</th>
-                    <th scope="col">Active</th>
+                    <th scope="col">Coupon</th>
+                    <th scope="col">message</th>
+                    <th scope="col">Method</th>
                     <th scope="col">Created</th>
                     <th scope="col">Modified</th>
-                    <th scope="col">Delete</th>
+                    <th scope="col">Validate</th>
+                    <th scope="col">Discard</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class='courseRow' *ngFor='let enrollment of resourcesSliced; let index = index' >
+                <tr class='courseRow' *ngFor='let sale of resourcesSliced; let index = index' >
                     <th scope="row">{{index}}</th>
-                    <td>{{enrollment.idEnrollment}}</td>
-                    <td>{{enrollment.service?.serviceType}} : {{enrollment.service?.course.courseId.university}}</td>
-                    <td>{{enrollment.service?.course.name}}</td>
-                    <td>{{enrollment.service.teacher.fullName}}</td>
-                    <td class='clientFullName'>{{enrollment.student.fullName}}</td>
-                    <td>{{enrollment.payed.toString() | uppercase}}</td>
-                    <td>{{enrollment.active.toString() | uppercase}}</td>
-                    <td>{{enrollment.created  | date:'mediumDate'}}</td>
-                    <td>{{enrollment.modified  | date:'mediumDate'}}</td>
-
+                    <td>{{sale.idSale}}</td>
+                    <td>{{sale.enrollment.idEnrollment}}:{{sale.enrollment?.service.course.courseId.idCourse}}</td>
+                    <td>{{sale.saleDateTime | date}}</td>
+                    <td>{{sale.amount | currency: 'PEN'}}</td>
+                    <td class='clientFullName'>{{sale.persona}}</td>
+                    <td>{{sale.coupon}}</td>
+                    <td>{{sale.message}}</td>
+                    <td>{{sale.method}}</td>
+                    <td>{{sale.created  | date:'mediumDate'}}</td>
+                    <td>{{sale.modified  | date:'mediumDate'}}</td>
                     <td>
-                        <button (click)='modalDelete(this.getId(enrollment))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                        <button *ngIf='!sale.enrollment.payed' (click)='modalEdit(this.getId(sale))' class='btn btn-success' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-check"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button *ngIf='!sale.enrollment.payed' (click)='modalDelete(this.getId(sale))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
                             <i class="fas fa-trash"></i>
                         </button>
                     </td>
@@ -117,14 +117,17 @@
                 <ng-container *ngTemplateOutlet='formModal'></ng-container>
 
                 <p *ngIf='modal.isDelete'>
-                    Are you sure you want to delete: {{resource.idEnrollment}}?
+                    Are you sure you want to delete: {{resource.idSale}}?
                 </p>
+                <p *ngIf='modal.isEdit'>
+                    Are you sure you want to Validate: {{resource.idSale}}:{{resource.persona}}?
+                </p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
                 <button type="button" class="btn" data-dismiss="modal"
                         (click)='submitModalForm()'
-                        [disabled]='!modal.isDelete && ((!form.dirty || form.invalid) && !modal.hasFile)'
                         [ngClass]="{'btn-primary' : modal.isEdit,
                                     'btn-danger' : modal.isDelete,
                                     'btn-success' : modal.isCreate}"

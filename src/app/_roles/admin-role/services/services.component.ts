@@ -72,6 +72,10 @@ export class ServicesComponent
     // attributes for usages in the form
     courseSelector: Course[];
     userSelector: User[];
+    availableSelector: string[];
+
+    //Additional
+    title3: string;
 
     constructor(
         protected router: Router,
@@ -105,22 +109,32 @@ export class ServicesComponent
             this.servicesSelector.push(s.key);
         });
         this.servicesSelector.splice(0, 0, 'All');
+
+        this.availableSelector = ['All', 'true', 'false'];
     }
 
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
-            this.title = 'Universidad: ';
-            this.title2 = 'Servicio: ';
+            this.title = 'Univ: ';
+            this.title2 = 'Service: ';
+            this.title3 = 'Available: ';
 
             let queryParams;
-            if (params.u && params.s)
+            if (params.u && params.s && params.a)
+                queryParams = { u: params.u, s: params.s, a: params.a };
+            else if (params.u && params.s)
                 queryParams = { u: params.u, s: params.s };
+            else if (params.u && params.a)
+                queryParams = { u: params.u, a: params.a };
+            else if (params.a && params.s)
+                queryParams = { a: params.a, s: params.s };
             else if (params.u) queryParams = { u: params.u };
             else if (params.s) queryParams = { s: params.s };
+            else if (params.a) queryParams = { a: params.a };
             else queryParams = null;
 
-            //console.log('Routing to: ', queryParams);
+            console.log('Routing to: ', queryParams);
             this.serviceService.getAll(queryParams).subscribe((data) => {
                 this.resources = data;
                 this.resourcesSliced = this.resources.slice(
@@ -135,8 +149,7 @@ export class ServicesComponent
         return resource.idService.toString();
     }
 
-    onOptionsSelected(university: string, service: string) {
-        console.log(university, service);
+    onOptionsSelected(university: string, service: string, available: string) {
         if (
             !this.universitiesSelector.includes(university) ||
             university === 'All'
@@ -145,7 +158,10 @@ export class ServicesComponent
         if (!this.servicesSelector.includes(service) || service === 'All')
             service = null;
 
-        let queryParams = { u: university, s: service };
+        if (!this.availableSelector.includes(available) || available === 'All')
+            available = null;
+
+        let queryParams = { u: university, s: service, a: available };
 
         this.router.navigate([this.path], {
             queryParams: queryParams,

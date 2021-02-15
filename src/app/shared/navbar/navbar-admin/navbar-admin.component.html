@@ -3,19 +3,23 @@
         <!-- TODO: Order the navbar -->
 
         <li routerLinkActive="active current" class="nav-item">
-            <a [routerLink]="['/a/users']" class="nav-link">Users</a>
+            <a [routerLink]="['/a/courses']" class="nav-link">Course</a>
         </li>
 
         <li routerLinkActive="active current" class="nav-item">
-            <a [routerLink]="['/a/services']" class="nav-link">Services</a>
+            <a [routerLink]="['/a/users']" class="nav-link">User</a>
         </li>
 
         <li routerLinkActive="active current" class="nav-item">
-            <a [routerLink]="['/a/enrollments']" class="nav-link">Enrollments</a>
+            <a [routerLink]="['/a/services']" class="nav-link">Service</a>
         </li>
 
         <li routerLinkActive="active current" class="nav-item">
-            <a [routerLink]="['/a/courses']" class="nav-link">Courses</a>
+            <a [routerLink]="['/a/enrollments']" class="nav-link">Enrollment</a>
+        </li>
+
+        <li routerLinkActive="active current" class="nav-item">
+            <a [routerLink]="['/a/sales']" class="nav-link">Sale</a>
         </li>
 
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">

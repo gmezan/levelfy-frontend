@@ -6,33 +6,31 @@ import {
     ViewChild,
 } from '@angular/core';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
-import { Enrollment } from '../../../shared/_models/enrollment.model';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Sale } from '../../../shared/_models/sale.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ServiceService } from '../../../core/services/service.service';
-import { Service } from '../../../shared/_models/service.model';
-import { EnrollmentService } from '../../../core/services/enrollment.service';
+import { SaleService } from '../../../core/services/sale.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 
 const modalStrings = {
-    create: { title: 'Create Enrollment', submit: 'Create', cancel: 'Cancel' },
-    edit: { title: 'Edit Enrollment', submit: 'Save', cancel: 'Cancel' },
-    delete: { title: 'Delete Enrollment', submit: 'Delete', cancel: 'Cancel' },
+    create: { title: 'Create Sale', submit: 'Create', cancel: 'Cancel' },
+    edit: { title: 'Validate Sale', submit: 'Validate', cancel: 'Cancel' },
+    delete: { title: 'Discard Sale', submit: 'Delete', cancel: 'Cancel' },
 };
 
 const messagesAlert = {
     create: {
-        success: 'Enrollment created successfully',
-        error: 'There was an error creating this Enrollment, try again later',
+        success: 'Sale created successfully',
+        error: 'There was an error creating this Sale, try again later',
     },
     edit: {
-        success: 'Enrollment edited successfully',
-        error: 'There was an error updating this Enrollment, try again later',
+        success: 'Sale Validated successfully',
+        error: 'There was an error updating this Sale, try again later',
     },
     delete: {
-        success: 'Service deleted correctly',
-        error: 'There was an error deleting this Enrollment, try again later',
+        success: 'Sale Discarded correctly',
+        error: 'There was an error deleting this Sale, try again later',
     },
     image: {
         success: 'Image uploaded correctly',
@@ -41,23 +39,22 @@ const messagesAlert = {
 };
 
 const searchBarSelector = '.clientFullName';
-const path = '/a/enrollments';
+const path = '/a/sales';
 
 @Component({
-    selector: 'app-enrollment',
-    templateUrl: './enrollment.component.html',
-    styleUrls: ['./enrollment.component.css'],
+    selector: 'app-sales',
+    templateUrl: './sales.component.html',
+    styleUrls: ['./sales.component.css'],
 })
-export class EnrollmentComponent
-    extends ModalCrudComponent<Enrollment>
-    implements OnInit {
+export class SalesComponent extends ModalCrudComponent<Sale> implements OnInit {
     // For Alert:
     @ViewChild(CustomAlertDirective, { static: true })
     alertDirective: CustomAlertDirective;
+
     // variables used to find users by role and university
     servicesSelector: string[];
     universitiesSelector: string[];
-    activeSelector: string[];
+    payedSelector: string[];
 
     //Additional
     title3: string;
@@ -65,15 +62,15 @@ export class EnrollmentComponent
     constructor(
         protected router: Router,
         private route: ActivatedRoute,
-        private enrollmentService: EnrollmentService,
+        private saleService: SaleService,
         protected elementRef: ElementRef,
         private fb: FormBuilder,
         private componentFactoryResolver: ComponentFactoryResolver
     ) {
         super(
-            enrollmentService,
+            saleService,
             modalStrings,
-            new Enrollment(),
+            new Sale(),
             searchBarSelector,
             elementRef,
             router,
@@ -93,7 +90,7 @@ export class EnrollmentComponent
         });
         this.servicesSelector.splice(0, 0, 'All');
 
-        this.activeSelector = ['All', 'true', 'false'];
+        this.payedSelector = ['All', 'true', 'false'];
     }
 
     ngOnInit(): void {
@@ -101,24 +98,24 @@ export class EnrollmentComponent
             this.resources = [];
             this.title = 'Univ: ';
             this.title2 = 'Service: ';
-            this.title3 = 'Active: ';
+            this.title3 = 'Payed: ';
 
             let queryParams;
-            if (params.u && params.s && params.a)
-                queryParams = { u: params.u, s: params.s, a: params.a };
+            if (params.u && params.s && params.p)
+                queryParams = { u: params.u, s: params.s, p: params.p };
             else if (params.u && params.s)
                 queryParams = { u: params.u, s: params.s };
-            else if (params.u && params.a)
-                queryParams = { u: params.u, a: params.a };
-            else if (params.a && params.s)
-                queryParams = { a: params.a, s: params.s };
+            else if (params.u && params.p)
+                queryParams = { u: params.u, p: params.p };
+            else if (params.p && params.s)
+                queryParams = { p: params.p, s: params.s };
             else if (params.u) queryParams = { u: params.u };
             else if (params.s) queryParams = { s: params.s };
-            else if (params.a) queryParams = { a: params.a };
+            else if (params.p) queryParams = { p: params.p };
             else queryParams = null;
 
             //console.log('Routing to: ', queryParams);
-            this.enrollmentService.getAll(queryParams).subscribe((data) => {
+            this.dataService.getAll(queryParams).subscribe((data) => {
                 this.resources = data;
                 this.resourcesSliced = this.resources.slice(
                     (this.pageNumber - 1) * this.pageSize,
@@ -128,49 +125,27 @@ export class EnrollmentComponent
         });
     }
 
-    onOptionsSelected(university: string, service: string, active: string) {
-        console.log(university, service);
-        if (
-            !this.universitiesSelector.includes(university) ||
-            university === 'All'
-        )
-            university = null;
-        if (!this.servicesSelector.includes(service) || service === 'All')
-            service = null;
-
-        if (!this.activeSelector.includes(active) || active === 'All')
-            active = null;
-
-        let queryParams = { u: university, s: service, a: active };
-
-        this.router.navigate([this.path], {
-            queryParams: queryParams,
-        });
-    }
-
-    getId(resource: Enrollment): string {
-        return resource.idEnrollment.toString();
-    }
-
     fillModal(): FormGroup {
-        // Validations must be according to the database
         return this.fb.group({
-            idEnrollment: [this.resource.idEnrollment, Validators.required],
-            service: this.fb.group({
-                idService: [this.resource.service.idService],
+            idSale: [this.resource.idSale, Validators.required],
+            enrollment: this.fb.group({
+                idEnrollment: [this.resource.enrollment.idEnrollment],
             }),
-            student: this.fb.group({
-                idUser: [this.resource.student.idUser, Validators.required],
-            }),
-            payed: [this.resource.payed],
-            numberOfStudents: [this.resource.numberOfStudents],
-            start: [this.resource.start],
-            end: [this.resource.end],
-            active: [this.resource.active],
+            saleDateTime: [this.resource.saleDateTime],
+            expirationDateTime: [this.resource.expirationDateTime],
+            amount: [this.resource.amount],
+            persona: [this.resource.persona],
+            coupon: [this.resource.coupon],
+            message: [this.resource.message],
+            method: [this.resource.method],
         });
     }
 
-    onSubmitModalForm(resource: Enrollment, index: number, id: string): void {
+    getId(resource: Sale): string {
+        return resource.idSale.toString();
+    }
+
+    onSubmitModalForm(resource: Sale, index: number, id: string): void {
         if (this.modal.isDelete)
             this.dataService.delete(id).subscribe(
                 (data) => {
@@ -182,6 +157,39 @@ export class EnrollmentComponent
                     console.log(error);
                 }
             );
+        else if (this.modal.isEdit)
+            this.dataService.update(resource).subscribe(
+                (data) => {
+                    // Replace the Data with the data updated
+                    data.created = this.resources[index].created; //bug
+                    this.replaceResourceAt(index, data);
+                    this.createAlertSuccess(messagesAlert.edit.success);
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.edit.error);
+                    console.log(error);
+                }
+            );
+    }
+
+    onOptionsSelected(university: string, service: string, payed: string) {
+        console.log(university, service);
+        if (
+            !this.universitiesSelector.includes(university) ||
+            university === 'All'
+        )
+            university = null;
+        if (!this.servicesSelector.includes(service) || service === 'All')
+            service = null;
+
+        if (!this.payedSelector.includes(payed) || payed === 'All')
+            payed = null;
+
+        let queryParams = { u: university, s: service, p: payed };
+
+        this.router.navigate([this.path], {
+            queryParams: queryParams,
+        });
     }
 
     protected createAlert(isSuccess: boolean, message: string) {

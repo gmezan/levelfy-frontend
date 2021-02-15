@@ -10,16 +10,26 @@ import { UsersComponent } from './users/users.component';
 import { ServicesComponent } from './services/services.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { SalesComponent } from './sales/sales.component';
+import { SaleCanceledComponent } from './sale-canceled/sale-canceled.component';
 
 @NgModule({
-    declarations: [AdminComponent, CoursesComponent, UsersComponent, ServicesComponent, EnrollmentComponent],
+    declarations: [
+        AdminComponent,
+        CoursesComponent,
+        UsersComponent,
+        ServicesComponent,
+        EnrollmentComponent,
+        SalesComponent,
+        SaleCanceledComponent,
+    ],
     imports: [
         CommonModule,
         AdminRoleRoutingModule,
         SharedModule,
         FontAwesomeModule,
         ReactiveFormsModule,
-        MatPaginatorModule
+        MatPaginatorModule,
     ],
 })
 export class AdminRoleModule {}
