@@ -205,7 +205,8 @@
 
             <div class="form-group col-md-6">
                 <label for="inputServiceType">ServiceType</label>
-                <select [attr.disabled]='modal.isEdit ? "" : null'
+                <select (change)='checkChangeForPrice()'
+                        [attr.disabled]='modal.isEdit ? "" : null'
                         formControlName='serviceType'
                         class="form-control custom-select"
                         id="inputServiceType">
@@ -230,7 +231,8 @@
 
             <div class="form-group col-md-6">
                 <label for="inputEvaluation">Evaluation</label>
-                <select formControlName='evaluation'
+                <select (change)='checkChangeForPrice()'
+                        formControlName='evaluation'
                         class="form-control custom-select"
                         id="inputEvaluation">
                     <option *ngFor='let e of evaluations' [value]='e' >{{e.toString()}}</option>

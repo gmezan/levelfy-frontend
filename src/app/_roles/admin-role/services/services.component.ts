@@ -76,6 +76,8 @@ export class ServicesComponent
 
     //Additional
     title3: string;
+    prices: any;
+    pricesSelector: number[];
 
     constructor(
         protected router: Router,
@@ -134,13 +136,16 @@ export class ServicesComponent
             else if (params.a) queryParams = { a: params.a };
             else queryParams = null;
 
-            console.log('Routing to: ', queryParams);
+            //console.log('Routing to: ', queryParams);
             this.serviceService.getAll(queryParams).subscribe((data) => {
                 this.resources = data;
                 this.resourcesSliced = this.resources.slice(
                     (this.pageNumber - 1) * this.pageSize,
                     this.pageNumber * this.pageSize
                 );
+            });
+            this.serviceService.getPrices().subscribe((data) => {
+                this.prices = data;
             });
         });
     }
@@ -233,6 +238,60 @@ export class ServicesComponent
     get serviceSessionList() {
         return this.form.get('serviceSessionList') as FormArray;
     }
+    get evaluation() {
+        return this.form.get('evaluation').value;
+    }
+    get serviceType() {
+        return this.form.get('serviceType').value;
+    }
+    get university() {
+        return this.form.get('course').get('courseId').get('university').value;
+    }
+
+    /*
+        This function automates the price assignment in the Create Form Modal
+     */
+    checkChangeForPrice() {
+        let price;
+        //console.log(this.evaluation, this.serviceType, this.university);
+        if (this.evaluation && this.serviceType && this.university) {
+            if (this.prices) {
+                let elementPrice: [] = this.prices[this.university][
+                    this.serviceType
+                ];
+                switch (this.serviceType) {
+                    case 'ASES_PER':
+                        let maxP = 0;
+                        elementPrice.forEach((element) => {
+                            if (element['price'] > maxP)
+                                maxP = element['price'];
+                        });
+                        price = maxP;
+                        break;
+
+                    case 'ASES_PAQ':
+                        elementPrice.forEach((element) => {
+                            if (
+                                (this.evaluation as string).includes(
+                                    element['type']
+                                )
+                            ) {
+                                price = element['price'];
+                            }
+                        });
+                        break;
+
+                    case 'MAR':
+                        elementPrice.forEach((element) => {
+                            price = element['price'];
+                        });
+                        break;
+                }
+            }
+            if (this.modal.isCreate)
+                this.form.controls.price.setValue(price || this.resource.price);
+        }
+    }
 
     addServiceSession() {
         this.serviceSessionList.push(
@@ -255,6 +314,9 @@ export class ServicesComponent
         this.userService
             .getAll({ u: value, r: Roles.teach })
             .subscribe((data) => (this.userSelector = data));
+
+        // For the price
+        this.checkChangeForPrice();
     }
 
     onSubmitModalForm(resource: Service, index: number, id: string): void {
