@@ -2,16 +2,6 @@
     <ul class="navbar-nav ml-auto mr-lg-4">
         <!-- TODO: Order the navbar -->
         <li class="nav-item dropdown no-caret">
-            <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownDocs"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >Servicios<i class="fas fa-chevron-right dropdown-arrow"></i
-            ></a>
             <div
                 class="dropdown-menu dropdown-menu-right animated--fade-in-up"
                 aria-labelledby="navbarDropdownDocs"
@@ -57,14 +47,6 @@
 
         <li routerLinkActive="active current" class="nav-item">
             <a [routerLink]="['/m/courses']" class="nav-link">Courses</a>
-        </li>
-
-        <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/blog" class="nav-link">Blog</a>
-        </li>
-
-        <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/us" class="nav-link">Nosotros</a>
         </li>
 
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">

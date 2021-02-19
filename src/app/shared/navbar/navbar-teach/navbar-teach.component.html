@@ -1,58 +1,16 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto mr-lg-4">
         <!-- TODO: Order the navbar -->
-        <li class="nav-item dropdown no-caret">
-            <a
-                class="nav-link dropdown-toggle"
-                id="navbarDropdownDocs"
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-            >Servicios<i class="fas fa-chevron-right dropdown-arrow"></i
-            ></a>
-            <div
-                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
-                aria-labelledby="navbarDropdownDocs"
-            >
-                <div *ngFor="let serv of services">
-                    <a
-                        class="dropdown-item py-3"
-                        [routerLink]="['/services', serv.route]"
-                    >
-                        <!--<div class="icon-stack bg-gray-300 text-dark mr-4">
-                    <fa-icon [icon]="['fas','book-open']"></fa-icon>
-                </div>-->
-                        <div>
-                            <div class="small text-gray-500">
-                                {{ serv.serviceName }}
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-divider m-0"></div>
-                </div>
-                <a class="dropdown-item py-3" [routerLink]="['/services']">
-                    <div class="icon-stack bg-gray-300 text-dark mr-4">
-                        <fa-icon [icon]="['fas', 'book-open']"></fa-icon>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">Ver Más</div>
-                    </div>
-                </a>
-            </div>
-        </li>
 
         <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/course" class="nav-link">Cursos</a>
-        </li>
-        <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/blog" class="nav-link">Blog</a>
+            <a [routerLink]="['/t/services']" class="nav-link">Service</a>
         </li>
 
+
         <li routerLinkActive="active current" class="nav-item">
-            <a routerLink="/us" class="nav-link">Nosotros</a>
+            <a [routerLink]="['/t/courses']" class="nav-link">Course</a>
         </li>
+
 
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">
             <a
