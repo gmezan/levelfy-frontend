@@ -1,1 +1,101 @@
-<p>courses works!</p>
+<section class='py-5 bg-light'>
+    <div class='container-fluid'>
+
+        <nav class="navbar navbar-light bg-light justify-content-between py-2">
+            <form class='form-inline'>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title}}</label>
+                    <select #mySelect
+                            (change)='onOptionsSelected(mySelect.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='universitySelector'>
+                        <option *ngFor='let u of universitiesSelector' [value]='u' >{{u}}</option>
+                    </select>
+                </div>
+            </form>
+            <form class="form-inline">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by Name" aria-label="Search">
+            </form>
+        </nav>
+
+
+        <div *ngIf='resources.length>0' class='table-responsive py-4'>
+            <mat-paginator [length]='resources.length'
+                           [pageSize]='pageSize'
+                           [pageSizeOptions]='pageSizeOptions'
+                           (page)='handlePage($event)'></mat-paginator>
+            <table id='dataTable' class="table table-hover table-dark table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">CourseId</th>
+                    <th scope="col">University</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Cycle</th>
+                    <th scope="col">Photo</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Modified</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class='courseRow' *ngFor='let course of resourcesSliced; let index = index' >
+                    <th scope="row">{{index}}</th>
+                    <td>{{course.courseId.idCourse}}</td>
+                    <td>{{course.courseId.university}}</td>
+                    <td class='courseName'>{{course.name}}</td>
+                    <td>{{course.cycle}}</td>
+                    <td class='text-center'>
+                        <img width='150' height='auto' class="img rounded-lg px-auto mx-auto" [src]='course.photo' alt="">
+                    </td>
+                    <td>{{course.description}}</td>
+                    <td>{{course.created  | date:'mediumDate'}}</td>
+                    <td>{{course.modified  | date:'mediumDate'}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf='resources.length===0' class='container py-5'>
+            <h3 class='text-primary'>Empty list</h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
+
+                <p *ngIf='modal.isDelete'>
+                    Are you sure you want to delete: {{resource.courseId.idCourse}}:{{resource.courseId.university}}?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='submitModalForm()'
+                        [disabled]='!modal.isDelete && ((!form.dirty || form.invalid) && !modal.hasFile)'
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #formModal>
+</ng-template>

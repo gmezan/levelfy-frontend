@@ -9,9 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AdminRoleRoutingModule } from '../admin-role/admin-role.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ServiceComponent } from './service/service.component';
 
 @NgModule({
-    declarations: [TeachComponent, ServicesComponent, CoursesComponent],
+    declarations: [TeachComponent, ServicesComponent, CoursesComponent, ServiceComponent],
     imports: [
         CommonModule,
         SharedModule,
