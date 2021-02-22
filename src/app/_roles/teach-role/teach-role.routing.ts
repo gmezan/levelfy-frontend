@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TeachComponent } from './teach/teach.component';
 import { ServicesComponent } from './services/services.component';
 import { CoursesComponent } from './courses/courses.component';
+import { ServiceComponent } from './service/service.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,11 @@ const routes: Routes = [
     {
         path: 'services',
         component: ServicesComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'service/:id',
+        component: ServiceComponent,
         pathMatch: 'full',
     },
 ];

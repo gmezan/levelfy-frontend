@@ -37,7 +37,7 @@
                 <span> - </span>
             </form>
             <form class="form-inline">
-                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by TeacherName" aria-label="Search">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by CourseName" aria-label="Search">
             </form>
         </nav>
         <nav class="navbar navbar-light bg-light justify-content-end">
@@ -82,8 +82,8 @@
                     <th scope="row">{{index}}</th>
                     <td>{{service.idService}}</td>
                     <td>{{service?.course.courseId.idCourse}} : {{service.course.courseId.university}}</td>
-                    <td>{{service.course.name}}</td>
-                    <td class='teacherFulName'>{{service.teacher.fullName}}</td>
+                    <td class='courseName'>{{service.course.name}}</td>
+                    <td>{{service.teacher.fullName}}</td>
                     <td>{{service?.available.toString() | uppercase}}</td>
                     <td>{{service?.serviceType }}</td>
                     <td>{{service?.price}}</td>
@@ -94,7 +94,7 @@
                     <td>{{service?.created  | date:'mediumDate'}}</td>
                     <td>{{service?.modified  | date:'mediumDate'}}</td>
                     <td>
-                        <button (click)='modalEdit(this.getId(service))' class='btn btn-light' data-toggle="modal" data-target="#crudModal">
+                        <button [routerLink]='["/t/service",service.idService.toString()]' class='btn btn-light' data-toggle="modal" data-target="#crudModal">
                             <i class="fas fa-chalkboard-teacher"></i>
                         </button>
                     </td>

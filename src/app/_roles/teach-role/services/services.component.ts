@@ -52,7 +52,7 @@ const messagesAlert = {
     },
 };
 
-const searchBarSelector = '.teacherFulName';
+const searchBarSelector = '.courseName';
 
 @Component({
     selector: 'app-services',
@@ -189,8 +189,6 @@ export class ServicesComponent
             this.resource.course.courseId.university = this.user.university;
             this.resource.teacher = this.user;
         }
-
-        console.log(this.user);
 
         this.resource.serviceSessionList?.forEach((sl) =>
             formArray.push(

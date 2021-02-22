@@ -20,7 +20,11 @@ export class CourseSuggestionComponent implements OnInit {
         if (!this.value) return;
         let courseSuggestion = new CourseSuggestion();
         courseSuggestion.name = this.value;
-        this.courseSuggestionService.create(courseSuggestion).subscribe();
+        this.courseSuggestionService
+            .sendSuggestion(courseSuggestion)
+            .subscribe((data) => {
+                console.log(data);
+            });
         this.value = '';
     }
 
