@@ -154,6 +154,41 @@ export class ServicesComponent
         });
     }
 
+    get serviceAgendaList() {
+        return this.form.get('serviceAgendaList') as FormArray;
+    }
+
+    addServiceAgenda() {
+        this.serviceAgendaList.push(
+            new FormGroup({
+                id: new FormControl(0),
+                service: this.fb.group({
+                    idService: [this.form.get('idService').value],
+                }),
+                key: new FormControl('', Validators.required),
+                description: new FormControl('', Validators.required),
+            })
+        );
+    }
+
+    deleteServiceAgenda() {
+        this.serviceAgendaList.removeAt(this.serviceAgendaList.length - 1);
+    }
+
+    requiresAgenda(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
+    }
+
+    requiresSessions(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
+    }
+
     getId(resource: Service): string {
         return resource.idService.toString();
     }
@@ -183,19 +218,35 @@ export class ServicesComponent
             })
             .subscribe((data) => (this.userSelector = data));
 
-        let formArray = [];
-
         if (this.modal.isCreate) {
             this.resource.course.courseId.university = this.user.university;
             this.resource.teacher = this.user;
         }
 
+        let formSessionArray = [];
         this.resource.serviceSessionList?.forEach((sl) =>
-            formArray.push(
+            formSessionArray.push(
                 new FormGroup({
                     date: new FormControl(sl.date, Validators.required),
                     start: new FormControl(sl.start, Validators.required),
                     end: new FormControl(sl.end, Validators.required),
+                })
+            )
+        );
+
+        let formAgendaArray = [];
+        this.resource.serviceAgendaList?.forEach((sa) =>
+            formAgendaArray.push(
+                new FormGroup({
+                    id: new FormControl(sa.id),
+                    service: this.fb.group({
+                        idService: [sa.service?.idService || 0],
+                    }),
+                    key: new FormControl(sa.key, Validators.required),
+                    description: new FormControl(
+                        sa.description,
+                        Validators.required
+                    ),
                 })
             )
         );
@@ -222,7 +273,8 @@ export class ServicesComponent
             expiration: [this.resource.expiration],
             archived: [this.resource.archived],
             photo: [this.resource.photo],
-            serviceSessionList: new FormArray(formArray),
+            serviceSessionList: new FormArray(formSessionArray),
+            serviceAgendaList: new FormArray(formAgendaArray),
         });
     }
 

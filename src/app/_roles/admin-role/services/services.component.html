@@ -293,7 +293,44 @@
 
         </div>
 
-        <div class='form-group'>
+
+        <!-- Agenda -->
+
+        <div *ngIf='requiresAgenda()' class='form-group'>
+            <label>Agenda</label>
+
+            <ng-container *ngIf='modal.isCreate'>
+                <button (click)='addServiceAgenda()' class='ml-3 btn-success rounded' type='button'><i class="fas fa-plus-circle"></i></button>
+                <button (click)='deleteServiceAgenda()' class='ml-1 btn-danger rounded' type='button'><i class="fas fa-minus-circle"></i></button>
+            </ng-container>
+
+            <div class='card rounded-lg mx-0 px-0'>
+                <div class='card-body mx-1 px-1'>
+                    <ng-container formArrayName='serviceAgendaList'>
+                        <div class="form-row" *ngFor='let agenda of serviceAgendaList.controls'>
+                            <ng-container [formGroup]='agenda'>
+                                <div class="form-group col-md-3">
+                                    <label class='small'>key</label>
+                                    <input type="text"  formControlName='key' class="form-control">
+                                </div>
+                                <div class="form-group col-md-9">
+                                    <label class='small'>description</label>
+                                    <input  type="text" formControlName='description' class="form-control">
+                                </div>
+
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class='alert alert-danger p-1' *ngIf="serviceAgendaList.touched && serviceAgendaList.invalid">
+                <div>All fields are required</div>
+            </div>
+        </div>
+
+        <!-- Sessions -->
+        <div *ngIf='requiresSessions()' class='form-group'>
             <label>Sessions</label>
 
             <ng-container *ngIf='modal.isCreate'>
@@ -328,6 +365,8 @@
                 <div>All fields are required</div>
             </div>
         </div>
+
+
 
         <!-- Photo -->
 
