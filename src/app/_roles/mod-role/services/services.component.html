@@ -1,0 +1,332 @@
+<section class='py-5 bg-light'>
+    <div class='container-fluid'>
+        <nav class="navbar navbar-light bg-light justify-content-between py-2">
+            <form class='form-inline'>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title}}</label>
+                    <select #selectService
+                            (change)='onOptionsSelected(selectService.value, selectAvailable.value)'
+                            class='form-control custom-select mx-3'
+                            name='services'
+                            id='servicesSelector'>
+                        <option *ngFor='let s of servicesSelector' [value]='s' >{{s | uppercase}}</option>
+                    </select>
+                </div>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'>{{title2}}</label>
+                    <select #selectAvailable
+                            (change)='onOptionsSelected(selectService.value, selectAvailable.value)'
+                            class='form-control custom-select mx-3'
+                            name='available'
+                            id='availableSelector'>
+                        <option *ngFor='let a of availableSelector' [value]='a' >{{a | uppercase}}</option>
+                    </select>
+                </div>
+                <span> - </span>
+            </form>
+            <form class="form-inline">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by TeacherName" aria-label="Search">
+            </form>
+        </nav>
+        <nav class="navbar navbar-light bg-light justify-content-end">
+            <form class="form-inline">
+                <button (click)='modalCreate()' class="btn btn-success" type="button" data-toggle="modal" data-target="#crudModal">
+                    Create
+                </button>
+            </form>
+        </nav>
+
+        <div class='container'>
+            <ng-template appCustomAlert></ng-template>
+        </div>
+
+        <div *ngIf='resources.length>0' class='table-responsive py-4'>
+            <mat-paginator [length]='resources.length'
+                           [pageSize]='pageSize'
+                           [pageSizeOptions]='pageSizeOptions'
+                           (page)='handlePage($event)'></mat-paginator>
+            <table id='dataTable' class="table table-hover table-dark table-bordered">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">id</th>
+                    <th scope="col">course</th>
+                    <th scope="col">course.name</th>
+                    <th scope="col">teacher</th>
+                    <th scope="col">available</th>
+                    <th scope="col">serviceType</th>
+                    <th scope="col">price</th>
+                    <th scope="col">evaluation</th>
+                    <th scope="col">photo</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Modified</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class='courseRow' *ngFor='let service of resourcesSliced; let index = index' >
+                    <th scope="row">{{index}}</th>
+                    <td>{{service.idService}}</td>
+                    <td>{{service?.course.courseId.idCourse}} : {{service.course.courseId.university}}</td>
+                    <td>{{service.course.name}}</td>
+                    <td class='teacherFulName'>{{service.teacher.fullName}}</td>
+                    <td>{{service?.available.toString() | uppercase}}</td>
+                    <td>{{service?.serviceType }}</td>
+                    <td>{{service?.price}}</td>
+                    <td>{{service?.evaluation}}</td>
+                    <td class='text-center'>
+                        <img width='120' height='auto' class="img rounded-lg px-auto mx-auto" [src]='service.photo' alt="">
+                    </td>
+                    <td>{{service?.created  | date:'mediumDate'}}</td>
+                    <td>{{service?.modified  | date:'mediumDate'}}</td>
+                    <td>
+                        <button (click)='modalEdit(this.getId(service))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button (click)='modalDelete(this.getId(service))' class='btn btn-danger' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf='resources.length===0' class='container py-5'>
+            <h3 class='text-primary'>Empty list</h3>
+        </div>
+    </div>
+</section>
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
+
+                <p *ngIf='modal.isDelete'>
+                    Are you sure you want to delete: {{resource.idService}} : {{resource.course.courseId.idCourse}}:{{resource.course.courseId.university}}
+                    by {{resource.teacher.fullName}}?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='submitModalForm()'
+                        [disabled]='!modal.isDelete && ((!form.dirty || form.invalid) && !modal.hasFile)'
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #formModal>
+    <form [hidden]='modal.isDelete' [formGroup]='form' >
+
+        <div [hidden]='true' class="form-group">
+            <label for="inputId">Id</label>
+            <input type="number" id='inputId' formControlName='idService' class="form-control"  placeholder="Id">
+        </div>
+
+
+        <div formGroupName='course'>
+            <div class="form-row" >
+
+                <div class="form-group col-md-6" formGroupName='courseId'>
+                    <label for="inputUniversity">University</label>
+                    <input type="text" formControlName='university' [value]='university' class="form-control" id="inputUniversity" placeholder="University">
+                    <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('university').touched && form.get('course').get('courseId').get('university').invalid">
+                        <div *ngIf="form.get('description').errors.required">University is required</div>
+                    </div>
+                </div>
+
+
+                <div class="form-group col-md-6" formGroupName='courseId'>
+                    <label for="idCourse">Course Id</label>
+                    <select [attr.disabled]='modal.isEdit ? "" : null'
+                            formControlName='idCourse'
+                            class="form-control custom-select"
+                            id="idCourse">
+                        <option *ngFor='let c of courseSelector; let index = index' [value]='c.courseId.idCourse' >{{c.name}}</option>
+                    </select>
+                    <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('idCourse').touched && form.get('course').get('courseId').get('idCourse').invalid">
+                        <div *ngIf="form.get('course').get('courseId').get('idCourse').errors.required">Course Id is required</div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6" formGroupName='teacher'>
+                <label for="inputTeacher">Teacher </label>
+                <select formControlName='idUser'
+                        class="form-control custom-select"
+                        id="inputTeacher">
+                    <option *ngFor='let u of userSelector; let index = index' [value]='u.idUser' >{{u.fullName}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('teacher').get('idUser').touched && form.get('teacher').get('idUser').invalid">
+                    <div *ngIf="form.get('teacher').get('idUser').errors.required">Description is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputServiceType">ServiceType</label>
+                <select [attr.disabled]='modal.isEdit ? "" : null'
+                        formControlName='serviceType'
+                        class="form-control custom-select"
+                        id="inputServiceType">
+                    <option *ngFor='let s of services; let index = index' [value]='s.key' >{{s.serviceName}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
+                    <div *ngIf="form.get('serviceType').errors.required">ServiceType is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputPrice">Price</label>
+                <input type="number" id='inputPrice' formControlName='price' class="form-control"  placeholder="Price">
+                <div class='alert alert-danger p-1' *ngIf="form.get('price').touched && form.get('price').invalid">
+                    <div *ngIf="form.get('price').errors.required">Price is required</div>
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-6">
+                <label for="inputEvaluation">Evaluation</label>
+                <select formControlName='evaluation'
+                        class="form-control custom-select"
+                        id="inputEvaluation">
+                    <option *ngFor='let e of evaluations' [value]='e' >{{e.toString()}}</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
+                    <div *ngIf="form.get('serviceType').errors.required">ServiceType is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputDescription">Description <i class='small'>Optional</i></label>
+                <input type="text" formControlName='description' class="form-control" id="inputDescription" placeholder="Description">
+                <div class='alert alert-danger p-1' *ngIf="form.get('description').touched && form.get('description').invalid">
+                    <div *ngIf="form.get('description').errors.required">Description is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputExpiration">Expiration <i class='small'>Optional</i></label>
+                <input type="datetime-local" id='inputExpiration' formControlName='expiration' class="form-control"  placeholder="Expiration">
+                <div class='alert alert-danger p-1' *ngIf="form.get('expiration').touched && form.get('expiration').invalid">
+                    <div *ngIf="form.get('expiration').errors.required">Expiration is required</div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class='form-row'>
+            <div class="form-group col-md-6">
+                <label for="inputAvailable">Available</label>
+                <select formControlName='available'
+                        class="form-control custom-select"
+                        id="inputAvailable">
+                    <option [value]='true' >TRUE</option>
+                    <option [value]='false'>FALSE</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('available').touched && form.get('available').invalid">
+                    <div *ngIf="form.get('available').errors.required">Available is required</div>
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label for="inputArchived">Archived</label>
+                <select formControlName='archived'
+                        class="form-control custom-select"
+                        id="inputArchived">
+                    <option [value]='true' >TRUE</option>
+                    <option [value]='false'>FALSE</option>
+                </select>
+                <div class='alert alert-danger p-1' *ngIf="form.get('archived').touched && form.get('archived').invalid">
+                    <div *ngIf="form.get('archived').errors.required">Archived is required</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class='form-group'>
+            <label>Sessions</label>
+
+            <ng-container *ngIf='modal.isCreate'>
+                <button (click)='addServiceSession()' class='ml-3 btn-success rounded' type='button'><i class="fas fa-plus-circle"></i></button>
+                <button (click)='deleteServiceSession()' class='ml-1 btn-danger rounded' type='button'><i class="fas fa-minus-circle"></i></button>
+            </ng-container>
+
+            <div class='card rounded-lg mx-0 px-0'>
+                <div class='card-body mx-1 px-1'>
+                    <ng-container formArrayName='serviceSessionList'>
+                        <div class="form-row" *ngFor='let session of serviceSessionList.controls'>
+                            <ng-container [formGroup]='session'>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>date</label>
+                                    <input [readOnly]='!modal.isCreate' type="date"  formControlName='date' class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>start</label>
+                                    <input [readOnly]='!modal.isCreate' type="time" formControlName='start' class="form-control">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label class='small'>end</label>
+                                    <input [readOnly]='!modal.isCreate' type="time" formControlName='end' class="form-control">
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+            <div class='alert alert-danger p-1' *ngIf="serviceSessionList.touched && serviceSessionList.invalid">
+                <div>All fields are required</div>
+            </div>
+        </div>
+
+        <!-- Photo -->
+
+        <div [hidden]='true' class="form-group">
+            <label for="inputPhoto">Photo</label>
+            <input type="text" formControlName='photo' class="form-control"  placeholder="Photo">
+            <div class='alert alert-danger p-1' *ngIf="form.get('photo').touched && form.get('photo').invalid">
+                <div *ngIf="form.get('photo').errors.required">Photo is required</div>
+            </div>
+        </div>
+
+        <div class='form-group'>
+            <label for="inputPhoto">Photo</label>
+            <img class='img card-img rounded-lg p-2' [src]="form.get('photo').value"> <br/>
+            <input [value]='modal.file' id="inputPhoto" type='file' (change)="onSelectFile($event)">
+        </div>
+
+
+    </form>
+</ng-template>
