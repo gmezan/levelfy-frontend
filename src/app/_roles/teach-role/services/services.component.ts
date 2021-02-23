@@ -5,12 +5,11 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
-import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
-import { Course } from '../../../shared/_models/course.model';
-import { Service } from '../../../shared/_models/service.model';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
+import { Course } from '../../../shared/_models/course.model';
+import { User } from '../../../shared/_models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../../core/services/course.service';
+import { ServiceService } from '../../../core/services/service.service';
 import {
     FormArray,
     FormBuilder,
@@ -18,13 +17,15 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-import { ServiceService } from '../../../core/services/service.service';
-import { User } from '../../../shared/_models/user.model';
+import { CourseService } from '../../../core/services/course.service';
 import { UserService } from '../../../core/services/user.service';
+import { Service } from '../../../shared/_models/service.model';
 import { Roles } from '../../../core/util/roles.data';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
+import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
+import { AuthService } from '../../../core/security/auth.service';
 
-const path = '/a/services';
+const path = '/t/services';
 
 const modalStrings = {
     create: { title: 'Create Service', submit: 'Create', cancel: 'Cancel' },
@@ -51,7 +52,7 @@ const messagesAlert = {
     },
 };
 
-const searchBarSelector = '.teacherFulName';
+const searchBarSelector = '.courseName';
 
 @Component({
     selector: 'app-services',
@@ -78,6 +79,7 @@ export class ServicesComponent
     title3: string;
     prices: any;
     pricesSelector: number[];
+    user: User;
 
     constructor(
         protected router: Router,
@@ -87,7 +89,8 @@ export class ServicesComponent
         private fb: FormBuilder,
         private componentFactoryResolver: ComponentFactoryResolver,
         private courseService: CourseService,
-        private userService: UserService
+        private userService: UserService,
+        private authService: AuthService
     ) {
         super(
             serviceService,
@@ -122,19 +125,20 @@ export class ServicesComponent
             this.title2 = 'Service: ';
             this.title3 = 'Available: ';
 
+            this.user = this.authService.getCurrentUser();
+
             let queryParams;
-            if (params.u && params.s && params.a)
-                queryParams = { u: params.u, s: params.s, a: params.a };
-            else if (params.u && params.s)
-                queryParams = { u: params.u, s: params.s };
-            else if (params.u && params.a)
-                queryParams = { u: params.u, a: params.a };
-            else if (params.a && params.s)
-                queryParams = { a: params.a, s: params.s };
-            else if (params.u) queryParams = { u: params.u };
-            else if (params.s) queryParams = { s: params.s };
-            else if (params.a) queryParams = { a: params.a };
-            else queryParams = null;
+            if (params.s && params.a)
+                queryParams = {
+                    u: this.user.university,
+                    s: params.s,
+                    a: params.a,
+                };
+            else if (params.s)
+                queryParams = { u: this.user.university, s: params.s };
+            else if (params.a)
+                queryParams = { u: this.user.university, a: params.a };
+            else queryParams = { u: this.user.university };
 
             //console.log('Routing to: ', queryParams);
             this.serviceService.getAll(queryParams).subscribe((data) => {
@@ -150,24 +154,51 @@ export class ServicesComponent
         });
     }
 
+    get serviceAgendaList() {
+        return this.form.get('serviceAgendaList') as FormArray;
+    }
+
+    addServiceAgenda() {
+        this.serviceAgendaList.push(
+            new FormGroup({
+                id: new FormControl(0),
+                service: this.fb.group({
+                    idService: [this.form.get('idService').value],
+                }),
+                key: new FormControl('', Validators.required),
+                description: new FormControl('', Validators.required),
+            })
+        );
+    }
+
+    deleteServiceAgenda() {
+        this.serviceAgendaList.removeAt(this.serviceAgendaList.length - 1);
+    }
+
+    requiresAgenda(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
+    }
+
+    requiresSessions(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
+    }
+
     getId(resource: Service): string {
         return resource.idService.toString();
     }
 
     onOptionsSelected(university: string, service: string, available: string) {
-        if (
-            !this.universitiesSelector.includes(university) ||
-            university === 'All'
-        )
-            university = null;
         if (!this.servicesSelector.includes(service) || service === 'All')
             service = null;
-
         if (!this.availableSelector.includes(available) || available === 'All')
             available = null;
-
-        let queryParams = { u: university, s: service, a: available };
-
+        let queryParams = { s: service, a: available };
         this.router.navigate([this.path], {
             queryParams: queryParams,
         });
@@ -176,23 +207,20 @@ export class ServicesComponent
     fillModal(): FormGroup {
         // Validations must be according to the database
 
-        if (
-            this.resource.course.courseId.university &&
-            this.resource.course.courseId.idCourse
-        ) {
-            let queryParams = { u: this.resource.course.courseId.university };
-            this.courseService
-                .getAll(queryParams)
-                .subscribe((data) => (this.courseSelector = data));
-            this.userService
-                .getAll({
-                    u: this.resource.course.courseId.university,
-                    r: Roles.teach,
-                })
-                .subscribe((data) => (this.userSelector = data));
-        } else {
-            this.courseSelector = [];
-            this.userSelector = [];
+        let queryParams = { u: this.resource.course.courseId.university };
+        this.courseService
+            .getAll(queryParams)
+            .subscribe((data) => (this.courseSelector = data));
+        this.userService
+            .getAll({
+                u: this.resource.course.courseId.university,
+                r: Roles.teach,
+            })
+            .subscribe((data) => (this.userSelector = data));
+
+        if (this.modal.isCreate) {
+            this.resource.course.courseId.university = this.user.university;
+            this.resource.teacher = this.user;
         }
 
         let formSessionArray = [];
@@ -231,10 +259,7 @@ export class ServicesComponent
                         this.resource.course.courseId.idCourse,
                         Validators.required,
                     ],
-                    university: [
-                        this.resource.course.courseId.university,
-                        Validators.required,
-                    ],
+                    university: [this.user?.university, Validators.required],
                 }),
             }),
             teacher: this.fb.group({
@@ -253,10 +278,6 @@ export class ServicesComponent
         });
     }
 
-    get serviceAgendaList() {
-        return this.form.get('serviceAgendaList') as FormArray;
-    }
-
     get serviceSessionList() {
         return this.form.get('serviceSessionList') as FormArray;
     }
@@ -271,8 +292,8 @@ export class ServicesComponent
     }
 
     /*
-        This function automates the price assignment in the Create Form Modal
-     */
+      This function automates the price assignment in the Create Form Modal
+   */
     checkChangeForPrice() {
         let price;
         //console.log(this.evaluation, this.serviceType, this.university);
@@ -313,37 +334,6 @@ export class ServicesComponent
             if (this.modal.isCreate)
                 this.form.controls.price.setValue(price || this.resource.price);
         }
-    }
-
-    addServiceAgenda() {
-        this.serviceAgendaList.push(
-            new FormGroup({
-                id: new FormControl(0),
-                service: this.fb.group({
-                    idService: [this.form.get('idService').value],
-                }),
-                key: new FormControl('', Validators.required),
-                description: new FormControl('', Validators.required),
-            })
-        );
-    }
-
-    deleteServiceAgenda() {
-        this.serviceAgendaList.removeAt(this.serviceAgendaList.length - 1);
-    }
-
-    requiresAgenda(): boolean {
-        return (
-            this.form.get('serviceType').value == 'ASES_PAQ' ||
-            this.form.get('serviceType').value == 'MAR'
-        );
-    }
-
-    requiresSessions(): boolean {
-        return (
-            this.form.get('serviceType').value == 'ASES_PAQ' ||
-            this.form.get('serviceType').value == 'MAR'
-        );
     }
 
     addServiceSession() {
@@ -387,6 +377,7 @@ export class ServicesComponent
         else if (this.modal.isCreate)
             this.dataService.create(resource).subscribe(
                 (data) => {
+                    console.log(data);
                     let originalLastIndex = this.resources.length - 1;
                     this.addResourceAt(originalLastIndex, data);
                     this.createAlertSuccess(messagesAlert.create.success);

@@ -5,6 +5,7 @@ import { User } from './user.model';
 import { Enrollment } from './enrollment.model';
 import { ServiceSession } from './service-session.model';
 import { Evaluations } from '../../core/util/evaluations.data';
+import { ServiceAgenda } from './service-agenda';
 
 export class Service extends Auditable implements Deserializable {
     deserialize(input: any): this {
@@ -28,6 +29,7 @@ export class Service extends Auditable implements Deserializable {
         this.available = available || true;
         this.serviceSessionList = [];
         this.archived = archived || false;
+        this.serviceAgendaList = [];
     }
 
     idService: number;
@@ -43,4 +45,5 @@ export class Service extends Auditable implements Deserializable {
     archived: boolean;
     enrollmentList: Enrollment[];
     serviceSessionList: ServiceSession[];
+    serviceAgendaList: ServiceAgenda[];
 }

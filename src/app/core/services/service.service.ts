@@ -13,10 +13,16 @@ const uri = '/model/service';
 })
 export class ServiceService extends DataService<Service> {
     apiUriServiceForm = '/model/service/form';
+    apiUriServicePrices = '/model/service/get-prices';
     apiUploadImage = '/s3/service/';
 
     constructor(http: HttpClient) {
         super(uri, http);
+    }
+
+    getPrices(): any {
+        let url = this.buildPath(this.apiUriServicePrices);
+        return this.http.get<any>(url);
     }
 
     public findServiceByServiceTypeAndCourse_CourseId(

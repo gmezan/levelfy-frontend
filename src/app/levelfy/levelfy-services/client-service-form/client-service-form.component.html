@@ -1,4 +1,4 @@
-<div class="bg-light">
+<section class='py-2 bg-light'>
     <div class="container py-5">
         <div class="row">
             <!-- "sidebar" -->
@@ -15,53 +15,25 @@
             <!-- Content -->
             <div class="col-lg-9 ">
                 <div class="card no-transition rounded-lg text-dark bg-white">
-                    <div class="card-body">
-                        <div class="container">
-                            <h3 class="mt-0 font-weight-bold text">{{course.name}}</h3>
-                            <h6 class="small text-green" style="color: #0D9814;">{{course.univNameStr}}</h6>
+                    <div class="card-body mx-3 my-2">
+                        <ng-container [ngSwitch]="serviceType.key">
 
-                            <div class="row my-4">
+                            <!-- Go to ../../../levelfy/util/services-types to check if the order is correct -->
 
-                                <div class="col-lg-6">
-                                    <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="services[0]?.teacher?.photo"/></a>
-                                </div>
+                            <app-ases-per [service-type]='serviceType' [message-for-the-button]='messageForTheButton'  *ngSwitchCase="servicesTypes[0].key"></app-ases-per>
 
-                                <div class="col-lg-6 ">
-                                    <div class="form-group">
-                                        <h6 class="mb-3">Ofrecemos:</h6>
-                                        <ul class="fa-ul">
-                                            <li *ngFor="let str of serviceType.offers" class="mb-3">
-                                <span class="fa-li">
-                                    <fa-icon [icon]="['far','dot-circle']"></fa-icon>
-                                </span>
-                                                {{str}}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <app-ases-paq [service-type]='serviceType' [message-for-the-button]='messageForTheButton' *ngSwitchCase="servicesTypes[1].key"></app-ases-paq>
 
-                            </div>
+                            <app-mar [service-type]='serviceType' [message-for-the-button]='messageForTheButton' *ngSwitchCase="servicesTypes[2].key"></app-mar>
 
-                            <!-- The actual form -->
-                            <ng-container [ngSwitch]="serviceType.key">
-
-                                <!-- Go to ../../../levelfy/util/services-types to check if the order is correct -->
-
-                                <app-ases-per [messageForTheButton]='messageForTheButton'  *ngSwitchCase="servicesTypes[0].key"></app-ases-per>
-
-                                <app-ases-paq [messageForTheButton]='messageForTheButton' *ngSwitchCase="servicesTypes[1].key"></app-ases-paq>
-
-                                <app-mar [messageForTheButton]='messageForTheButton' *ngSwitchCase="servicesTypes[2].key"></app-mar>
-
-                            </ng-container>
-                        </div>
+                        </ng-container>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-</div>
+</section>
 
 <ng-template>
 

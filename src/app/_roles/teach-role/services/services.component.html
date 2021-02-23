@@ -6,11 +6,12 @@
                 <div class='form-group'>
                     <label class='h2 font-weight-800'>{{title}}</label>
                     <select #selectUniv
+                            [attr.disabled]='""'
                             (change)='onOptionsSelected(selectUniv.value, selectService.value, selectAvailable.value)'
                             class='form-control custom-select mx-3'
                             name='university'
                             id='rolSelector'>
-                        <option *ngFor='let u of universitiesSelector' [value]='u' >{{u | uppercase}}</option>
+                        <option *ngFor='let u of universitiesSelector' [selected]='u==user.university' [value]='u' >{{u | uppercase}}</option>
                     </select>
                 </div>
                 <div class='form-group'>
@@ -36,7 +37,7 @@
                 <span> - </span>
             </form>
             <form class="form-inline">
-                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by TeacherName" aria-label="Search">
+                <input #searchBar id='searchInput' (keydown.enter)="keyupEnterSearchBar($event)"   class="form-control mr-sm-2" type="search" placeholder="Search by CourseName" aria-label="Search">
             </form>
         </nav>
         <nav class="navbar navbar-light bg-light justify-content-end">
@@ -71,6 +72,7 @@
                     <th scope="col">photo</th>
                     <th scope="col">Created</th>
                     <th scope="col">Modified</th>
+                    <th scope="col">Open</th>
                     <th scope="col">Edit</th>
                     <th scope="col">Delete</th>
                 </tr>
@@ -80,8 +82,8 @@
                     <th scope="row">{{index}}</th>
                     <td>{{service.idService}}</td>
                     <td>{{service?.course.courseId.idCourse}} : {{service.course.courseId.university}}</td>
-                    <td>{{service.course.name}}</td>
-                    <td class='teacherFulName'>{{service.teacher.fullName}}</td>
+                    <td class='courseName'>{{service.course.name}}</td>
+                    <td>{{service.teacher.fullName}}</td>
                     <td>{{service?.available.toString() | uppercase}}</td>
                     <td>{{service?.serviceType }}</td>
                     <td>{{service?.price}}</td>
@@ -91,6 +93,11 @@
                     </td>
                     <td>{{service?.created  | date:'mediumDate'}}</td>
                     <td>{{service?.modified  | date:'mediumDate'}}</td>
+                    <td>
+                        <button [routerLink]='["/t/service",service.idService.toString()]' class='btn btn-light' data-toggle="modal" data-target="#crudModal">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </button>
+                    </td>
                     <td>
                         <button (click)='modalEdit(this.getId(service))' class='btn btn-primary' data-toggle="modal" data-target="#crudModal">
                             <i class="fas fa-edit"></i>
@@ -162,11 +169,11 @@
                     <label for="university">University</label>
                     <select #universitySelectorForm
                             (change)='onUniversitySelected(universitySelectorForm.value)'
-                            [attr.disabled]='modal.isEdit ? "" : null'
+                            [attr.disabled]='""'
                             formControlName='university'
                             class="form-control custom-select"
                             id="university">
-                        <option *ngFor='let u of universities; let index = index'  [value]='u' >{{u}}</option>
+                        <option *ngFor='let u of universities; let index = index' [value]='u' >{{u}}</option>
                     </select>
                     <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('university').touched && form.get('course').get('courseId').get('university').invalid">
                         <div *ngIf="form.get('course').get('courseId').get('university').errors.required">University is required</div>
@@ -193,7 +200,8 @@
         <div class="form-row">
             <div class="form-group col-md-6" formGroupName='teacher'>
                 <label for="inputTeacher">Teacher </label>
-                <select formControlName='idUser'
+                <select [attr.disabled]='""'
+                        formControlName='idUser'
                         class="form-control custom-select"
                         id="inputTeacher">
                     <option *ngFor='let u of userSelector; let index = index' [value]='u.idUser' >{{u.fullName}}</option>
@@ -293,7 +301,6 @@
 
         </div>
 
-
         <!-- Agenda -->
 
         <div *ngIf='requiresAgenda()' class='form-group'>
@@ -365,8 +372,6 @@
                 <div>All fields are required</div>
             </div>
         </div>
-
-
 
         <!-- Photo -->
 

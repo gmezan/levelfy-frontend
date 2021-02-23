@@ -95,7 +95,7 @@ export abstract class ModalCrudComponent<T> {
     submitModalForm() {
         // Using Pessimistic update
         if (!this.form.valid) {
-            console.log();
+            //console.log(this.form);
             alert('Invalid submit');
             return;
         }

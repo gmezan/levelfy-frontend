@@ -1,3 +1,28 @@
+<h1 class="font-weight-bolder text">{{course.name}}</h1>
+<h5 class="small text-green" style="color: #0D9814;">{{course.courseId.university | universityString}}</h5>
+
+<div class="row my-3">
+
+    <div class="col-lg-6 my-1">
+        <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="services[0]?.teacher?.photo"/></a>
+    </div>
+
+    <div class="col-lg-6 my-1">
+        <div class="form-group">
+            <h6 class="mb-3">Ofrecemos:</h6>
+            <ul class="fa-ul">
+                <li *ngFor="let str of serviceType.offers" class="mb-3">
+                            <span class="fa-li">
+                                <fa-icon [icon]="['far','dot-circle']"></fa-icon>
+                            </span>
+                    {{str}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
 <form>
     <div class="form-row">
         <div class="form-group col-md-6"><label class="small text-gray-600" >Asesor</label>

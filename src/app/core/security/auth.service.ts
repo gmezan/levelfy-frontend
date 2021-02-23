@@ -53,26 +53,26 @@ export class AuthService {
 
     isAdmin(): boolean {
         let user = this.getCurrentUser();
-        if (!user) return false;
-        return user.role[0].idRole === 4;
+        if (!user || !user.role || !user.role[0]) return false;
+        return user?.role[0]?.idRole === 4;
     }
 
     isMod(): boolean {
         let user = this.getCurrentUser();
-        if (!user) return false;
-        return user.role[0].idRole === 3;
+        if (!user || !user.role || !user.role[0]) return false;
+        return user?.role[0]?.idRole === 3;
     }
 
     isTeach(): boolean {
         let user = this.getCurrentUser();
-        if (!user) return false;
-        return user.role[0].idRole === 2;
+        if (!user || !user.role || !user.role[0]) return false;
+        return user?.role[0]?.idRole === 2;
     }
 
     isClient(): boolean {
         let user = this.getCurrentUser();
-        if (!user) return false;
-        return user.role[0].idRole === 1;
+        if (!user || !user.role || !user.role[0]) return false;
+        return user?.role[0]?.idRole === 1;
     }
 
     isAnon() {
