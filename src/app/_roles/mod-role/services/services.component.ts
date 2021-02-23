@@ -57,12 +57,15 @@ export class ServicesComponent
     // variables used to find users by role and university
     servicesSelector: string[];
     university: string;
+    universities: string[];
 
     // attributes for usages in the form
     courseSelector: Course[];
     userSelector: User[];
     availableSelector: string[];
+    prices: any[];
 
+    newArray: any[];
 
     constructor(
         private authService: AuthService,
@@ -97,13 +100,8 @@ export class ServicesComponent
     }
 
     ngOnInit(): void {
-        /*this.courseService
-            .getAll({ u: this.university })
-            .subscribe((data) => (this.courseSelector = data));
-        this.userService
-            .getAll({ u: this.university, r: Roles.teach })
-            .subscribe((data) => (this.userSelector = data));*/
         this.university = this.authService.getCurrentUser().university || null;
+        this.universities = [this.university];
         console.log(this.university);
         this.route.queryParams.subscribe((params) => {
             this.resources = [];
@@ -128,7 +126,9 @@ export class ServicesComponent
                     );
                 });
             } else console.log(`Current user doesn't have an university!!`);
-            console.log(this.resourcesSliced);
+        });
+        this.serviceService.getPrices().subscribe((data) => {
+            this.prices = data;
         });
     }
 
@@ -173,13 +173,30 @@ export class ServicesComponent
             this.userSelector = [];
         }
 
-        let formArray = [];
+        let formSessionArray = [];
         this.resource.serviceSessionList?.forEach((sl) =>
-            formArray.push(
+            formSessionArray.push(
                 new FormGroup({
                     date: new FormControl(sl.date, Validators.required),
                     start: new FormControl(sl.start, Validators.required),
                     end: new FormControl(sl.end, Validators.required),
+                })
+            )
+        );
+
+        let formAgendaArray = [];
+        this.resource.serviceAgendaList?.forEach((sa) =>
+            formAgendaArray.push(
+                new FormGroup({
+                    id: new FormControl(sa.id),
+                    service: this.fb.group({
+                        idService: [sa.service?.idService || 0],
+                    }),
+                    key: new FormControl(sa.key, Validators.required),
+                    description: new FormControl(
+                        sa.description,
+                        Validators.required
+                    ),
                 })
             )
         );
@@ -209,12 +226,122 @@ export class ServicesComponent
             expiration: [this.resource.expiration],
             archived: [this.resource.archived],
             photo: [this.resource.photo],
-            serviceSessionList: new FormArray(formArray),
+            serviceSessionList: new FormArray(formSessionArray),
+            serviceAgendaList: new FormArray(formAgendaArray),
         });
+    }
+
+    modalCreate() {
+        super.modalCreate();
+    }
+
+    onUniversitySelected(value: string) {
+        this.courseService
+            .getAll({ u: value })
+            .subscribe((data) => {
+                this.courseSelector = data;
+                console.log('courses received');
+                console.log(this.courseSelector);
+            });
+        this.userService
+            .getAll({ u: value, r: Roles.teach })
+            .subscribe((data) => {
+                this.userSelector = data;
+                console.log('users received');
+                console.log(this.userSelector);
+            });
+        console.log('ASDASDAS');
+        console.log(this.courseSelector);
+        // For the price
+        this.checkChangeForPrice();
+    }
+
+    get serviceAgendaList() {
+        return this.form.get('serviceAgendaList') as FormArray;
     }
 
     get serviceSessionList() {
         return this.form.get('serviceSessionList') as FormArray;
+    }
+    get evaluation() {
+        return this.form.get('evaluation').value;
+    }
+    get serviceType() {
+        return this.form.get('serviceType').value;
+    }
+
+    checkChangeForPrice() {
+        let price;
+        console.log('SETTING PRICE');
+        console.log(this.evaluation, this.serviceType, this.university);
+        if (this.evaluation && this.serviceType && this.university) {
+            if (this.prices) {
+                let elementPrice: [] = this.prices[this.university][
+                    this.serviceType
+                    ];
+                switch (this.serviceType) {
+                    case 'ASES_PER':
+                        let maxP = 0;
+                        elementPrice.forEach((element) => {
+                            if (element['price'] > maxP)
+                                maxP = element['price'];
+                        });
+                        price = maxP;
+                        break;
+
+                    case 'ASES_PAQ':
+                        elementPrice.forEach((element) => {
+                            if (
+                                (this.evaluation as string).includes(
+                                    element['type']
+                                )
+                            ) {
+                                price = element['price'];
+                            }
+                        });
+                        break;
+
+                    case 'MAR':
+                        elementPrice.forEach((element) => {
+                            price = element['price'];
+                        });
+                        break;
+                }
+            }
+            if (this.modal.isCreate)
+                this.form.controls.price.setValue(price || this.resource.price);
+        }
+    }
+
+    addServiceAgenda() {
+        this.serviceAgendaList.push(
+            new FormGroup({
+                id: new FormControl(0),
+                service: this.fb.group({
+                    idService: [this.form.get('idService').value],
+                }),
+                key: new FormControl('', Validators.required),
+                description: new FormControl('', Validators.required),
+            })
+        );
+    }
+
+    deleteServiceAgenda() {
+        this.serviceAgendaList.removeAt(this.serviceAgendaList.length - 1);
+    }
+
+    requiresAgenda(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
+    }
+
+    requiresSessions(): boolean {
+        return (
+            this.form.get('serviceType').value == 'ASES_PAQ' ||
+            this.form.get('serviceType').value == 'MAR'
+        );
     }
 
     addServiceSession() {
@@ -232,6 +359,78 @@ export class ServicesComponent
     }
 
     onSubmitModalForm(resource: Service, index: number, id: string): void {
+        if (this.modal.isDelete)
+            this.dataService.delete(id).subscribe(
+                (data) => {
+                    this.deleteResourceAt(index);
+                    this.createAlertSuccess(messagesAlert.delete.success);
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.delete.error);
+                    console.log(error);
+                }
+            );
+        else if (this.modal.isCreate)
+            this.dataService.create(resource).subscribe(
+                (data) => {
+                    let originalLastIndex = this.resources.length - 1;
+                    this.addResourceAt(originalLastIndex, data);
+                    this.createAlertSuccess(messagesAlert.create.success);
+                    if (!this.modal.hasFile) return;
+                    this.serviceService
+                        .uploadImage(
+                            data.idService.toString(),
+                            this.obtainImageFormData()
+                        )
+                        .subscribe(
+                            (imageData) => {
+                                data.photo = imageData.url;
+                                // Replace this new Data with the data (photo) updated
+                                this.replaceResourceAt(originalLastIndex, data);
+                            },
+                            (error) =>
+                                alert(
+                                    'Something went wrong uploading the image: ' +
+                                    error.toString()
+                                )
+                        );
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.create.error);
+                    console.log(error);
+                }
+            );
+        else if (this.modal.isEdit)
+            this.dataService.update(resource).subscribe(
+                (data) => {
+                    // Replace the Data with the data updated
+                    data.created = this.resources[index].created; //bug
+                    this.replaceResourceAt(index, data);
+                    this.createAlertSuccess(messagesAlert.edit.success);
+                    if (!this.modal.hasFile) return;
+                    this.serviceService
+                        .uploadImage(
+                            data.idService.toString(),
+                            this.obtainImageFormData()
+                        )
+                        .subscribe(
+                            (imageData) => {
+                                data.photo = imageData.url;
+                                // Replace the updated Data with the data (photo) updated
+                                this.replaceResourceAt(index, data);
+                            },
+                            (error) =>
+                                alert(
+                                    'Something went wrong uploading the image: ' +
+                                    error.toString()
+                                )
+                        );
+                },
+                (error) => {
+                    this.createAlertError(messagesAlert.edit.error);
+                    console.log(error);
+                }
+            );
     }
 
     protected createAlert(isSuccess: boolean, message: string) {
@@ -246,4 +445,12 @@ export class ServicesComponent
             )
             .instance.setValues(isSuccess, message);
     }
+
+
+    /*-----------   ANOTHER WAY TO SEARCH IN ALL RESOURCES GOTTEN BY API  ---------*/
+    /*keyupEnterSearchBar($event) {
+        this.newArray = this.resources.filter((res: Service) =>
+            res.teacher.name.includes($event) || res.teacher.lastname.includes($event)
+        );
+    }*/
 }
