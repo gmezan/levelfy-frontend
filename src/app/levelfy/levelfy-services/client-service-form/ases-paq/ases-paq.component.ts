@@ -74,13 +74,30 @@ export class AsesPaqComponent implements OnInit {
         // Validations must be according to the database
         this.service = service;
 
-        let formArray = [];
+        let formSessionArray = [];
         this.service.serviceSessionList?.forEach((sl) =>
-            formArray.push(
+            formSessionArray.push(
                 new FormGroup({
                     date: new FormControl(sl.date, Validators.required),
                     start: new FormControl(sl.start, Validators.required),
                     end: new FormControl(sl.end, Validators.required),
+                })
+            )
+        );
+
+        let formAgendaArray = [];
+        this.service.serviceAgendaList?.forEach((sa) =>
+            formAgendaArray.push(
+                new FormGroup({
+                    id: new FormControl(sa.id),
+                    service: this.fb.group({
+                        idService: [sa.service?.idService || 0],
+                    }),
+                    key: new FormControl(sa.key, Validators.required),
+                    description: new FormControl(
+                        sa.description,
+                        Validators.required
+                    ),
                 })
             )
         );
@@ -110,7 +127,8 @@ export class AsesPaqComponent implements OnInit {
             expiration: [this.service.expiration],
             archived: [this.service.archived],
             photo: [this.service.photo],
-            serviceSessionList: new FormArray(formArray),
+            serviceSessionList: new FormArray(formSessionArray),
+            serviceAgendaList: new FormArray(formAgendaArray),
         });
     }
 
