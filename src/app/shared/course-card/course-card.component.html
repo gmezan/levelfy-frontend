@@ -2,7 +2,7 @@
     <img class="card-img-top" [src]="course.photo" alt="..."/>
     <div class="card-body">
         <h4 class="card-title py-0 my-0 font-weight-bold" > <label class="courseName" > {{course.name}} </label></h4>
-        <div class="small text-dark" > {{course.univNameStr}}</div>
+        <div class="small text-dark" > {{course.courseId.university | universityString}}</div>
     </div>
     <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
         <div class="small text-green">{{footerMessage}}</div>
