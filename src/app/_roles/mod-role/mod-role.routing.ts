@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ModComponent } from './mod/mod.component';
 import { CoursesComponent } from './courses/courses.component';
 import { UsersComponent } from './users/users.component';
+import { ServicesComponent } from './services/services.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,11 @@ const routes: Routes = [
     {
         path: 'users',
         component: UsersComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'services',
+        component: ServicesComponent,
         pathMatch: 'full',
     },
 

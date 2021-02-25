@@ -8,11 +8,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedModule } from '../../shared/shared.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ServicesComponent } from './services/services.component';
 
 
 
 @NgModule({
-  declarations: [ModComponent, CoursesComponent, UsersComponent],
+  declarations: [ModComponent, CoursesComponent, UsersComponent, ServicesComponent],
   imports: [
     CommonModule,
     ModRoleRoutingModule,
