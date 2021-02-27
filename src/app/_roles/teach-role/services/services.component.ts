@@ -214,7 +214,7 @@ export class ServicesComponent
         this.userService
             .getAll({
                 u: this.resource.course.courseId.university,
-                r: Roles.teach,
+                r: Roles.ROLE_TEACH,
             })
             .subscribe((data) => (this.userSelector = data));
 
@@ -355,7 +355,7 @@ export class ServicesComponent
             .getAll({ u: value })
             .subscribe((data) => (this.courseSelector = data));
         this.userService
-            .getAll({ u: value, r: Roles.teach })
+            .getAll({ u: value, r: Roles.ROLE_TEACH })
             .subscribe((data) => (this.userSelector = data));
 
         // For the price

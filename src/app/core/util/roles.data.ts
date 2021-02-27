@@ -1,6 +1,6 @@
 export enum Roles {
-    'client' = 'client',
-    'teach' = 'teach',
-    'mod' = 'mod',
-    'admin' = 'admin',
+    'ROLE_CLIENT' = 'ROLE_CLIENT',
+    'ROLE_TEACH' = 'ROLE_TEACH',
+    'ROLE_MOD' = 'ROLE_MOD',
+    'ROLE_ADMIN' = 'ROLE_ADMIN',
 }

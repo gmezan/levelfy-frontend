@@ -1,4 +1,10 @@
-import { Component, ComponentFactoryResolver, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+    Component,
+    ComponentFactoryResolver,
+    ElementRef,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { ModalCrudComponent } from '../../../core/common/modal-crud-component';
 import { Service } from '../../../shared/_models/service.model';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
@@ -6,7 +12,13 @@ import { Course } from '../../../shared/_models/course.model';
 import { User } from '../../../shared/_models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../../../core/services/service.service';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+    FormArray,
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    Validators,
+} from '@angular/forms';
 import { CourseService } from '../../../core/services/course.service';
 import { UserService } from '../../../core/services/user.service';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
@@ -18,26 +30,26 @@ const path = '/m/services';
 const modalStrings = {
     create: { title: 'Create Service', submit: 'Create', cancel: 'Cancel' },
     edit: { title: 'Edit Service', submit: 'Save', cancel: 'Cancel' },
-    delete: { title: 'Delete Service', submit: 'Delete', cancel: 'Cancel' }
+    delete: { title: 'Delete Service', submit: 'Delete', cancel: 'Cancel' },
 };
 
 const messagesAlert = {
     create: {
         success: 'Service created successfully',
-        error: 'There was an error creating this course, try again later'
+        error: 'There was an error creating this course, try again later',
     },
     edit: {
         success: 'Service edited successfully',
-        error: 'There was an error updating this course, try again later'
+        error: 'There was an error updating this course, try again later',
     },
     delete: {
         success: 'Service deleted correctly',
-        error: 'There was an error deleting this Service, try again later'
+        error: 'There was an error deleting this Service, try again later',
     },
     image: {
         success: 'Image uploaded correctly',
-        error: 'There was an error uploading the image, try again later'
-    }
+        error: 'There was an error uploading the image, try again later',
+    },
 };
 
 const searchBarSelector = '.teacherFulName';
@@ -45,7 +57,7 @@ const searchBarSelector = '.teacherFulName';
 @Component({
     selector: 'app-services',
     templateUrl: './services.component.html',
-    styleUrls: ['./services.component.css']
+    styleUrls: ['./services.component.css'],
 })
 export class ServicesComponent
     extends ModalCrudComponent<Service>
@@ -147,7 +159,7 @@ export class ServicesComponent
         let queryParams = { u: this.university, s: service, a: available };
 
         this.router.navigate([this.path], {
-            queryParams: queryParams
+            queryParams: queryParams,
         });
     }
 
@@ -165,7 +177,7 @@ export class ServicesComponent
             this.userService
                 .getAll({
                     u: this.resource.course.courseId.university,
-                    r: Roles.teach,
+                    r: Roles.ROLE_TEACH,
                 })
                 .subscribe((data) => (this.userSelector = data));
         } else {
@@ -236,15 +248,13 @@ export class ServicesComponent
     }
 
     onUniversitySelected(value: string) {
-        this.courseService
-            .getAll({ u: value })
-            .subscribe((data) => {
-                this.courseSelector = data;
-                console.log('courses received');
-                console.log(this.courseSelector);
-            });
+        this.courseService.getAll({ u: value }).subscribe((data) => {
+            this.courseSelector = data;
+            console.log('courses received');
+            console.log(this.courseSelector);
+        });
         this.userService
-            .getAll({ u: value, r: Roles.teach })
+            .getAll({ u: value, r: Roles.ROLE_TEACH })
             .subscribe((data) => {
                 this.userSelector = data;
                 console.log('users received');
@@ -278,7 +288,7 @@ export class ServicesComponent
             if (this.prices) {
                 let elementPrice: [] = this.prices[this.university][
                     this.serviceType
-                    ];
+                ];
                 switch (this.serviceType) {
                     case 'ASES_PER':
                         let maxP = 0;
@@ -349,7 +359,7 @@ export class ServicesComponent
             new FormGroup({
                 date: new FormControl('', Validators.required),
                 start: new FormControl('', Validators.required),
-                end: new FormControl('', Validators.required)
+                end: new FormControl('', Validators.required),
             })
         );
     }
@@ -391,7 +401,7 @@ export class ServicesComponent
                             (error) =>
                                 alert(
                                     'Something went wrong uploading the image: ' +
-                                    error.toString()
+                                        error.toString()
                                 )
                         );
                 },
@@ -422,7 +432,7 @@ export class ServicesComponent
                             (error) =>
                                 alert(
                                     'Something went wrong uploading the image: ' +
-                                    error.toString()
+                                        error.toString()
                                 )
                         );
                 },
@@ -445,7 +455,6 @@ export class ServicesComponent
             )
             .instance.setValues(isSuccess, message);
     }
-
 
     /*-----------   ANOTHER WAY TO SEARCH IN ALL RESOURCES GOTTEN BY API  ---------*/
     /*keyupEnterSearchBar($event) {
