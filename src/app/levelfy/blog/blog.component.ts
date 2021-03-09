@@ -1,18 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { NavbarPageComponent } from '../../core/common/navbar-page/navbar-page.component';
 
 @Component({
     selector: 'app-blog',
     templateUrl: './blog.component.html',
     styleUrls: ['./blog.component.css'],
 })
-export class BlogComponent implements OnInit {
+export class BlogComponent extends NavbarPageComponent implements OnInit {
     blogTitle: string = 'Nuestro Blog';
     isSidebarHidden: boolean = false;
 
-    constructor(@Inject(DOCUMENT) private document: any) {}
+    constructor(@Inject(DOCUMENT) document: any) {
+        super(document);
+    }
 
     ngOnInit(): void {
+        this.putFixedNavbarDark();
+
         let sidebar = this.document.getElementById('blogSidebar');
         this.isSidebarHidden = !!sidebar.classList.contains('active');
     }

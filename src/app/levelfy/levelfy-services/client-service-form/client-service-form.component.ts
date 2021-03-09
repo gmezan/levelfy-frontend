@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
@@ -8,6 +8,8 @@ import { ServiceService } from '../../../core/services/service.service';
 import { CourseId } from '../../../shared/_dto/courseId.model';
 import { Service } from '../../../shared/_models/service.model';
 import { Course } from '../../../shared/_models/course.model';
+import { DOCUMENT } from '@angular/common';
+import { NavbarPageComponent } from '../../../core/common/navbar-page/navbar-page.component';
 
 /*
 	This component manages the inscription form of every services
@@ -18,7 +20,9 @@ import { Course } from '../../../shared/_models/course.model';
     templateUrl: './client-service-form.component.html',
     styleUrls: ['./client-service-form.component.css'],
 })
-export class ClientServiceFormComponent implements OnInit {
+export class ClientServiceFormComponent
+    extends NavbarPageComponent
+    implements OnInit {
     serviceType: typeof servicesTypes[0];
     course: Course = new Course();
 
@@ -28,10 +32,15 @@ export class ClientServiceFormComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private serviceService: ServiceService,
-        private router: Router
-    ) {}
+        private router: Router,
+        @Inject(DOCUMENT) document: any
+    ) {
+        super(document);
+    }
 
     ngOnInit(): void {
+        this.putNoHeaderNavbarDark();
+
         this.route.params.subscribe((params) => {
             let serviceType = params.type;
             this.serviceType = mapServiceRoute2ServiceType[serviceType];

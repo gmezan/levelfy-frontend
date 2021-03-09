@@ -19,7 +19,7 @@ More specific paths should be first
 
 const routes: Routes = [
     // Main navigation (NavBar)
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'home', component: HomeComponent, pathMatch: 'full' },
     {
         path: 'services',

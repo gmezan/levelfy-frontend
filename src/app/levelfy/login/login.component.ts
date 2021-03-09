@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/security/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -12,6 +12,8 @@ import { OauthService } from '../../core/security/oauth.service';
 import { TokenService } from '../../core/security/token.service';
 import { TokenDto } from '../../shared/_models/token-dto.model';
 import { UserService } from '../../core/services/user.service';
+import { DOCUMENT } from '@angular/common';
+import { NavbarPageComponent } from '../../core/common/navbar-page/navbar-page.component';
 
 /*
     This component should only manage the FB & Google Login
@@ -22,18 +24,23 @@ import { UserService } from '../../core/services/user.service';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent extends NavbarPageComponent implements OnInit {
     constructor(
         private socialAuthService: SocialAuthService,
         private router: Router,
         private oauthService: OauthService,
         private tokenService: TokenService,
-        private userService: UserService
-    ) {}
+        private userService: UserService,
+        @Inject(DOCUMENT) document: any
+    ) {
+        super(document);
+    }
 
     socialUser: SocialUser;
 
     ngOnInit(): void {
+        this.putNoHeaderNavbarDark();
+
         this.socialAuthService.authState.subscribe((data) => {});
     }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import {
     servicesTypes,
     mapServiceRoute2ServiceType,
@@ -6,6 +6,8 @@ import {
 import { Course } from '../../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
+import { DOCUMENT } from '@angular/common';
+import { NavbarPageComponent } from '../../../core/common/navbar-page/navbar-page.component';
 
 /*
 	This component LISTS the courses available for each services
@@ -16,7 +18,9 @@ import { CourseService } from '../../../core/services/course.service';
     templateUrl: './general-service.component.html',
     styleUrls: ['./general-service.component.css'],
 })
-export class GeneralServiceComponent implements OnInit {
+export class GeneralServiceComponent
+    extends NavbarPageComponent
+    implements OnInit {
     // for the CourseCard
     courses: Course[];
     footerMessage: string = 'Ver detalles';
@@ -29,10 +33,15 @@ export class GeneralServiceComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
-        private router: Router
-    ) {}
+        private router: Router,
+        @Inject(DOCUMENT) document: any
+    ) {
+        super(document);
+    }
 
     ngOnInit(): void {
+        this.putFixedNavbarDark();
+
         // Listing courses according to the serviceType:
         this.sub = this.route.params.subscribe((params) => {
             this.service = mapServiceRoute2ServiceType[params['type']];
