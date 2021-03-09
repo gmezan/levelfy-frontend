@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { servicesTypes } from '../../../core/util/services-types';
 import { DOCUMENT } from '@angular/common';
-import { NavbarPageComponent } from '../../../core/common/navbar-page/navbar-page.component';
+import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 
 @Component({
     selector: 'app-services',

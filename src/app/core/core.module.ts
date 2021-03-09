@@ -19,10 +19,10 @@ import { ModAuthGuard } from './auth-guards/mod-auth-guard.service';
 import { EnrollmentService } from './services/enrollment.service';
 import { SaleCanceledService } from './services/sale-canceled.service';
 import { SaleService } from './services/sale.service';
-import { NavbarPageComponent } from './common/navbar-page/navbar-page.component';
+import { NavbarPageComponent } from './common/navbar-page-component';
 
 @NgModule({
-    declarations: [NavbarPageComponent],
+    declarations: [],
     imports: [CommonModule, HttpClientModule],
     providers: [
         UserService,

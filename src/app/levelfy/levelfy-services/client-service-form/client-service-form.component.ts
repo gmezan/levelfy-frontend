@@ -9,7 +9,7 @@ import { CourseId } from '../../../shared/_dto/courseId.model';
 import { Service } from '../../../shared/_models/service.model';
 import { Course } from '../../../shared/_models/course.model';
 import { DOCUMENT } from '@angular/common';
-import { NavbarPageComponent } from '../../../core/common/navbar-page/navbar-page.component';
+import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 
 /*
 	This component manages the inscription form of every services

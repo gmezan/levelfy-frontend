@@ -7,7 +7,7 @@ import { Course } from '../../../shared/_models/course.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
 import { DOCUMENT } from '@angular/common';
-import { NavbarPageComponent } from '../../../core/common/navbar-page/navbar-page.component';
+import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 
 /*
 	This component LISTS the courses available for each services

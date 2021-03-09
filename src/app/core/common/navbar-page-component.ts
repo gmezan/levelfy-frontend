@@ -1,15 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-
-@Component({
-    selector: 'app-navbar-page',
-    templateUrl: './navbar-page.component.html',
-    styleUrls: ['./navbar-page.component.css'],
-})
-export abstract class NavbarPageComponent implements OnInit {
-    protected constructor(protected document: any) {}
-
-    ngOnInit(): void {}
+export class NavbarPageComponent {
+    constructor(protected document: Document) {}
 
     private getNavbar(): HTMLElement {
         return this.document.getElementById('pageNavbar');

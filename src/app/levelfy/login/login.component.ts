@@ -13,7 +13,7 @@ import { TokenService } from '../../core/security/token.service';
 import { TokenDto } from '../../shared/_models/token-dto.model';
 import { UserService } from '../../core/services/user.service';
 import { DOCUMENT } from '@angular/common';
-import { NavbarPageComponent } from '../../core/common/navbar-page/navbar-page.component';
+import { NavbarPageComponent } from '../../core/common/navbar-page-component';
 
 /*
     This component should only manage the FB & Google Login
