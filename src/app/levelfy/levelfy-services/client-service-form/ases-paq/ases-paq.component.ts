@@ -58,16 +58,26 @@ export class AsesPaqComponent implements OnInit {
                 .subscribe(
                     (data) => {
                         if (data == null || data.length === 0)
-                            this.noServiceReturn(this.serviceType.route);
+                            this.noServiceReturned(this.serviceType.route);
 
                         // List of services obtained
                         this.services = data;
                         this.course = data[0].course;
                         this.service = data[0];
+                        console.log(this.services);
                     },
                     (error) => {}
                 );
         });
+    }
+
+    onSelectedTeacher(value: string) {
+        this.services.forEach((serv) => {
+            if (serv.idService == ((value as unknown) as number))
+                this.service = serv;
+        });
+
+        console.log(this.service);
     }
 
     fillModal(service: Service): FormGroup {
@@ -132,7 +142,7 @@ export class AsesPaqComponent implements OnInit {
         });
     }
 
-    noServiceReturn(serviceType: string) {
+    noServiceReturned(serviceType: string) {
         console.log('No services available for this course and services type');
         this.router.navigate(['/services', serviceType]).then();
     }

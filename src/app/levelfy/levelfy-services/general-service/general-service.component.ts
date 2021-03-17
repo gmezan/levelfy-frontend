@@ -45,6 +45,7 @@ export class GeneralServiceComponent
         // Listing courses according to the serviceType:
         this.sub = this.route.params.subscribe((params) => {
             this.service = mapServiceRoute2ServiceType[params['type']];
+            console.log(this.service);
             if (!this.service) {
                 this.error();
                 return;

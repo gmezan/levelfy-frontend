@@ -4,7 +4,7 @@
 <div class="row my-3">
 
     <div class="col-lg-6 my-1">
-        <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="services[0]?.teacher?.photo"/></a>
+        <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="service.teacher.photo"/></a>
     </div>
 
     <div class="col-lg-6 my-1">
@@ -26,57 +26,40 @@
 <form>
     <div class="form-row">
         <div class="form-group col-md-6"><label class="small text-gray-600" >Asesor</label>
+            <select #teacherSelect (change)='onSelectedTeacher(teacherSelect.value)' class="form-control rounded-pill custom-select" >
+                <option *ngFor='let serv of services' [value]='serv.idService' >{{serv.teacher.fullName}}</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6"><label class="small text-gray-600">Evaluacion</label>
             <select class="form-control rounded-pill custom-select" >
-                <option  selected  ></option>
-            </select>
-        </div>
-        <div class="form-group col-md-6"><label class="small text-gray-600" >Servicio</label>
-            <select class="form-control rounded-pill custom-select" name="paquete">
-                <option ></option>
+                <option selected>{{ service.evaluation }}</option>
             </select>
         </div>
     </div>
 
-    <div class="form-row">
-        <div class="form-group col-md-6"><label class="small text-gray-600" >Día de la asesoría</label>
-            <select class="select-diaClase form-control rounded-pill custom-select" >
-                <option value=''>--- Elige uno ---</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6"><label class="small text-gray-600" >Horas de asesoría</label>
-            <select class="num-horas-clase form-control rounded-pill custom-select" >
-                <option value=1 > 1 hora </option>
-                <option value=2 > 2 horas </option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-row">
-
-        <div class="form-group col-md-6"><label class="small text-gray-600" >Hora de inicio</label>
-            <select class="select-horaClase form-control rounded-pill custom-select" >
-                <option value='' >--- Elige una ---</option>
-            </select>
-        </div>
-        <div class="form-group col-md-6"><label class="small text-gray-600" >Numero de estudiantes</label>
-            <select class="form-control rounded-pill custom-select" >
-                <option value=1> 1  </option>
-                <option value=2> 2  </option>
-                <option value=3> 3  </option>
-                <option value=4> 4  </option>
-            </select>
-        </div>
-    </div>
-    <div class="form-row ">
-        <div class="form-group col-md-12">
-            <label class="small text-gray-600" >Temas deseados (Opcional)</label>
-            <input  class="form-control rounded-pill" type="text" />
-        </div>
+    <div class="form-group">
+        <label class="small text-gray-600">Sesiones</label>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Hora inicio</th>
+                    <th>Hora fin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let session of service.serviceSessionList'>
+                    <td>{{session.date | date: 'mediumDate'}}</td>
+                    <td>{{session.start }}</td>
+                    <td>{{session.end }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
 
     <!-- Always here -->
-    <div class="form-row">
+    <div class="form-row pt-4">
         <div class="form-group col-md-12">
             <div  class="card no-transition bg-light shadow-none">
                 <div class="card-body d-flex align-items-center justify-content-between p-4">
