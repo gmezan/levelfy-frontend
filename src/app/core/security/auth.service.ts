@@ -42,7 +42,7 @@ export class AuthService {
         return user != null;
     }
 
-    getCurrentUser(): any {
+    getCurrentUser(): User {
         return this.tokenService.getUser();
     }
 

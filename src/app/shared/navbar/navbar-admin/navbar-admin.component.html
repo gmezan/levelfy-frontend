@@ -27,27 +27,31 @@
         </li>
 
         <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown no-caret">
-            <a
+            <a  type='button'
                 class="nav-link dropdown-toggle"
                 id="menu"
-                href="#"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
-                ><span class="font-weight-bold small">{{
-                    authService.getCurrentUser().fullName
-                }}</span
-                ><i class="fas fa-chevron-right dropdown-arrow"></i>
+                >
+                <img [src]='authService.getCurrentUser().photo' class="avatar rounded-circle" >
+
+                <i class="fas fa-chevron-right dropdown-arrow"></i>
             </a>
 
             <div
-                class="dropdown-menu bg-danger dropdown-menu-right animated--fade-in-up"
+                class="dropdown-menu dropdown-menu-right animated--fade-in-up"
                 aria-labelledby="navbarDropdownDocs">
-                <a
-                    (click)="authService.logout()"
-                    type="button"
-                    class="bg-danger dropdown-item py-1">
+
+                <a type='button' class="dropdown-item py-1">
+                    <div class="text-gray-900">
+                        <b>{{authService.getCurrentUser().fullName}}</b>
+                    </div>
+                </a>
+
+                <a (click)="authService.logout()"
+                    type="button" class="bg-danger dropdown-item py-1">
                     <div class="text-gray-100">
                         <b>Cerrar Sesión</b>
                     </div>
@@ -58,5 +62,6 @@
     <a
         *ngIf="!authService.isLoggedIn()"
         class="btn font-weight-500 rounded-pill btn-success"
-        routerLink="/login">Iniciar Sesión</a>
+        routerLink="/login">Iniciar Sesión
+    </a>
 </div>
