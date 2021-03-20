@@ -23,8 +23,6 @@ import { AdminRoleModule } from './_roles/admin-role/admin-role.module';
 import { TeachRoleModule } from './_roles/teach-role/teach-role.module';
 import { ClientRoleModule } from './_roles/client-role/client-role.module';
 
-import { APP_BASE_HREF } from '@angular/common';
-
 // Social Login
 import {
     SocialLoginModule,
@@ -83,8 +81,6 @@ import { ModRoleModule } from './_roles/mod-role/mod-role.module';
         },
 
         resourceInterceptor,
-
-        { provide: APP_BASE_HREF, useValue: '/#' },
     ],
     bootstrap: [AppComponent],
 })

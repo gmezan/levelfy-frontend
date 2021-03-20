@@ -1,6 +1,27 @@
 <app-header [bg-image]="service.imageUrl" [header-title]="service.serviceName" > </app-header>
 
-<app-menu-services></app-menu-services>
+<div class="section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-12 col-lg-3 text-left">
+                <input class='form-control rounded' placeholder='Buscar...' />
+            </div>
+
+            <div class="col-md-12 col-lg-6">
+
+            </div>
+
+            <div class="col-md-12 col-lg-3 text-right">
+                <button mat-button [matMenuTriggerFor]="menuUnivs">Universities <fa-icon class='pl-1' [icon]='["fas","bars"]'></fa-icon></button>
+                <mat-menu #menuUnivs="matMenu">
+                    <button mat-menu-item>PUCP</button>
+                    <button mat-menu-item>UPC</button>
+                    <button mat-menu-item>ULIMA</button>
+                </mat-menu>
+            </div>
+    </div>
+</div>
 
 <div class="section bg-light pt-3 pb-10" >
     <div class="container">

@@ -12,6 +12,8 @@ import { AsesPaqComponent } from './client-service-form/ases-paq/ases-paq.compon
 import { MarComponent } from './client-service-form/mar/mar.component';
 import { ServicesComponent } from './services/services.component';
 import { LevelfyServicesRoutingModule } from './levelfy-services.routing';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -31,6 +33,8 @@ import { LevelfyServicesRoutingModule } from './levelfy-services.routing';
         ReactiveFormsModule,
         RouterModule,
         LevelfyServicesRoutingModule,
+        MatButtonModule,
+        MatMenuModule,
     ],
     bootstrap: [],
 })
