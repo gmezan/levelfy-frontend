@@ -29,6 +29,7 @@ export class MyEnrollmentsComponent
         this.services.forEach((s) => {
             this.servicesSelector.push(s.key);
         });
+        this.servicesSelector.splice(0, 0, 'Todo');
     }
 
     onOptionsSelected(value: string) {
