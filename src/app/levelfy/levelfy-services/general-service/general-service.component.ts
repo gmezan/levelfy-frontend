@@ -9,6 +9,7 @@ import { CourseService } from '../../../core/services/course.service';
 import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 import { OpenClientService } from '../../../core/services/open-client.service';
+import { TeacherCoursesInfo } from '../../../shared/_dto/teacher-courses-info.model';
 
 /*
 	This component LISTS the courses available for each services
@@ -24,6 +25,7 @@ export class GeneralServiceComponent
     implements OnInit {
     // for the CourseCard
     courses: Course[];
+    teacherCoursesInfo: TeacherCoursesInfo[];
     footerMessage: string = 'Ver detalles';
 
     private sub: any;
@@ -51,17 +53,40 @@ export class GeneralServiceComponent
                 this.error();
                 return;
             }
-            this.openClientService
-                .getAvailableServiceByCourse(this.service.key)
-                .subscribe(
-                    (data) => {
-                        this.courses = data;
-                        this.noCourses = data == null || data.length === 0;
-                    },
-                    (error: Response) => {
-                        console.log(error);
-                    }
-                );
+
+            switch (this.service.key) {
+                case 'ASES_PER':
+                    this.openClientService
+                        .getAvailableServiceByTeacher(this.service.key)
+                        .subscribe(
+                            (data) => {
+                                this.teacherCoursesInfo = data;
+                                this.courses = [];
+                                this.noCourses =
+                                    data == null || data.length === 0;
+                            },
+                            (error: Response) => {
+                                console.log(error);
+                            }
+                        );
+                    break;
+
+                case 'ASES_PAQ' || 'MAR':
+                    this.openClientService
+                        .getAvailableServiceByCourse(this.service.key)
+                        .subscribe(
+                            (data) => {
+                                this.courses = data;
+                                this.teacherCoursesInfo = [];
+                                this.noCourses =
+                                    data == null || data.length === 0;
+                            },
+                            (error: Response) => {
+                                console.log(error);
+                            }
+                        );
+                    break;
+            }
         });
     }
 

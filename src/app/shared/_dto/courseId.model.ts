@@ -1,6 +1,6 @@
 export class CourseId {
-    idCourse;
-    university;
+    idCourse: string;
+    university: string;
 
     constructor(idCourse?: string, university?: string) {
         this.idCourse = idCourse || '';

@@ -47,6 +47,14 @@
                 ></app-course-card>
             </div>
 
+            <div *ngFor="let teachInfo of teacherCoursesInfo"  class="col-lg-4 mb-5 item">
+                <app-teach-info-card
+                    [teacher-courses-info]='teachInfo'
+                    [path-url]="['/services/'+service.route+'/form']"
+                    [footer-message]="footerMessage"
+                ></app-teach-info-card>
+            </div>
+
         </div>
 
     </div>

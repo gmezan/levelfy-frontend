@@ -7,6 +7,7 @@ import { Course } from '../../shared/_models/course.model';
 import { catchError } from 'rxjs/operators';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
+import { TeacherCoursesInfo } from '../../shared/_dto/teacher-courses-info.model';
 
 const uri = '/open';
 
@@ -45,13 +46,15 @@ export class OpenClientService extends DataService<any> {
             .pipe(catchError(this.handleError));
     }
 
-    getAvailableServiceByTeacher(serviceType: string): Observable<Course[]> {
+    getAvailableServiceByTeacher(
+        serviceType: string
+    ): Observable<TeacherCoursesInfo[]> {
         if (!serviceType) return null;
         let options = {
             params: new HttpParams().set('serviceType', serviceType),
         };
         return this.http
-            .get<Course[]>(
+            .get<TeacherCoursesInfo[]>(
                 this.buildPath(this.apiUriServiceListByTeacher),
                 options
             )

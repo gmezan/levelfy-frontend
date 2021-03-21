@@ -16,6 +16,7 @@ import { NavbarModComponent } from './navbar/navbar-mod/navbar-mod.component';
 import { CustomAlertComponent } from './custom-alert/custom-alert.component';
 import { CustomAlertDirective } from './custom-alert/custom-alert.directive';
 import { UniversityStringPipe } from './pipes/university-string.pipe';
+import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { UniversityStringPipe } from './pipes/university-string.pipe';
         CustomAlertComponent,
         CustomAlertDirective,
         UniversityStringPipe,
+        TeachInfoCardComponent,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -44,6 +46,7 @@ import { UniversityStringPipe } from './pipes/university-string.pipe';
         FooterComponent,
         CustomAlertDirective,
         UniversityStringPipe,
+        TeachInfoCardComponent,
     ],
 })
 export class SharedModule {}
