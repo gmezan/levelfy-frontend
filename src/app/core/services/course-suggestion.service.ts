@@ -8,20 +8,7 @@ const uri = '/model/course-suggestion';
 
 @Injectable()
 export class CourseSuggestionService extends DataService<CourseSuggestion> {
-    /*
-    		TODO: get username if it's authenticated and send to backend
-    */
-
-    apiSendSuggestion = '/model/course-suggestion/open';
-
     constructor(http: HttpClient) {
         super(uri, http);
-    }
-
-    sendSuggestion(courseS: CourseSuggestion): Observable<CourseSuggestion> {
-        return this.http.post<CourseSuggestion>(
-            this.buildPath(this.apiSendSuggestion),
-            courseS
-        );
     }
 }

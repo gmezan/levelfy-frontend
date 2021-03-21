@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../../../core/services/course.service';
 import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
+import { OpenClientService } from '../../../core/services/open-client.service';
 
 /*
 	This component LISTS the courses available for each services
@@ -33,6 +34,7 @@ export class GeneralServiceComponent
     constructor(
         private route: ActivatedRoute,
         private courseService: CourseService,
+        private openClientService: OpenClientService,
         private router: Router,
         @Inject(DOCUMENT) document: any
     ) {
@@ -45,13 +47,12 @@ export class GeneralServiceComponent
         // Listing courses according to the serviceType:
         this.sub = this.route.params.subscribe((params) => {
             this.service = mapServiceRoute2ServiceType[params['type']];
-            console.log(this.service);
             if (!this.service) {
                 this.error();
                 return;
             }
-            this.courseService
-                .getAvailableCoursesByService(this.service.key)
+            this.openClientService
+                .getAvailableServiceByCourse(this.service.key)
                 .subscribe(
                     (data) => {
                         this.courses = data;

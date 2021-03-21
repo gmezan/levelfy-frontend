@@ -14,7 +14,7 @@ import {
     FormGroup,
     Validators,
 } from '@angular/forms';
-
+import { OpenClientService } from '../../../../core/services/open-client.service';
 
 @Component({
     selector: 'app-ases-per',
@@ -33,6 +33,7 @@ export class AsesPerComponent implements OnInit {
         private route: ActivatedRoute,
         private serviceService: ServiceService,
         private courseService: CourseService,
+        private openClientService: OpenClientService,
         private fb: FormBuilder,
         private enrollmentService: EnrollmentService,
         private router: Router
@@ -51,8 +52,8 @@ export class AsesPerComponent implements OnInit {
 		     */
 
             // Get list of services that have the CourseID and the serviceType
-            this.serviceService
-                .findServiceByServiceTypeAndCourse_CourseId(
+            this.openClientService
+                .getServiceFormByServiceTypeAndCourse_CourseId(
                     this.serviceType.key,
                     new CourseId(params.i, params.u)
                 )
@@ -114,7 +115,6 @@ export class AsesPerComponent implements OnInit {
             serviceSessionList: new FormArray(formArray),
         });
     }
-
 
     noServiceReturn(serviceType: string) {
         console.log('No services available for this course and services type');

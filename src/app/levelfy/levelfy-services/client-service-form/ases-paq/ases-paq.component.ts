@@ -14,6 +14,7 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { CourseService } from '../../../../core/services/course.service';
 import { EnrollmentService } from '../../../../core/services/enrollment.service';
 import { CourseId } from '../../../../shared/_dto/courseId.model';
+import { OpenClientService } from '../../../../core/services/open-client.service';
 
 @Component({
     selector: 'app-ases-paq',
@@ -32,6 +33,7 @@ export class AsesPaqComponent implements OnInit {
         private route: ActivatedRoute,
         private serviceService: ServiceService,
         private courseService: CourseService,
+        private openClientService: OpenClientService,
         private fb: FormBuilder,
         private enrollmentService: EnrollmentService,
         private router: Router
@@ -50,8 +52,8 @@ export class AsesPaqComponent implements OnInit {
 		     */
 
             // Get list of services that have the CourseID and the serviceType
-            this.serviceService
-                .findServiceByServiceTypeAndCourse_CourseId(
+            this.openClientService
+                .getServiceFormByServiceTypeAndCourse_CourseId(
                     this.serviceType.key,
                     new CourseId(params.i, params.u)
                 )
@@ -76,8 +78,6 @@ export class AsesPaqComponent implements OnInit {
             if (serv.idService == ((value as unknown) as number))
                 this.service = serv;
         });
-
-        console.log(this.service);
     }
 
     fillModal(service: Service): FormGroup {

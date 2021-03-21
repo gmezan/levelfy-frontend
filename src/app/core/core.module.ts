@@ -20,6 +20,7 @@ import { EnrollmentService } from './services/enrollment.service';
 import { SaleCanceledService } from './services/sale-canceled.service';
 import { SaleService } from './services/sale.service';
 import { NavbarPageComponent } from './common/navbar-page-component';
+import { OpenClientService } from './services/open-client.service';
 
 @NgModule({
     declarations: [],
@@ -34,6 +35,8 @@ import { NavbarPageComponent } from './common/navbar-page-component';
         SaleCanceledService,
         SaleService,
         AuthService,
+        OpenClientService,
+
         AdminAuthGuard,
         ModAuthGuard,
         TeachAuthGuard,

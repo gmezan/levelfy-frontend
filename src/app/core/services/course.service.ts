@@ -13,23 +13,10 @@ const uri = '/model/course';
 
 @Injectable()
 export class CourseService extends DataService<Course> {
-    // URI for all courses
-    apiUriService = '/model/course/list';
     apiUploadImage = '/s3/course/';
 
     constructor(http: HttpClient) {
         super(uri, http);
-    }
-
-    getAvailableCoursesByService(serviceType: string): Observable<Course[]> {
-        if (!serviceType) return null;
-        let options = {
-            params: new HttpParams().set('serviceType', serviceType),
-        };
-
-        return this.http
-            .get<Course[]>(this.buildPath(this.apiUriService), options)
-            .pipe(catchError(this.handleError));
     }
 
     uploadImage(id: string, form: FormData): Observable<any> {
@@ -37,11 +24,4 @@ export class CourseService extends DataService<Course> {
         let url = this.buildPath(this.apiUploadImage + id);
         return this.http.post<any>(url, form);
     }
-
-    /*
-
-        For DELETE and POST consider using local list variable  to y
-        update the list according to the changes, to avoid load all data again
-
-    */
 }

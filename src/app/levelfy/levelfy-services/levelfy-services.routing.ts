@@ -6,9 +6,6 @@ import { GeneralServiceComponent } from './general-service/general-service.compo
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
-
-
-
 const routes: Routes = [
     // List services navigation (no login required)
     {
@@ -25,12 +22,11 @@ const routes: Routes = [
         path: '',
         component: ServicesComponent,
         pathMatch: 'full',
-    }
-
+    },
 ];
 
 @NgModule({
     imports: [CommonModule, RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class LevelfyServicesRoutingModule { }
+export class LevelfyServicesRoutingModule {}

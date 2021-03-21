@@ -44,9 +44,9 @@ export class ClientServiceFormComponent
         this.route.params.subscribe((params) => {
             let serviceType = params.type;
             this.serviceType = mapServiceRoute2ServiceType[serviceType];
-            //console.log(this.serviceType);
-            // verify services TYPE exists
+
             if (!this.serviceType) {
+                // verify services TYPE exists
                 this.error();
                 return;
             }
