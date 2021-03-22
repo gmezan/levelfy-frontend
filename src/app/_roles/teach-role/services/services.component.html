@@ -21,7 +21,7 @@
                             class='form-control custom-select mx-3'
                             name='university'
                             id='universitySelector'>
-                        <option *ngFor='let s of servicesSelector' [value]='s' >{{s | uppercase}}</option>
+                        <option *ngFor='let s of servicesSelector' [value]='s' >{{s | serviceTypeString}}</option>
                     </select>
                 </div>
                 <div class='form-group'>
@@ -173,6 +173,7 @@
                             formControlName='university'
                             class="form-control custom-select"
                             id="university">
+                        <option> -- Select -- </option>
                         <option *ngFor='let u of universities; let index = index' [value]='u' >{{u}}</option>
                     </select>
                     <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('university').touched && form.get('course').get('courseId').get('university').invalid">
@@ -186,6 +187,7 @@
                             formControlName='idCourse'
                             class="form-control custom-select"
                             id="idCourse">
+                        <option> -- Select -- </option>
                         <option *ngFor='let c of courseSelector; let index = index' [value]='c.courseId.idCourse' >{{c.name}}</option>
                     </select>
                     <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('idCourse').touched && form.get('course').get('courseId').get('idCourse').invalid">
@@ -204,6 +206,7 @@
                         formControlName='idUser'
                         class="form-control custom-select"
                         id="inputTeacher">
+                    <option> -- Select -- </option>
                     <option *ngFor='let u of userSelector; let index = index' [value]='u.idUser' >{{u.fullName}}</option>
                 </select>
                 <div class='alert alert-danger p-1' *ngIf="form.get('teacher').get('idUser').touched && form.get('teacher').get('idUser').invalid">
@@ -218,6 +221,7 @@
                         formControlName='serviceType'
                         class="form-control custom-select"
                         id="inputServiceType">
+                    <option> -- Select -- </option>
                     <option *ngFor='let s of services; let index = index' [value]='s.key' >{{s.serviceName}}</option>
                 </select>
                 <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
@@ -243,7 +247,8 @@
                         formControlName='evaluation'
                         class="form-control custom-select"
                         id="inputEvaluation">
-                    <option *ngFor='let e of evaluations' [value]='e' >{{e.toString()}}</option>
+                    <option> -- Select -- </option>
+                    <option *ngFor='let e of evaluations' [value]='e' >{{ e | evaluationString }}</option>
                 </select>
                 <div class='alert alert-danger p-1' *ngIf="form.get('serviceType').touched && form.get('serviceType').invalid">
                     <div *ngIf="form.get('serviceType').errors.required">ServiceType is required</div>

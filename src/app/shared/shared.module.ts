@@ -17,6 +17,8 @@ import { CustomAlertComponent } from './custom-alert/custom-alert.component';
 import { CustomAlertDirective } from './custom-alert/custom-alert.directive';
 import { UniversityStringPipe } from './pipes/university-string.pipe';
 import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.component';
+import { ServiceTypeStringPipe } from './pipes/service-type-string.pipe';
+import { EvaluationStringPipe } from './pipes/evaluation-string.pipe';
 
 @NgModule({
     declarations: [
@@ -35,6 +37,8 @@ import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.compon
         CustomAlertDirective,
         UniversityStringPipe,
         TeachInfoCardComponent,
+        ServiceTypeStringPipe,
+        EvaluationStringPipe,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -47,6 +51,8 @@ import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.compon
         CustomAlertDirective,
         UniversityStringPipe,
         TeachInfoCardComponent,
+        ServiceTypeStringPipe,
+        EvaluationStringPipe,
     ],
 })
 export class SharedModule {}

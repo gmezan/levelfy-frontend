@@ -2,9 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 import { DOCUMENT } from '@angular/common';
 import { servicesTypes } from '../../../core/util/services-types';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RoleClientService } from '../../../core/services/role-client.service';
+import { Enrollment } from '../../../shared/_models/enrollment.model';
 
-const path = '#/c/courses';
+const path = '/c/courses';
 
 @Component({
     selector: 'app-my-enrollments',
@@ -18,7 +20,17 @@ export class MyEnrollmentsComponent
     services = servicesTypes;
     servicesSelector: string[];
 
-    constructor(protected router: Router, @Inject(DOCUMENT) document: any) {
+    availableEnrollment: Enrollment[] = [];
+    unavailableEnrollment: Enrollment[] = [];
+
+    footerMessage: string = 'Ver inscripción';
+
+    constructor(
+        private route: ActivatedRoute,
+        private roleClientService: RoleClientService,
+        protected router: Router,
+        @Inject(DOCUMENT) document: any
+    ) {
         super(document);
     }
 
@@ -30,11 +42,31 @@ export class MyEnrollmentsComponent
             this.servicesSelector.push(s.key);
         });
         this.servicesSelector.splice(0, 0, 'Todo');
+
+        this.route.queryParams.subscribe((params) => {
+            let enrollments: Enrollment[] = [],
+                queryParams;
+            if (params.s) queryParams = { s: params.s };
+            else queryParams = null;
+
+            //console.log('Routing to: ', queryParams);
+            this.roleClientService
+                .getEnrollments(queryParams)
+                .subscribe((data) => {
+                    enrollments = data;
+                    this.availableEnrollment = this.unavailableEnrollment = [];
+                    enrollments.forEach((enrollment) => {
+                        if (enrollment.active)
+                            this.availableEnrollment.splice(0, 0, enrollment);
+                        else
+                            this.unavailableEnrollment.splice(0, 0, enrollment);
+                    });
+                });
+        });
     }
 
     onOptionsSelected(value: string) {
-        let queryParams = value != 'All' ? { u: value } : null;
-        console.log(value);
+        let queryParams = value != 'Todo' ? { s: value } : null;
         this.router.navigate([path], { queryParams: queryParams });
     }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { servicesTypes } from '../../../../core/util/services-types';
 import { Service } from '../../../../shared/_models/service.model';
 import { Course } from '../../../../shared/_models/course.model';
@@ -15,6 +15,8 @@ import { CourseService } from '../../../../core/services/course.service';
 import { EnrollmentService } from '../../../../core/services/enrollment.service';
 import { CourseId } from '../../../../shared/_dto/courseId.model';
 import { OpenClientService } from '../../../../core/services/open-client.service';
+import { EventEmitter } from '@angular/core';
+import { Enrollment } from '../../../../shared/_models/enrollment.model';
 
 @Component({
     selector: 'app-ases-paq',
@@ -24,6 +26,10 @@ import { OpenClientService } from '../../../../core/services/open-client.service
 export class AsesPaqComponent implements OnInit {
     @Input('message-for-the-button') messageForTheButton;
     @Input('service-type') serviceType: typeof servicesTypes[0];
+
+    @Output('inscription-event')
+    inscriptionEvent = new EventEmitter<Enrollment>();
+
     services: Service[] = [new Service()];
     course: Course = new Course();
     service: Service = new Service();
@@ -66,7 +72,6 @@ export class AsesPaqComponent implements OnInit {
                         this.services = data;
                         this.course = data[0].course;
                         this.service = data[0];
-                        console.log(this.services);
                     },
                     (error) => {}
                 );
@@ -145,5 +150,12 @@ export class AsesPaqComponent implements OnInit {
     noServiceReturned(serviceType: string) {
         console.log('No services available for this course and services type');
         this.router.navigate(['/services', serviceType]).then();
+    }
+
+    emitInscription(): void {
+        let enrollment: Enrollment = new Enrollment();
+        enrollment.service = this.service;
+
+        this.inscriptionEvent.emit(enrollment);
     }
 }

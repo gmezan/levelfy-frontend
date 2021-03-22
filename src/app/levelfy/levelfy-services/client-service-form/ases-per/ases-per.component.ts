@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from '../../../../shared/_models/course.model';
 import { CourseId } from '../../../../shared/_dto/courseId.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -15,6 +15,7 @@ import {
     Validators,
 } from '@angular/forms';
 import { OpenClientService } from '../../../../core/services/open-client.service';
+import { Enrollment } from '../../../../shared/_models/enrollment.model';
 
 @Component({
     selector: 'app-ases-per',
@@ -24,6 +25,10 @@ import { OpenClientService } from '../../../../core/services/open-client.service
 export class AsesPerComponent implements OnInit {
     @Input('message-for-the-button') messageForTheButton;
     @Input('service-type') serviceType: typeof servicesTypes[0];
+
+    @Output('inscription-event')
+    inscriptionEvent = new EventEmitter<Enrollment>();
+
     services: Service[] = [new Service()];
     course: Course = new Course();
     service: Service = new Service();
@@ -119,5 +124,12 @@ export class AsesPerComponent implements OnInit {
     noServiceReturn(serviceType: string) {
         console.log('No services available for this course and services type');
         this.router.navigate(['/services', serviceType]).then();
+    }
+
+    emitInscription(): void {
+        let enrollment: Enrollment = new Enrollment();
+        enrollment.service = this.service;
+
+        this.inscriptionEvent.emit(enrollment);
     }
 }

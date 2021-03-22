@@ -10,6 +10,13 @@ import { Service } from '../../../shared/_models/service.model';
 import { Course } from '../../../shared/_models/course.model';
 import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
+import { AuthService } from '../../../core/security/auth.service';
+import { UserService } from '../../../core/services/user.service';
+import { User } from '../../../shared/_models/user.model';
+import { TokenService } from '../../../core/security/token.service';
+import { OpenClientService } from '../../../core/services/open-client.service';
+import { Enrollment } from '../../../shared/_models/enrollment.model';
+import { RoleClientService } from '../../../core/services/role-client.service';
 
 /*
 	This component manages the inscription form of every services
@@ -33,6 +40,11 @@ export class ClientServiceFormComponent
         private route: ActivatedRoute,
         private serviceService: ServiceService,
         private router: Router,
+        private authService: AuthService,
+        private userService: UserService,
+        private tokenService: TokenService,
+        private openClientService: OpenClientService,
+        private roleClientService: RoleClientService,
         @Inject(DOCUMENT) document: any
     ) {
         super(document);
@@ -55,6 +67,32 @@ export class ClientServiceFormComponent
 
     error() {
         this.router.navigate(['/error']).then();
+    }
+
+    inscription($event: any) {
+        //console.log($event);
+        let enrollment: Enrollment = $event,
+            currentUser: User;
+
+        if (this.authService.isLoggedIn() && this.authService.isClient()) {
+            this.userService.getCurrent().subscribe(
+                (data) => {
+                    currentUser = data;
+                    this.tokenService.setUser(currentUser);
+                    if (this.authService.isClient()) {
+                        //console.log('Authenticated');
+                        enrollment.student = currentUser;
+                    } else alert('Something went wrong, please try later');
+                },
+                (error) =>
+                    alert(
+                        'Something went wrong, please try later: ' +
+                            error.toString()
+                    )
+            );
+        } else {
+            this.router.navigate(['/login']).then();
+        }
     }
 }
 

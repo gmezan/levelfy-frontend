@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ClientComponent } from './client/client.component';
 import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.component';
+import { EnrollmentComponent } from './enrollment/enrollment.component';
 
 const routes: Routes = [
     {
@@ -11,8 +12,13 @@ const routes: Routes = [
         pathMatch: 'full',
     },
     {
-        path: 'courses',
+        path: 'enrollment',
         component: MyEnrollmentsComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'enrollment/:id',
+        component: EnrollmentComponent,
         pathMatch: 'full',
     },
 ];

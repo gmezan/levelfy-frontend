@@ -22,7 +22,7 @@
 
                             <app-ases-per [service-type]='serviceType' [message-for-the-button]='messageForTheButton'  *ngSwitchCase="servicesTypes[0].key"></app-ases-per>
 
-                            <app-ases-paq [service-type]='serviceType' [message-for-the-button]='messageForTheButton' *ngSwitchCase="servicesTypes[1].key"></app-ases-paq>
+                            <app-ases-paq (inscription-event)='inscription($event)'  [service-type]='serviceType' [message-for-the-button]='messageForTheButton' *ngSwitchCase="servicesTypes[1].key"></app-ases-paq>
 
                             <app-mar [service-type]='serviceType' [message-for-the-button]='messageForTheButton' *ngSwitchCase="servicesTypes[2].key"></app-mar>
 

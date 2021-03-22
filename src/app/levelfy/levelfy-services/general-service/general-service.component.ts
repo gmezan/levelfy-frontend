@@ -71,7 +71,22 @@ export class GeneralServiceComponent
                         );
                     break;
 
-                case 'ASES_PAQ' || 'MAR':
+                case 'ASES_PAQ':
+                    this.openClientService
+                        .getAvailableServiceByCourse(this.service.key)
+                        .subscribe(
+                            (data) => {
+                                this.courses = data;
+                                this.teacherCoursesInfo = [];
+                                this.noCourses =
+                                    data == null || data.length === 0;
+                            },
+                            (error: Response) => {
+                                console.log(error);
+                            }
+                        );
+                    break;
+                case 'MAR':
                     this.openClientService
                         .getAvailableServiceByCourse(this.service.key)
                         .subscribe(
