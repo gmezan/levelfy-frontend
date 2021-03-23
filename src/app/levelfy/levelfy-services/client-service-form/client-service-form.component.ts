@@ -74,25 +74,55 @@ export class ClientServiceFormComponent
         let enrollment: Enrollment = $event,
             currentUser: User;
 
-        if (this.authService.isLoggedIn() && this.authService.isClient()) {
+        if (this.authService.isLoggedIn() && this.authService.isClient())
             this.userService.getCurrent().subscribe(
                 (data) => {
                     currentUser = data;
                     this.tokenService.setUser(currentUser);
-                    if (this.authService.isClient()) {
-                        //console.log('Authenticated');
-                        enrollment.student = currentUser;
-                    } else alert('Something went wrong, please try later');
+                    // is Authenticated
+                    enrollment.student = currentUser;
+                    /*
+                        TODO: Check if user is already registered in service
+                     */
+                    if (this.authService.isClient())
+                        this.roleClientService
+                            .isAlreadyEnrolled(enrollment)
+                            .subscribe((data) => {
+                                if (
+                                    data &&
+                                    data.idEnrollment &&
+                                    data.idEnrollment != 0
+                                ) {
+                                    this.router.navigate([
+                                        '/c/enrollment/' + data.idEnrollment,
+                                    ]);
+                                } else {
+                                    this.roleClientService
+                                        .postEnrollment(enrollment)
+                                        .subscribe(
+                                            (data) => {
+                                                this.router.navigate([
+                                                    'c/enrollment/' +
+                                                        data.idEnrollment,
+                                                ]);
+                                            },
+                                            (error1) => {
+                                                alert(
+                                                    'Something went wrong in the inscription: ' +
+                                                        error1.toString()
+                                                );
+                                            }
+                                        );
+                                }
+                            });
+                    else alert('Something went wrong with authorization');
                 },
                 (error) =>
                     alert(
-                        'Something went wrong, please try later: ' +
-                            error.toString()
+                        'Something went wrong retrieving the user information, please try later'
                     )
             );
-        } else {
-            this.router.navigate(['/login']).then();
-        }
+        else this.router.navigate(['/login']).then();
     }
 }
 

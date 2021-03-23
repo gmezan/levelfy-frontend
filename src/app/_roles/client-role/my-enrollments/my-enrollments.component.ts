@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoleClientService } from '../../../core/services/role-client.service';
 import { Enrollment } from '../../../shared/_models/enrollment.model';
 
-const path = '/c/courses';
+const path = '/c/enrollment';
 
 @Component({
     selector: 'app-my-enrollments',
@@ -44,17 +44,15 @@ export class MyEnrollmentsComponent
         this.servicesSelector.splice(0, 0, 'Todo');
 
         this.route.queryParams.subscribe((params) => {
-            let enrollments: Enrollment[] = [],
-                queryParams;
-            if (params.s) queryParams = { s: params.s };
-            else queryParams = null;
+            let enrollments: Enrollment[] = [];
 
             //console.log('Routing to: ', queryParams);
             this.roleClientService
-                .getEnrollments(queryParams)
+                .getEnrollments(params.s)
                 .subscribe((data) => {
                     enrollments = data;
-                    this.availableEnrollment = this.unavailableEnrollment = [];
+                    this.availableEnrollment = [];
+                    this.unavailableEnrollment = [];
                     enrollments.forEach((enrollment) => {
                         if (enrollment.active)
                             this.availableEnrollment.splice(0, 0, enrollment);

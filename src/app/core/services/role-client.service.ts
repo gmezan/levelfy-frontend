@@ -11,20 +11,54 @@ const uri = 'c';
     providedIn: 'root',
 })
 export class RoleClientService extends DataService<any> {
-    apiGetEnrollments = '/c/enrollment';
+    apiEnrollment = '/c/enrollment';
+    apiIsAlreadyEnrolled = '/c/is-enrolled';
 
     constructor(http: HttpClient) {
         super(uri, http);
     }
 
+    // To check if a user is already enrolled in a service
+    isAlreadyEnrolled(enrollment: Enrollment): Observable<Enrollment> {
+        return this.http.post<Enrollment>(
+            this.buildPath(this.apiIsAlreadyEnrolled),
+            enrollment
+        );
+    }
+
+    // To get the enrollments of the user
     getEnrollments(serviceType: string): Observable<Enrollment[]> {
-        let options = {
-            params: new HttpParams().set('serviceType', serviceType),
-        };
+        let options = serviceType
+            ? {
+                  params: new HttpParams().set('serviceType', serviceType),
+              }
+            : {};
 
         return this.http.get<Enrollment[]>(
-            this.buildPath(this.apiGetEnrollments),
+            this.buildPath(this.apiEnrollment),
             options
+        );
+    }
+
+    // To get an enrollment
+    getEnrollment(id: string) {
+        return this.http.get<Enrollment>(
+            this.buildPath(this.apiEnrollment + '/' + id)
+        );
+    }
+
+    // To create a new enrollment
+    postEnrollment(enrollment: Enrollment) {
+        return this.http.post<Enrollment>(
+            this.buildPath(this.apiEnrollment),
+            enrollment
+        );
+    }
+
+    // To create a new enrollment
+    deleteEnrollment(enrollment: Enrollment) {
+        return this.http.delete<Enrollment>(
+            this.buildPath(this.apiEnrollment + '/' + enrollment.idEnrollment)
         );
     }
 }

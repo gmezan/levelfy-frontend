@@ -1,1 +1,106 @@
-<p>enrollment works!</p>
+<section class='py-2 bg-light'>
+    <div class="container py-5">
+        <div class="row">
+            <!-- "sidebar" -->
+            <div class="col-lg-3">
+                <ul class="mb-1 list-group list-group-flush list-group-careers">
+                    <li class="list-group-item pt-0 bg-light">
+                        <a style="color: #0D9814;" class="small" [routerLink]="['/c/enrollment']">
+                            <fa-icon class="mr-1" [icon]="['fas','arrow-left']"></fa-icon>Ir a mis cursos</a>
+                    </li>
+                    <li class="list-group-item bg-light font-weight-bold">{{ enrollment.service.serviceType | serviceTypeString }}</li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-9 ">
+                <div class="card no-transition rounded-lg text-dark bg-white">
+                    <div class="card-body mx-3 my-2">
+
+                        <h1 class="font-weight-bolder text">{{enrollment.service.course.name}}</h1>
+                        <h5 class="small text-green" style="color: #0D9814;">{{enrollment.service.course.courseId.university | universityString}}</h5>
+
+                        <div class="row my-3">
+
+                            <div class="col-lg-6 my-1">
+                                <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="enrollment.service.teacher.photo"/></a>
+                            </div>
+
+                            <div class="col-lg-6 my-1">
+                                <div class="form-group">
+                                    <h6 class="mb-3">Tendrás:</h6>
+                                    <ul class="fa-ul">
+                                        <li *ngFor="let str of serviceType?.offers" class="mb-3">
+                            <span class="fa-li">
+                                <fa-icon [icon]="['far','dot-circle']"></fa-icon>
+                            </span>
+                                            {{str}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6"><label class="small text-gray-600" >Asesor</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected >{{enrollment.service.teacher.fullName}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6"><label class="small text-gray-600">Evaluacion</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected>{{ enrollment.service.evaluation | evaluationString }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="small text-gray-600">Horarios</label>
+                                <table class='table'>
+                                    <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Hora inicio</th>
+                                        <th>Hora fin</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor='let session of enrollment.service.serviceSessionList'>
+                                        <td>{{session.date | date: 'mediumDate'}}</td>
+                                        <td>{{session.start }}</td>
+                                        <td>{{session.end }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <!-- Always here -->
+                            <div class="form-row pt-4">
+                                <div class="form-group col-md-12">
+                                    <div  class="card no-transition bg-light shadow-none">
+                                        <div class="card-body d-flex align-items-center justify-content-between p-4">
+                                            <p class="lead mb-0">{{messageForTheButton}}</p>
+                                            <button class="btn btn-black btn-marketing rounded-pill ml-2" type="button">Registrar pago</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<ng-template>
+
+</ng-template>

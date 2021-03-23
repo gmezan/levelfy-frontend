@@ -11,6 +11,10 @@ import { TeacherCoursesInfo } from '../../shared/_dto/teacher-courses-info.model
 
 const uri = '/open';
 
+/*
+    Open Services to everybody
+ */
+
 @Injectable({
     providedIn: 'root',
 })
