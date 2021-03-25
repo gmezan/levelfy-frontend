@@ -1,0 +1,27 @@
+.sidebarButton {
+}
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#blogSidebar {
+    min-width: 150px;
+    max-width: 150px;
+
+    transition: all 0.3s;
+}
+
+#blogSidebar.active {
+    margin-left: -150px;
+}
+
+@media (max-width: 768px) {
+    #blogSidebar {
+        margin-left: -150px;
+    }
+    #blogSidebar.active {
+        margin-left: 0;
+    }
+}

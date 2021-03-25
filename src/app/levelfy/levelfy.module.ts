@@ -17,6 +17,7 @@ import { SectionNumbersComponent } from './home/section-numbers/section-numbers.
 import { SectionTestimonialComponent } from './home/section-testimonial/section-testimonial.component';
 import { SectionBlogComponent } from './home/section-blog/section-blog.component';
 import { SectionPartnersComponent } from './home/section-partners/section-partners.component';
+import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +32,7 @@ import { SectionPartnersComponent } from './home/section-partners/section-partne
         SectionTestimonialComponent,
         SectionBlogComponent,
         SectionPartnersComponent,
+        BlogPostComponent,
     ],
     imports: [
         CommonModule,
