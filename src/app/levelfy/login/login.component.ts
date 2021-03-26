@@ -49,11 +49,12 @@ export class LoginComponent extends NavbarPageComponent implements OnInit {
             .signIn(GoogleLoginProvider.PROVIDER_ID)
             .then((data) => {
                 this.socialUser = data;
+
                 const tokenGoogle = new TokenDto(this.socialUser.idToken);
+                console.log(tokenGoogle);
                 this.oauthService.google(tokenGoogle).subscribe(
                     (res) => {
                         this.tokenService.setToken(res.value);
-
                         // Getting current user:
                         this.userService.getCurrent().subscribe(
                             (res) => {

@@ -30,7 +30,7 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
     enrollment: Enrollment;
     serviceType: typeof servicesTypes[0];
 
-    messageForTheButton = '¡Ya estás inscrito!';
+    messageForTheButton = '¡Ya estás inscrito en esta asesoría!';
 
     ngOnInit(): void {
         this.putNoHeaderNavbarDark();
