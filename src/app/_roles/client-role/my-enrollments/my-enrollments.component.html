@@ -16,7 +16,7 @@
     </div>
 </header>
 
-<section class='py-5 bg-light'>
+<section class='py-4 bg-light'>
     <div class='container'>
         <nav class="navbar navbar-light bg-light justify-content-between py-2">
             <form class='form-inline'>
@@ -36,7 +36,7 @@
 </section>
 
 
-<section class='py-5 bg-light'>
+<section class='py-4 bg-light'>
     <div class='container'>
         <h1 class="py-5">Inscripciones activas</h1>
     </div>
@@ -48,12 +48,18 @@
                 </h4>
             </div>
             <div *ngFor="let enrollment of availableEnrollment"  class="col-lg-4 mb-5 item">
-                <app-course-card
-                    [course]="enrollment.service.course"
-                    [footer-message]="footerMessage"
-                    [path-url]="['/c/enrollment/'+enrollment.idEnrollment]"
-                    [path-url-params] = "{}"
-                ></app-course-card>
+                <a class="card lift h-100" [routerLink]="['/c/enrollment/'+enrollment.idEnrollment]" [queryParams]="{}">
+                    <img class="card-img-top" [src]="enrollment.service.course.photo" alt="..."/>
+                    <div class="card-body">
+                        <h5 class="card-title py-0 my-0 font-weight-bold"> <label class="courseName"> {{ enrollment.service.course.name }} - {{ enrollment.service.course.courseId.university }} </label></h5>
+                        <div class="small text-success" > {{ enrollment.service.serviceType | serviceTypeString }}</div>
+                        <div class="small text-dark" > <b>Asesor:</b> {{ enrollment.service.teacher.fullName }} </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                        <div *ngIf='enrollment.payed' class="small text-success"> Matriculado </div>
+                        <div *ngIf='!enrollment.payed' class="small text-primary"> Inscrito </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -63,7 +69,7 @@
 
 <hr class="my-0 font-weight-bold" />
 
-<section class='py-5 bg-light'>
+<section class='py-4 bg-light'>
     <div class='container'>
         <h1 class="py-5">Inscripciones pasadas</h1>
     </div>
@@ -76,12 +82,20 @@
                 </h4>
             </div>
             <div *ngFor="let enrollment of unavailableEnrollment"  class="col-lg-4 mb-5 item">
-                <app-course-card
-                    [course]="enrollment.service.course"
-                    [footer-message]="footerMessage"
-                    [path-url]="['/c/enrollment/'+enrollment.idEnrollment]"
-                    [path-url-params] = "{}"
-                ></app-course-card>
+
+                <a class="card lift h-100" [routerLink]="['/c/enrollment/'+enrollment.idEnrollment]" [queryParams]="{}">
+                    <img class="card-img-top" [src]="enrollment.service.course.photo" alt="..."/>
+                    <div class="card-body">
+                        <h5 class="card-title py-0 my-0 font-weight-bold"> <label class="courseName"> {{ enrollment.service.course.name }} - {{ enrollment.service.course.courseId.university }} </label></h5>
+                        <div class="small text-success" > {{ enrollment.service.serviceType | serviceTypeString }}</div>
+                        <div class="small text-dark" > <b>Asesor:</b> {{ enrollment.service.teacher.fullName }} </div>
+                    </div>
+                    <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
+                        <div class="small text-gray-600"> Ver detalles </div>
+                    </div>
+                </a>
+
+
             </div>
         </div>
     </div>
