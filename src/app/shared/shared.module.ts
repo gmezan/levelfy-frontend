@@ -19,6 +19,7 @@ import { UniversityStringPipe } from './pipes/university-string.pipe';
 import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.component';
 import { ServiceTypeStringPipe } from './pipes/service-type-string.pipe';
 import { EvaluationStringPipe } from './pipes/evaluation-string.pipe';
+import { PriceTagStringPipe } from './pipes/price-tag-string.pipe';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { EvaluationStringPipe } from './pipes/evaluation-string.pipe';
         TeachInfoCardComponent,
         ServiceTypeStringPipe,
         EvaluationStringPipe,
+        PriceTagStringPipe,
     ],
     imports: [CommonModule, FontAwesomeModule, RouterModule],
     exports: [
@@ -53,6 +55,7 @@ import { EvaluationStringPipe } from './pipes/evaluation-string.pipe';
         TeachInfoCardComponent,
         ServiceTypeStringPipe,
         EvaluationStringPipe,
+        PriceTagStringPipe,
     ],
 })
 export class SharedModule {}

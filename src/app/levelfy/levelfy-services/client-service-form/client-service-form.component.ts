@@ -86,35 +86,20 @@ export class ClientServiceFormComponent
                      */
                     if (this.authService.isClient())
                         this.roleClientService
-                            .isAlreadyEnrolled(enrollment)
-                            .subscribe((data) => {
-                                if (
-                                    data &&
-                                    data.idEnrollment &&
-                                    data.idEnrollment != 0
-                                ) {
+                            .postEnrollment(enrollment)
+                            .subscribe(
+                                (data) => {
                                     this.router.navigate([
-                                        '/c/enrollment/' + data.idEnrollment,
+                                        'c/enrollment/' + data.idEnrollment,
                                     ]);
-                                } else {
-                                    this.roleClientService
-                                        .postEnrollment(enrollment)
-                                        .subscribe(
-                                            (data) => {
-                                                this.router.navigate([
-                                                    'c/enrollment/' +
-                                                        data.idEnrollment,
-                                                ]);
-                                            },
-                                            (error1) => {
-                                                alert(
-                                                    'Something went wrong in the inscription: ' +
-                                                        error1.toString()
-                                                );
-                                            }
-                                        );
+                                },
+                                (error1) => {
+                                    alert(
+                                        'Something went wrong in the inscription: ' +
+                                            error1.toString()
+                                    );
                                 }
-                            });
+                            );
                     else alert('Something went wrong with authorization');
                 },
                 (error) =>

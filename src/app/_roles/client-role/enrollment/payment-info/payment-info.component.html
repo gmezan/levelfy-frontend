@@ -1,0 +1,62 @@
+<div class="form-group">
+    <label class="small text-gray-600" >Información del pago</label>
+    <p *ngIf='!enrollment.payed && (enrollment.saleList==null || enrollment.saleList.length==0) ' class="text text-dark">
+        <span class="text-danger">Hora de expiración de la inscripción: <span> {{ enrollment.created }}</span></span>.<br>
+        El pago para esta asesoría está pendiente. Sirvase de registrarlo, antes de que la inscripción expire, de cualquiera de las siguientes formas:
+    </p>
+    <p *ngIf='!enrollment.payed && (enrollment.saleList!=null && enrollment.saleList.length!=0) ' class="text text-dark">El pago de esta asesoría está siendo verificado</p>
+    <p *ngIf='enrollment.payed' class="text text-green">El pago de esta asesoría ya está realizado</p>
+    <div class="row" *ngIf='!enrollment.payed'>
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-bcp-list" data-toggle="list" href="#list-bcp" role="tab" aria-controls="bcp">BCP</a>
+                <a class="list-group-item list-group-item-action" id="list-bbva-list" data-toggle="list" href="#list-bbva" role="tab" aria-controls="bbva">BBVA</a>
+                <a class="list-group-item list-group-item-action" id="list-plin-list" data-toggle="list" href="#list-plin" role="tab" aria-controls="plin">Lukita y PLIN</a>
+                <a class="list-group-item list-group-item-action" id="list-yape-list" data-toggle="list" href="#list-yape" role="tab" aria-controls="yape">Código QR para YAPE</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="list-bcp" role="tabpanel" aria-labelledby="list-bcp-list">
+                    <b>Cuenta BCP Soles es 19133794422078</b>
+                </div>
+                <div class="tab-pane fade" id="list-bbva" role="tabpanel" aria-labelledby="list-bbva-list">
+                    <b> BBVA CUENTA INDEPENDENCIA<br>
+                        0011-0120-0200328968</b>
+                </div>
+                <div class="tab-pane fade" id="list-plin" role="tabpanel" aria-labelledby="list-plin-list">
+                    <b> Al número (+51) 933515096 </b>
+                </div>
+                <div class="tab-pane fade" id="list-yape" role="tabpanel" aria-labelledby="list-yape-list">
+                    <img src="/assets/img/QR_YAPE.jpg" alt="yape">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div *ngIf='enrollment.saleList!=null && enrollment.saleList.length!=0 && !enrollment.payed' class="form-group">
+    <label class="small text-gray-600" >Último registro de pago</label>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Metodo</th>
+            <th>Mensaje</th>
+            <th>Monto (S/.)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor='let sale of enrollment.saleList'>
+            <td>{{ sale.persona }}</td>
+            <td>{{ sale.method }}</td>
+            <td>{{ sale.message }}</td>
+            <td>{{ sale.amount }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>

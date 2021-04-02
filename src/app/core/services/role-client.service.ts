@@ -4,6 +4,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Enrollment } from '../../shared/_models/enrollment.model';
 import { catchError } from 'rxjs/operators';
+import { ServiceSession } from '../../shared/_models/service-session.model';
+import { Sale } from '../../shared/_models/sale.model';
+import { PaymentDto } from '../../shared/_dto/payment.dto';
 
 const uri = 'c';
 
@@ -11,19 +14,16 @@ const uri = 'c';
     providedIn: 'root',
 })
 export class RoleClientService extends DataService<any> {
-    apiEnrollment = '/c/enrollment';
-    apiIsAlreadyEnrolled = '/c/is-enrolled';
+    private apiEnrollment = '/c/enrollment';
+    private apiIsAlreadyEnrolled = '/c/is-enrolled';
+
+    private apiServiceSession = '/c/service-session';
+    private apiSale = '/c/sale';
+
+    private apiRegisterPayment = '/c/register-payment';
 
     constructor(http: HttpClient) {
         super(uri, http);
-    }
-
-    // To check if a user is already enrolled in a service
-    isAlreadyEnrolled(enrollment: Enrollment): Observable<Enrollment> {
-        return this.http.post<Enrollment>(
-            this.buildPath(this.apiIsAlreadyEnrolled),
-            enrollment
-        );
     }
 
     // To get the enrollments of the user
@@ -41,24 +41,58 @@ export class RoleClientService extends DataService<any> {
     }
 
     // To get an enrollment
-    getEnrollment(id: string) {
+    getEnrollment(id: string): Observable<Enrollment> {
         return this.http.get<Enrollment>(
             this.buildPath(this.apiEnrollment + '/' + id)
         );
     }
 
     // To create a new enrollment
-    postEnrollment(enrollment: Enrollment) {
+    postEnrollment(enrollment: Enrollment): Observable<Enrollment> {
         return this.http.post<Enrollment>(
             this.buildPath(this.apiEnrollment),
             enrollment
         );
     }
 
-    // To create a new enrollment
+    // To delete a enrollment
     deleteEnrollment(enrollment: Enrollment) {
         return this.http.delete<Enrollment>(
             this.buildPath(this.apiEnrollment + '/' + enrollment.idEnrollment)
+        );
+    }
+
+    getServiceSessionList(
+        enrollment: Enrollment
+    ): Observable<ServiceSession[]> {
+        let options = {
+            params: new HttpParams().set(
+                'serviceId',
+                String(enrollment.service.idService)
+            ),
+        };
+
+        return this.http.get<ServiceSession[]>(
+            this.buildPath(this.apiServiceSession),
+            options
+        );
+    }
+
+    getSaleList(enrollment: Enrollment): Observable<Sale[]> {
+        let options = {
+            params: new HttpParams().set(
+                'enrollmentId',
+                String(enrollment.idEnrollment)
+            ),
+        };
+
+        return this.http.get<Sale[]>(this.buildPath(this.apiSale), options);
+    }
+
+    registerPayment(paymentDto: PaymentDto): Observable<Sale> {
+        return this.http.post<Sale>(
+            this.buildPath(this.apiRegisterPayment),
+            paymentDto
         );
     }
 }
