@@ -1,3 +1,25 @@
+<a class="card post-preview post-preview-featured lift mb-5" (click)='toPost(principal.id)' >
+    <div class="row no-gutters">
+        <div class="col-lg-5"><div class="post-preview-featured-img"
+        [ngStyle]="{'background-image': 'url('+ principal.thumbnail +')' }"></div></div>
+        <div class="col-lg-7">
+            <div class="card-body">
+                <div class="py-5">
+                    <h5 class="card-title">{{ principal.title }}</h5>
+                    <p class="card-text">{{ principal.description }}</p>
+                </div>
+                <hr />
+                <div class="post-preview-meta">
+                    <img class="post-preview-meta-img" src="assets/img/illustrations/profiles/profile-1.png" />
+                    <div class="post-preview-meta-details">
+                        <div class="post-preview-meta-details-name">{{ principal.author }}</div>
+                        <div class="post-preview-meta-details-date">{{ principal.dateTime }} &middot; {{ principal.timeRead }} min read</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
 <div class="row">
     <ng-template ngFor let-blogPost [ngForOf]="blogPosts">
         <div class="col-md-6 col-xl-4 mb-5">
@@ -151,7 +173,7 @@
             </div></a
         >
     </div>
-</div-->
+</div>
 <nav aria-label="Page navigation example">
     <ul class="pagination pagination-blog justify-content-center">
         <li class="page-item disabled">
@@ -166,4 +188,4 @@
             <a class="page-link" href="#!" aria-label="Next"><span aria-hidden="true">»</span></a>
         </li>
     </ul>
-</nav>
+</nav-->

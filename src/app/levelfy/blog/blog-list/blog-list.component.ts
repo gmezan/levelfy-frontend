@@ -12,6 +12,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
 export class BlogListComponent implements OnInit {
 
   blogPosts: BlogPost[];
+  principal: BlogPost;
 
   constructor(
       private blogPostService: BlogPostService,
@@ -21,13 +22,15 @@ export class BlogListComponent implements OnInit {
   ngOnInit(): void {
     this.blogPostService.getAll().subscribe((res) => {
       this.blogPosts = res;
+
       this.blogPosts.map((post: BlogPost) => {
         post.dateTime = DateTimeFormat('en-US', {
           year: 'numeric',
           month: 'short',
           day: '2-digit'
         }).format(new Date(Date.parse(post.dateTime)));
-      });
+      }).reverse();
+      this.principal = this.blogPosts.shift();
       console.log('aea');
       console.log(this.blogPosts);
     });

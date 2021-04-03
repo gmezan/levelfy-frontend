@@ -13,14 +13,8 @@ import DateTimeFormat = Intl.DateTimeFormat;
     styleUrls: ['./blog-post.component.css'],
 })
 export class BlogPostComponent extends NavbarPageComponent implements OnInit {
-    blogTitle: string = 'Nuestro Blog';
+    
     isSidebarHidden: boolean = false;
-    author: string;
-    description: string;
-    date: Date;
-    photo: string;
-    time: string;
-    title: string;
 
     fragments: Fragment[] = [];
     idPost: any;
