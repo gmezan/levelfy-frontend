@@ -12,7 +12,7 @@
                             <i class="fab fa-google mr-2"></i> Inicia Sesión con Google
                         </button>
 
-                        <button class="btn btn-outline-primary btn-block btn-lg" (click)="signInWithFB()">
+                        <button *ngIf='false' class="btn btn-outline-primary btn-block btn-lg" (click)="signInWithFB()">
                             <i class="fab fa-facebook-square mr-2"></i> Inicia Sesión con Facebook
                         </button>
 
@@ -24,7 +24,7 @@
 
 
                     <div class="card-footer p-4 text-center">
-                        <div class="small">Lee nuestros  <a > Términos &amp; Condiciones.</a></div>
+                        <div class="small">Lee nuestros  <a [routerLink]='["/tyc"]' > Términos &amp; Condiciones.</a></div>
                     </div>
 
                     <!--<div class="card-footer text-center">

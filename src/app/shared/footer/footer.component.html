@@ -22,22 +22,22 @@
                     <div class="col-lg-3 col-md-6 mb-5 mb-lg-0">
                         <div class="text-uppercase-expanded text-xs mb-4">Técnico</div>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><a href="javascript:void(0);">Soporte y ayuda</a></li>
+                            <li class="mb-2"><a [routerLink]='["/contact"]'>Soporte y ayuda</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
                         <div class="text-uppercase-expanded text-xs mb-4">Comunidad</div>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><a href="javascript:void(0);">Equipo</a></li>
-                            <li class="mb-2"><a href="javascript:void(0);">Asesores</a></li>
-                            <li class="mb-2"><a href="mailto:gustavomeza27@gmail.com;">Desarrolladores</a></li>
+                            <li class="mb-2"><a [routerLink]='["/us"]'>Equipo</a></li>
+                            <li class="mb-2"><a [routerLink]='["/us"]'>Asesores</a></li>
+                            <li class="mb-2"><a [routerLink]='["/us"]'>Desarrolladores</a></li>
                         </ul>
                     </div>
                     <div class="col-lg-3 col-md-6 mb-5 mb-md-0">
                         <div class="text-uppercase-expanded text-xs mb-4">Enlaces</div>
                         <ul class="list-unstyled mb-0">
-                            <li class="mb-2"><a href="#">Inicio</a></li>
-                            <li class="mb-2"><a href="#">Nosotros</a></li>
+                            <li class="mb-2"><a [routerLink]='["/"]' >Inicio</a></li>
+                            <li class="mb-2"><a [routerLink]='["/us"]'>Nosotros</a></li>
                         </ul>
                     </div>
                 </div>
@@ -47,9 +47,9 @@
         <div class="row align-items-center">
             <div class="col-md-6 small">Copyright &copy; Levelfy</div>
             <div class="col-md-6 text-md-right small">
-                <a href="javascript:void(0);">Política de privacidad</a>
+                <a [routerLink]='["/privacy-policy"]' href="javascript:void(0);">Política de privacidad</a>
                 &middot;
-                <a href="#">Términos &amp; Condiciones</a>
+                <a [routerLink]='["/tyc"]'>Términos &amp; Condiciones</a>
             </div>
         </div>
     </div>
