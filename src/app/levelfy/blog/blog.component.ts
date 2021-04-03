@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../core/common/navbar-page-component';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-blog',
@@ -9,20 +10,23 @@ import { NavbarPageComponent } from '../../core/common/navbar-page-component';
 })
 export class BlogComponent extends NavbarPageComponent implements OnInit {
     blogTitle: string = 'Nuestro Blog';
-    isSidebarHidden: boolean = false;
+//    isSidebarHidden: boolean = false;
 
-    constructor(@Inject(DOCUMENT) document: any) {
+    constructor(
+        @Inject(DOCUMENT) document: any,
+        private router: Router
+    ) {
         super(document);
     }
 
     ngOnInit(): void {
         this.putFixedNavbarDark();
 
-        let sidebar = this.document.getElementById('blogSidebar');
-        this.isSidebarHidden = !!sidebar.classList.contains('active');
+/*        let sidebar = this.document.getElementById('blogSidebar');
+        this.isSidebarHidden = !!sidebar.classList.contains('active');*/
     }
 
-    hideSidebar(): void {
+/*    hideSidebar(): void {
         let sidebar = this.document.getElementById('blogSidebar');
         sidebar.classList.add('active');
         this.isSidebarHidden = true;
@@ -34,5 +38,9 @@ export class BlogComponent extends NavbarPageComponent implements OnInit {
         if (sidebar.classList.contains('active'))
             sidebar.classList.remove('active');
         else sidebar.classList.add('active');
+    }*/
+
+    onClose() {
+        this.router.navigateByUrl('blog');
     }
 }

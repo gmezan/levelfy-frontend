@@ -13,6 +13,7 @@ import { ClientAuthGuard } from './core/auth-guards/client-auth-guard.service';
 import { ModAuthGuard } from './core/auth-guards/mod-auth-guard.service';
 import { AnonAuthGuard } from './core/auth-guards/anon-auth-guard.service';
 import { BlogPostComponent } from './levelfy/blog/blog-post/blog-post.component';
+import { BlogListComponent } from './levelfy/blog/blog-list/blog-list.component';
 import { ErrorComponent } from './levelfy/error/error.component';
 
 /*
@@ -30,8 +31,22 @@ const routes: Routes = [
                 (m) => m.LevelfyServicesModule
             ),
     },
-    { path: 'blog', component: BlogComponent, pathMatch: 'full' },
-    { path: 'blog/1', component: BlogPostComponent, pathMatch: 'full' },
+    /*{ path: 'blog', component: BlogComponent, pathMatch: 'full' },
+    { path: 'blog/1', component: BlogPostComponent, pathMatch: 'full' },*/
+    {
+        path: '',
+        component: BlogComponent,
+        children: [
+            {
+                path: 'blog',
+                component: BlogListComponent
+            },
+            {
+                path: 'blog/:idBlog',
+                component: BlogPostComponent
+            }
+        ]
+    },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
 
     {
