@@ -21,7 +21,7 @@ export class BlogListComponent implements OnInit {
 
   ngOnInit(): void {
     this.blogPostService.getAll().subscribe((res) => {
-      this.blogPosts = res;
+      this.blogPosts = res.reverse();
 
       this.blogPosts.map((post: BlogPost) => {
         post.dateTime = DateTimeFormat('en-US', {
@@ -29,7 +29,7 @@ export class BlogListComponent implements OnInit {
           month: 'short',
           day: '2-digit'
         }).format(new Date(Date.parse(post.dateTime)));
-      }).reverse();
+      });
       this.principal = this.blogPosts.shift();
       console.log('aea');
       console.log(this.blogPosts);

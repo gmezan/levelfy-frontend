@@ -13,7 +13,7 @@ import DateTimeFormat = Intl.DateTimeFormat;
     styleUrls: ['./blog-post.component.css'],
 })
 export class BlogPostComponent extends NavbarPageComponent implements OnInit {
-    
+
     isSidebarHidden: boolean = false;
 
     fragments: Fragment[] = [];
