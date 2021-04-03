@@ -73,7 +73,7 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
             this.roleClientService.getEnrollment(id).subscribe(
                 (data) => {
                     this.enrollment = data;
-                    this.loadForum(data);
+                    if (this.enrollment.payed) this.loadForum(data);
                     this.paymentDto.persona = this.enrollment.student.fullName;
                     this.paymentDto.enrollmentId = this.enrollment.idEnrollment;
                     this.paymentDto.amount = this.enrollment.service.price;

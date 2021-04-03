@@ -20,6 +20,7 @@ import { SectionPartnersComponent } from './home/section-partners/section-partne
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
 import { BlogFragmentComponent } from './blog/components/blog-fragment/blog-fragment.component';
 import { BlogHeaderComponent } from './blog/components/blog-header/blog-header.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { BlogHeaderComponent } from './blog/components/blog-header/blog-header.c
         BlogPostComponent,
         BlogFragmentComponent,
         BlogHeaderComponent,
+        ErrorComponent,
     ],
     imports: [
         CommonModule,
