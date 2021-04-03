@@ -15,6 +15,9 @@ import { AnonAuthGuard } from './core/auth-guards/anon-auth-guard.service';
 import { BlogPostComponent } from './levelfy/blog/blog-post/blog-post.component';
 import { BlogListComponent } from './levelfy/blog/blog-list/blog-list.component';
 import { ErrorComponent } from './levelfy/error/error.component';
+import { TycComponent } from './levelfy/tyc/tyc.component';
+import { PrivacyPolicyComponent } from './levelfy/privacy-policy/privacy-policy.component';
+import { ContactComponent } from './levelfy/contact/contact.component';
 
 /*
 More specific paths should be first
@@ -39,15 +42,23 @@ const routes: Routes = [
         children: [
             {
                 path: 'blog',
-                component: BlogListComponent
+                component: BlogListComponent,
             },
             {
                 path: 'blog/:idBlog',
-                component: BlogPostComponent
-            }
-        ]
+                component: BlogPostComponent,
+            },
+        ],
     },
     { path: 'us', component: UsComponent, pathMatch: 'full' },
+
+    { path: 'tyc', component: TycComponent, pathMatch: 'full' },
+    { path: 'contact', component: ContactComponent, pathMatch: 'full' },
+    {
+        path: 'privacy-policy',
+        component: PrivacyPolicyComponent,
+        pathMatch: 'full',
+    },
 
     {
         path: 'login',

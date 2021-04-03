@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { TeacherCoursesInfo } from '../../shared/_dto/teacher-courses-info.model';
+import { ContactMessage } from '../../shared/_models/contact-message.model';
 
 const uri = '/open';
 
@@ -25,6 +26,7 @@ export class OpenClientService extends DataService<any> {
 
     apiUriServiceFormByCourse = '/open/service/form-by-course';
     apiUriServiceFormByTeacher = '/open/service/form-by-teach';
+    apiContactMessage = '/open/contact-message';
 
     constructor(http: HttpClient) {
         super(uri, http);
@@ -81,6 +83,15 @@ export class OpenClientService extends DataService<any> {
         return this.http.get<Service[]>(
             this.buildPath(this.apiUriServiceFormByCourse),
             options
+        );
+    }
+
+    postContactMessage(
+        contactMessage: ContactMessage
+    ): Observable<ContactMessage> {
+        return this.http.post<ContactMessage>(
+            this.buildPath(this.apiContactMessage),
+            contactMessage
         );
     }
 }

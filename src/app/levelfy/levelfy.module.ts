@@ -4,7 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { UsComponent } from './us/us.component';
 
 import { SharedModule } from 'app/shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core/core.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -22,6 +22,9 @@ import { BlogFragmentComponent } from './blog/components/blog-fragment/blog-frag
 import { BlogHeaderComponent } from './blog/components/blog-header/blog-header.component';
 import { BlogListComponent } from './blog/blog-list/blog-list.component';
 import { ErrorComponent } from './error/error.component';
+import { TycComponent } from './tyc/tyc.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
     declarations: [
@@ -41,6 +44,9 @@ import { ErrorComponent } from './error/error.component';
         BlogHeaderComponent,
         BlogListComponent,
         ErrorComponent,
+        TycComponent,
+        PrivacyPolicyComponent,
+        ContactComponent,
     ],
     imports: [
         CommonModule,
@@ -49,6 +55,7 @@ import { ErrorComponent } from './error/error.component';
         RouterModule,
         CoreModule,
         FontAwesomeModule,
+        ReactiveFormsModule,
     ],
 })
 export class LevelfyModule {}

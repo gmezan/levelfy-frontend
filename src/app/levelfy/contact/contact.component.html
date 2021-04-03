@@ -1,0 +1,50 @@
+<section class="bg-light py-10">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <h2>¿Tienes alguna consulta?</h2>
+                <p class="lead mb-5">Contáctanos y te estaremos respondiendo lo más rápido posible.</p>
+            </div>
+        </div>
+        <div class="row align-items-center mb-10">
+            <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <div class="section-preheading">Escribenos al FB</div>
+                <a [href]='supportFacebookPage' target='_blank' >Visita nuestra página de Facebook</a>
+            </div>
+            <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                <div class="section-preheading">Escríbenos al Whatsapp</div>
+                <a>{{ supportNumber }}</a>
+            </div>
+            <div class="col-lg-4 text-center">
+                <div class="section-preheading">Escíbrenos un mail</div>
+                <a> {{ supportEmail }}</a>
+            </div>
+        </div>
+        <form [formGroup]='form'>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label class="text-dark" for="inputName">Nombre</label>
+                    <input formControlName='name' class="form-control py-4" id="inputName" type="text" placeholder="Full name" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="text-dark" for="inputEmail">Mail o número</label>
+                    <input formControlName='contact' class="form-control py-4" id="inputEmail" type="text" placeholder="name@example.com o 987654321" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-dark" for="inputMessage">Mensaje</label>
+                <textarea formControlName='message' class="form-control py-3" id="inputMessage" type="text" placeholder="Enter your message..." rows="4"></textarea>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-primary mt-4"
+                        type="button"
+                        (click)='submitModalForm()'
+                        [disabled]='!form.dirty || form.invalid'
+                >Enviar</button>
+            </div>
+        </form>
+    </div>
+    <div class="svg-border-rounded text-dark">
+        <!-- Rounded SVG Border--><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
+    </div>
+</section>
