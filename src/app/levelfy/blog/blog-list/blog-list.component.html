@@ -2,17 +2,17 @@
     <ng-template ngFor let-blogPost [ngForOf]="blogPosts">
         <div class="col-md-6 col-xl-4 mb-5">
             <a class="card post-preview lift h-100" (click)='toPost(blogPost.id)'
-            ><img class="card-img-top" src="https://source.unsplash.com/KE0nC8-58MQ/660x360" alt="..." />
+            ><img class="card-img-top" src="{{ blogPost.thumbnail }}" alt="..." />
                 <div class="card-body">
-                    <h5 class="card-title">Invest In Social Impact</h5>
-                    <p class="card-text">Expose the truth, problem-solvers impact mobilized green spaces.</p>
+                    <h5 class="card-title">{{ blogPost.title }}</h5>
+                    <p class="card-text">{{ blogPost.description }}</p>
                 </div>
                 <div class="card-footer">
                     <div class="post-preview-meta">
-                        <img class="post-preview-meta-img" src="assets/img/illustrations/profiles/profile-2.png" />
+                        <img class="post-preview-meta-img" src="{{ blogPost.photoAuthor }}" />
                         <div class="post-preview-meta-details">
-                            <div class="post-preview-meta-details-name">Aariz Fischer</div>
-                            <div class="post-preview-meta-details-date">Feb 4 &middot; 5 min read</div>
+                            <div class="post-preview-meta-details-name">{{ blogPost.author }}</div>
+                            <div class="post-preview-meta-details-date">{{ blogPost.dateTime }} &middot; {{ blogPost.timeRead }} min read</div>
                         </div>
                     </div>
                 </div></a

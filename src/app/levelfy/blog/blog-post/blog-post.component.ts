@@ -4,6 +4,8 @@ import { DOCUMENT } from '@angular/common';
 import { Fragment } from '../../../shared/_blog/fragment.model';
 import { BlogPostService } from '../../../core/services/blog-post.service';
 import { BlogPost } from 'app/shared/_blog/blog.post';
+import { ActivatedRoute } from '@angular/router';
+import DateTimeFormat = Intl.DateTimeFormat;
 
 @Component({
     selector: 'app-blog-post',
@@ -13,24 +15,37 @@ import { BlogPost } from 'app/shared/_blog/blog.post';
 export class BlogPostComponent extends NavbarPageComponent implements OnInit {
     blogTitle: string = 'Nuestro Blog';
     isSidebarHidden: boolean = false;
+    author: string;
+    description: string;
+    date: Date;
+    photo: string;
+    time: string;
+    title: string;
 
     fragments: Fragment[] = [];
+    idPost: any;
+    post: BlogPost;
 
     constructor(
         @Inject(DOCUMENT) document: any,
-        private blogService: BlogPostService
+        private blogService: BlogPostService,
+        private route: ActivatedRoute
     ) {
         super(document);
-        console.log("Printing...");
-        let item: BlogPost;
-        blogService.getAll().subscribe(res => {
-            item = res[0];
-        });
+        this.idPost = route.snapshot.paramMap.get('idBlog');
+        console.log('Printing paramMap');
+        console.log(this.idPost);
     }
 
     ngOnInit(): void {
         //this.blog.body.forEach((f: Fragment) => this.fragments.push(f));
-        console.log(this.fragments);
+        this.blogService.get(this.idPost).subscribe((res) => {
+            console.log(res);
+            this.post = res;
+            this.post.dateTime = DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(this.post.dateTime)));
+            JSON.parse(this.post.fragments).forEach((f: Fragment) => this.fragments.push(f));
+        });
+
 
         this.putFixedNavbarDark();
 
@@ -38,17 +53,4 @@ export class BlogPostComponent extends NavbarPageComponent implements OnInit {
         this.isSidebarHidden = !!sidebar.classList.contains('active');
     }
 
-    hideSidebar(): void {
-        let sidebar = this.document.getElementById('blogSidebar');
-        sidebar.classList.add('active');
-        this.isSidebarHidden = true;
-    }
-
-    toggleSidebar(): void {
-        let sidebar = this.document.getElementById('blogSidebar');
-        this.isSidebarHidden = false;
-        if (sidebar.classList.contains('active'))
-            sidebar.classList.remove('active');
-        else sidebar.classList.add('active');
-    }
 }
