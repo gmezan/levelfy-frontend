@@ -18,6 +18,8 @@ import { SectionTestimonialComponent } from './home/section-testimonial/section-
 import { SectionBlogComponent } from './home/section-blog/section-blog.component';
 import { SectionPartnersComponent } from './home/section-partners/section-partners.component';
 import { BlogPostComponent } from './blog/blog-post/blog-post.component';
+import { BlogFragmentComponent } from './blog/components/blog-fragment/blog-fragment.component';
+import { BlogHeaderComponent } from './blog/components/blog-header/blog-header.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +35,8 @@ import { BlogPostComponent } from './blog/blog-post/blog-post.component';
         SectionBlogComponent,
         SectionPartnersComponent,
         BlogPostComponent,
+        BlogFragmentComponent,
+        BlogHeaderComponent,
     ],
     imports: [
         CommonModule,

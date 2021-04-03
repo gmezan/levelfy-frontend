@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div *ngIf="fragment.subtitle != ''">
+            <h4>{{ fragment.subtitle }}</h4>
+        </div>
+        <ng-template ngFor let-p [ngForOf]="fragment.paragraph">
+            <p id="{{ p.id }}" class="order-{{p.order}}">{{ p.text }}</p>
+        </ng-template>
+        <ng-template [ngIf]="fragment.img.order != 0">
+            <div class="order-{{fragment.img.order}}" style='margin-bottom: 20px; margin-top: 5px'>
+                <img class="img-fluid mb-2" src="{{ fragment.img.src }}" />
+                <div class="small text-gray-500 text-center"> {{ fragment.img.description }}</div>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="fragment.list.order != 0">
+            <div class="order-{{fragment.list.order}}">
+                <ul>
+                    <ng-template ngFor let-i [ngForOf]="fragment.list.items">
+                        <li>{{ i }}</li>
+                    </ng-template>
+                </ul>
+            </div>
+        </ng-template>
+        <ng-template [ngIf]="fragment.cite.order != 0">
+            <div class="order-{{fragment.cite.order}}">{{ fragment.cite.text }}</div>
+        </ng-template>
+    </div>
+</div>
