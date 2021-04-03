@@ -51,7 +51,15 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-11 col-xl-10">
                         <div class="single-post">
-                            <h1>Boots on the Ground, Inclusive Thought Provoking Ideas</h1>
+                            <app-blog-header [author]="author" [date]="date" [description]="description" [photo]="photo" [time]="time" [title]="title"></app-blog-header>
+                            <div class="single-post-text my-5">
+                                <div *ngFor="let f of fragments">
+                                    <app-blog-fragment [fragment]="f" id="{{ f.id }}"></app-blog-fragment>
+                                </div>
+                                <hr class="my-5" />
+                                <div class="text-center"><a class="btn btn-transparent-dark" href="page-blog-overview.html">Back to Blog Overview</a></div>
+                            </div>
+                            <!--h1>Boots on the Ground, Inclusive Thought Provoking Ideas</h1>
                             <p class="lead">Empower communities and energize engaging ideas; scale and impact do-gooders while disruptring industries. Venture philanthropy benefits corporations and people by moving the needle.</p>
                             <div class="d-flex align-items-center justify-content-between mb-5">
                                 <div class="single-post-meta mr-4">
@@ -67,7 +75,7 @@
                             </div>
                             <img class="img-fluid mb-2" src="https://source.unsplash.com/vZJdYl5JVXY/990x540" />
                             <div class="small text-gray-500 text-center">Photo Credit: Unsplash</div>
-                            <div class="single-post-text my-5">
+                            <div-- class="single-post-text my-5">
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit similique distinctio quidem blanditiis architecto ullam a itaque quisquam nihil! Unde ducimus deleniti exercitationem minima, molestiae ab saepe libero. Doloribus, a?</p>
                                 <p>Magnam amet labore exercitationem maxime consectetur molestias quas quia dicta, praesentium minus illum quis fuga, fugiat velit voluptate sed nostrum ipsam atque.</p>
                                 <p>Quaerat voluptas natus velit deleniti reprehenderit vero ad eos ab reiciendis. Libero dignissimos temporibus ipsam sint dolores voluptate consequatur debitis tempora doloremque.</p>
@@ -88,7 +96,7 @@
                                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi explicabo unde perferendis reprehenderit ullam nobis? Laborum amet voluptatem sunt natus? Tempore commodi corporis accusamus laudantium assumenda blanditiis aut nobis culpa.</p>
                                 <hr class="my-5" />
                                 <div class="text-center"><a class="btn btn-transparent-dark" href="page-blog-overview.html">Back to Blog Overview</a></div>
-                            </div>
+                            </div-->
                         </div>
                     </div>
                 </div>
