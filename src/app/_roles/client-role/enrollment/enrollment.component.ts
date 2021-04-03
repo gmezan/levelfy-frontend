@@ -19,6 +19,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PaymentDto } from '../../../shared/_dto/payment.dto';
 import { CustomAlertDirective } from '../../../shared/custom-alert/custom-alert.directive';
 import { CustomAlertComponent } from '../../../shared/custom-alert/custom-alert.component';
+import { ForumComponent } from '../../../shared/forum/forum.component';
+import { ForumDirective } from '../../../shared/forum/forum.directive';
 
 @Component({
     selector: 'app-enrollment',
@@ -44,7 +46,11 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
     @ViewChild(CustomAlertDirective, { static: true })
     alertDirective: CustomAlertDirective;
 
+    @ViewChild(ForumDirective, { static: true })
+    forumDirective: ForumDirective;
+
     form: FormGroup;
+
     enrollment: Enrollment;
     serviceType: typeof servicesTypes[0];
     paymentDto: PaymentDto;
@@ -67,6 +73,7 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
             this.roleClientService.getEnrollment(id).subscribe(
                 (data) => {
                     this.enrollment = data;
+                    if (this.enrollment.payed) this.loadForum(data);
                     this.paymentDto.persona = this.enrollment.student.fullName;
                     this.paymentDto.enrollmentId = this.enrollment.idEnrollment;
                     this.paymentDto.amount = this.enrollment.service.price;
@@ -121,7 +128,6 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
         let paymentDto: PaymentDto = this.form.value;
         this.roleClientService.registerPayment(paymentDto).subscribe(
             (data) => {
-                console.log(data);
                 this.enrollment.saleList.splice(0, 1, data);
                 this.createAlert(true, 'Pago registrado satisfactoriamente');
             },
@@ -146,6 +152,17 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
                 )
             )
             .instance.setValues(isSuccess, message);
+    }
+
+    protected loadForum(enrollment: Enrollment) {
+        const viewContainerRef = this.forumDirective.viewContainerRef;
+        viewContainerRef.clear();
+
+        viewContainerRef.createComponent<ForumComponent>(
+            this.componentFactoryResolver.resolveComponentFactory(
+                ForumComponent
+            )
+        ).instance.service = enrollment.service;
     }
 
     error() {

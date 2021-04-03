@@ -14,6 +14,7 @@ import { ModAuthGuard } from './core/auth-guards/mod-auth-guard.service';
 import { AnonAuthGuard } from './core/auth-guards/anon-auth-guard.service';
 import { BlogPostComponent } from './levelfy/blog/blog-post/blog-post.component';
 import { BlogListComponent } from './levelfy/blog/blog-list/blog-list.component';
+import { ErrorComponent } from './levelfy/error/error.component';
 
 /*
 More specific paths should be first
@@ -90,7 +91,7 @@ const routes: Routes = [
     },
 
     // Error Handler 404
-    { path: '**', component: UsComponent },
+    { path: '**', component: ErrorComponent },
 ];
 
 @NgModule({

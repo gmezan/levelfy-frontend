@@ -1,0 +1,115 @@
+<div class="card mb-2">
+    <div class="list-group list-group-flush">
+        <a *ngFor='let _comment of comments; let i = index' class="list-group-item list-group-item-action py-4">
+            <div class="d-flex justify-content-between">
+                <div class="mr-4 d-flex">
+                    <div class="icon-stack icon-stack flex-shrink-0 mr-4">
+                        <img [src]='_comment.user.photo' class="avatar rounded-circle" >
+                    </div>
+                    <div>
+                        <h6>{{ _comment.user.fullName }}</h6>
+                        <p class="card-text">
+                            {{ _comment.comment }}
+                        </p>
+
+                        <ng-container *ngIf='_comment.fileUrl'>
+                            <a target='_blank' [href]='_comment.fileUrl' class='btn btn-primary rounded-sm' type='button'>
+                                <fa-icon [icon]='["fas","download"]' class='pr-2'></fa-icon>
+                                <span class='small'>{{ _comment.fileName }}</span></a>
+                        </ng-container>
+
+                    </div>
+                </div>
+                <div class="small text-gray-600 flex-shrink-0 text-right">
+                    {{ _comment.dateTime | dateAgo }}<br />
+                    <div *ngIf='_comment.user.idUser==authService.getCurrentUser().idUser' class="badge badge-pill ">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button (click)='modalEdit(_comment.idComment.toString(), i)' data-toggle="modal" data-target="#crudModal" mat-menu-item>
+                                <mat-icon  >edit</mat-icon>
+                                <span>Editar</span>
+                            </button>
+                            <button (click)='modalDelete(_comment.idComment.toString(), i)' data-toggle="modal" data-target="#crudModal" mat-menu-item>
+                                <mat-icon>delete</mat-icon>
+                                <span>Borrar</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    </div>
+</div>
+
+<!-- -------------------------------- COMMENT INPUT ------------------------------- -->
+<div class="card">
+    <div class="card-header text-dark">Añadir Comentario</div>
+    <div class="card-body">
+        <form [formGroup]='commentForm'>
+            <textarea formControlName='comment' class="form-control mb-2" rows="4"></textarea>
+
+            <div class='form-group'>
+                <input formControlName='fileName' id="inputPhoto" type='file' (change)="onSelectFileToCreate($event)">
+            </div>
+        </form>
+
+
+
+        <button
+            (click)='submitForm()'
+            [disabled]='!commentForm.dirty || commentForm.invalid'
+            type='button'
+            class="btn btn-dark btn-sm mr-2">Enviar</button>
+        <!--<button class="btn btn-light btn-sm mr-2"><i class="fas fa-paperclip mr-2"></i>Adjuntar Archivo</button>-->
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="crudModal" tabindex="-1" role="dialog" aria-labelledby="crudModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="crudModalLongTitle">{{modal.title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <ng-container *ngTemplateOutlet='formModal'></ng-container>
+
+                <p *ngIf='modal.isDelete'>
+                    ¿Estás seguro que quieres borrar este comentario?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">{{modal.cancelButton}}</button>
+                <button type="button" class="btn" data-dismiss="modal"
+                        (click)='onSubmitModalForm()'
+                        [disabled]='!modal.isDelete && ((!form.dirty || form.invalid) && !modal.hasFile)'
+                        [ngClass]="{'btn-primary' : modal.isEdit,
+                                    'btn-danger' : modal.isDelete,
+                                    'btn-success' : modal.isCreate}"
+                >{{modal.submitButton}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<ng-template #formModal>
+    <form [hidden]='modal.isDelete' [formGroup]='form' >
+        <textarea formControlName='comment' class="form-control mb-2" rows="4"></textarea>
+        <div class='alert alert-danger p-1' *ngIf="form.get('comment').touched && form.get('comment').invalid">
+            <div *ngIf="form.get('comment').errors.required">No puede ser vacío</div>
+            <div *ngIf="form.get('comment').errors.maxlength">Máximo: 1000 caracteres</div>
+        </div>
+    </form>
+
+</ng-template>
+

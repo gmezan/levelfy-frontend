@@ -8,7 +8,7 @@ import { EnrollmentComponent } from './enrollment/enrollment.component';
 const routes: Routes = [
     {
         path: '',
-        component: ClientComponent,
+        component: MyEnrollmentsComponent,
         pathMatch: 'full',
     },
     {
