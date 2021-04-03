@@ -19,8 +19,8 @@
                     <ng-template appCustomAlert></ng-template>
                 </div>
 
-                <div class="card no-transition rounded-lg text-dark bg-white">
-                    <div class="card-body mx-3 my-2">
+                <div class="card no-transition rounded-lg text-dark bg-white mb-5">
+                    <div class="card-body mx-3 my-2 ">
                         <ng-container [ngSwitch]="serviceType?.key">
                             <!-- Go to ../../../levelfy/util/services-types to check if the order is correct -->
                             <ng-container *ngSwitchCase="'ASES_PER'">
@@ -36,6 +36,9 @@
 
                     </div>
                 </div>
+
+                <ng-template appForum></ng-template>
+
             </div>
         </div>
     </div>
@@ -134,8 +137,8 @@
 
 <ng-template #formAsesPaq>
     <h1 class="font-weight-bolder text">{{enrollment.service.course.name}}</h1>
-    <h5 class="small text-green" style="color: #0D9814;">{{enrollment.service.course.courseId.university | universityString}}</h5>
-    <div class="row my-3">
+    <h5 class="small text-green mb-4" style="color: #0D9814;">{{enrollment.service.course.courseId.university | universityString}}</h5>
+    <div *ngIf='!enrollment.payed' class="row my-3">
         <div class="col-lg-6 my-1">
             <a class="d-block rounded-lg text-center" ><img class="img-fluid rounded-lg" [src]="enrollment.service.teacher.photo"/></a>
         </div>
@@ -168,7 +171,7 @@
             </div>
         </div>
 
-        <div class="form-row">
+        <div *ngIf='!enrollment.payed' class="form-row">
             <div class="form-group col-md-6"><label class="small text-gray-600" >Inversión</label>
                 <select class="form-control rounded-pill custom-select" >
                     <option selected >{{enrollment.service.price | priceTagString}}</option>

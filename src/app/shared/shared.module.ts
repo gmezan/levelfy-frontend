@@ -20,6 +20,14 @@ import { TeachInfoCardComponent } from './teach-info-card/teach-info-card.compon
 import { ServiceTypeStringPipe } from './pipes/service-type-string.pipe';
 import { EvaluationStringPipe } from './pipes/evaluation-string.pipe';
 import { PriceTagStringPipe } from './pipes/price-tag-string.pipe';
+import { ForumComponent } from './forum/forum.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ForumDirective } from './forum/forum.directive';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
@@ -41,8 +49,19 @@ import { PriceTagStringPipe } from './pipes/price-tag-string.pipe';
         ServiceTypeStringPipe,
         EvaluationStringPipe,
         PriceTagStringPipe,
+        ForumComponent,
+        ForumDirective,
+        DateAgoPipe,
     ],
-    imports: [CommonModule, FontAwesomeModule, RouterModule],
+    imports: [
+        CommonModule,
+        FontAwesomeModule,
+        RouterModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+    ],
     exports: [
         HeaderComponent,
         TestimonialComponent,
@@ -56,6 +75,8 @@ import { PriceTagStringPipe } from './pipes/price-tag-string.pipe';
         ServiceTypeStringPipe,
         EvaluationStringPipe,
         PriceTagStringPipe,
+        ForumComponent,
+        ForumDirective,
     ],
 })
 export class SharedModule {}

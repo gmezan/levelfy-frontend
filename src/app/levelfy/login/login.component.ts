@@ -51,7 +51,6 @@ export class LoginComponent extends NavbarPageComponent implements OnInit {
                 this.socialUser = data;
 
                 const tokenGoogle = new TokenDto(this.socialUser.idToken);
-                console.log(tokenGoogle);
                 this.oauthService.google(tokenGoogle).subscribe(
                     (res) => {
                         this.tokenService.setToken(res.value);
