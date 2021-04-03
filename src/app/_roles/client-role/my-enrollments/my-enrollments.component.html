@@ -56,8 +56,8 @@
                         <div class="small text-dark" > <b>Asesor:</b> {{ enrollment.service.teacher.fullName }} </div>
                     </div>
                     <div class="card-footer bg-transparent border-top d-flex align-items-center justify-content-between">
-                        <div *ngIf='enrollment.payed' class="small text-success"> Matriculado </div>
-                        <div *ngIf='!enrollment.payed' class="small text-primary"> Inscrito </div>
+                        <div *ngIf='enrollment.payed' class="small text-success"> Matriculado  </div>
+                        <div *ngIf='!enrollment.payed' class="small text-primary"> Inscrito: Pago pendiente </div>
                     </div>
                 </a>
             </div>
