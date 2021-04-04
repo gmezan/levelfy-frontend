@@ -1,1 +1,109 @@
-<p>service works!</p>
+<section class='py-2 bg-light'>
+    <div class="container py-5">
+        <div class="row">
+            <!-- "sidebar" -->
+            <div class="col-lg-2">
+                <ul class="mb-1 list-group list-group-flush list-group-careers">
+                    <li class="list-group-item pt-0 bg-light">
+                        <a style="color: #0D9814;" class="small" [routerLink]="['/t/services']">
+                            <fa-icon class="mr-1" [icon]="['fas','arrow-left']"></fa-icon>Volver a Mis Servicios</a>
+                    </li>
+                    <li class="list-group-item bg-light font-weight-bold">{{ service?.serviceType | serviceTypeString }}</li>
+                </ul>
+            </div>
+
+            <!-- Content -->
+            <div class="col-lg-10 ">
+
+                <div class='container'>
+                    <ng-template appCustomAlert></ng-template>
+                </div>
+
+                <div class="card no-transition rounded-lg text-dark bg-white mb-5">
+                    <div class="card-body mx-3 my-2 ">
+                        <h1 class="font-weight-bolder text">{{service.course.name}}</h1>
+                        <h5 class="small text-green mb-4" style="color: #0D9814;">{{service.course.courseId.university | universityString}}</h5>
+
+
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6"><label class="small text-gray-600" >Asesor</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected >{{service.teacher.fullName}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6"><label class="small text-gray-600">Evaluacion</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected>{{ service.evaluation | evaluationString }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6"><label class="small text-gray-600" >Inversión</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected >{{ service.price | priceTagString}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6"><label class="small text-gray-600">Servicio</label>
+                                    <select class="form-control rounded-pill custom-select" >
+                                        <option selected>{{ service.serviceType | serviceTypeString }}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div *ngIf='!(service?.serviceType=="ASES_PER")' class="form-group">
+                                <label class="small text-gray-600">Horarios</label>
+                                <table class='table table-responsive'>
+                                    <thead>
+                                    <tr>
+                                        <th>Fecha</th>
+                                        <th>Hora inicio</th>
+                                        <th>Hora fin</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor='let session of service.serviceSessionList'>
+                                        <td>{{session.date | date: 'mediumDate'}}</td>
+                                        <td>{{session.start }}</td>
+                                        <td>{{session.end }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="small text-gray-600">Inscritos</label>
+                                <table class='table table-responsive table-hover'>
+                                    <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Pago realizado</th>
+                                        <th>Fecha de inscripcion</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor='let enrollment of service.enrollmentList'>
+                                        <td>{{ enrollment?.student?.name }}</td>
+                                        <td>{{ enrollment?.payed.toString() | uppercase }}</td>
+                                        <td>{{ enrollment?.created | date: 'medium' }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <ng-template appForum></ng-template>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+

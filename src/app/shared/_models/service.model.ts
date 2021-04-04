@@ -41,7 +41,7 @@ export class Service extends Auditable implements Deserializable {
     price: number;
     evaluation: Evaluations;
     description: string;
-    expiration: Date;
+    expiration: string;
     archived: boolean;
     enrollmentList: Enrollment[];
     serviceSessionList: ServiceSession[];

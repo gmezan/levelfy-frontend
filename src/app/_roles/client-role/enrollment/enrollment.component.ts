@@ -74,10 +74,7 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
                 (data) => {
                     this.enrollment = data;
                     if (this.enrollment.payed) this.loadForum(data);
-                    this.paymentDto.persona = this.enrollment.student.fullName;
-                    this.paymentDto.enrollmentId = this.enrollment.idEnrollment;
-                    this.paymentDto.amount = this.enrollment.service.price;
-                    this.paymentDto.email = this.enrollment.student.email;
+                    this.fillPaymentDto();
                     this.form = this.fillModal();
                     this.serviceType =
                         mapServiceRoute2ServiceType[
@@ -102,6 +99,13 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
                 }
             );
         });
+    }
+
+    fillPaymentDto(): void {
+        this.paymentDto.persona = this.enrollment.student.fullName;
+        this.paymentDto.enrollmentId = this.enrollment.idEnrollment;
+        this.paymentDto.amount = this.enrollment.service.price;
+        this.paymentDto.email = this.enrollment.student.email;
     }
 
     fillModal(): FormGroup {
