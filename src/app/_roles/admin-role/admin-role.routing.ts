@@ -8,6 +8,7 @@ import { ServicesComponent } from './services/services.component';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleCanceledComponent } from './sale-canceled/sale-canceled.component';
+import { ServiceComponent } from './services/service/service.component';
 
 const routes: Routes = [
     {
@@ -28,6 +29,11 @@ const routes: Routes = [
     {
         path: 'services',
         component: ServicesComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'service/:id',
+        component: ServiceComponent,
         pathMatch: 'full',
     },
     {

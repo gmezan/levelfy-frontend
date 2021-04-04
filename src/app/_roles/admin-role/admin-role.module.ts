@@ -12,6 +12,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { SalesComponent } from './sales/sales.component';
 import { SaleCanceledComponent } from './sale-canceled/sale-canceled.component';
+import { ServiceComponent } from './services/service/service.component';
+import { CoreModule } from '../../core/core.module';
 
 @NgModule({
     declarations: [
@@ -22,6 +24,7 @@ import { SaleCanceledComponent } from './sale-canceled/sale-canceled.component';
         EnrollmentComponent,
         SalesComponent,
         SaleCanceledComponent,
+        ServiceComponent,
     ],
     imports: [
         CommonModule,

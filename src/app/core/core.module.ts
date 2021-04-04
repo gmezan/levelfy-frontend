@@ -21,6 +21,7 @@ import { SaleCanceledService } from './services/sale-canceled.service';
 import { SaleService } from './services/sale.service';
 import { NavbarPageComponent } from './common/navbar-page-component';
 import { OpenClientService } from './services/open-client.service';
+import { RoleAdminService } from './services/role-admin.service';
 
 @NgModule({
     declarations: [],
@@ -36,6 +37,7 @@ import { OpenClientService } from './services/open-client.service';
         SaleService,
         AuthService,
         OpenClientService,
+        RoleAdminService,
 
         AdminAuthGuard,
         ModAuthGuard,
