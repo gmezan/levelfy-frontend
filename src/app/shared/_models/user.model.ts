@@ -25,7 +25,8 @@ export class User extends Auditable implements Deserializable {
     active: boolean;
     university: string;
     token: string;
-    birthday: Date;
+    birthday: string;
+    gender: string;
     role: Role[];
 
     invitingId: number;

@@ -8,6 +8,7 @@ import { EnrollmentComponent } from './enrollment/enrollment.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaymentInfoComponent } from './enrollment/payment-info/payment-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         MyEnrollmentsComponent,
         EnrollmentComponent,
         PaymentInfoComponent,
+        ClientRegistrationComponent,
     ],
     imports: [
         CommonModule,

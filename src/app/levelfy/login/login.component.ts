@@ -14,6 +14,7 @@ import { TokenDto } from '../../shared/_models/token-dto.model';
 import { UserService } from '../../core/services/user.service';
 import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../core/common/navbar-page-component';
+import { User } from '../../shared/_models/user.model';
 
 /*
     This component should only manage the FB & Google Login
@@ -79,6 +80,14 @@ export class LoginComponent extends NavbarPageComponent implements OnInit {
             });
     }
 
+    isUserRegistrationCompleted(user: User): boolean {
+        if (!user.phone || user.phone === 0) return false;
+        if (!user.name || user.name === '') return false;
+        if (!user.university || user.university === '') return false;
+        if (!user.birthday || user.birthday === '') return false;
+        return !(!user.gender || user.gender === '');
+    }
+
     /*
         TODO: fix facebook sign in like google
      */
@@ -108,9 +117,13 @@ export class LoginComponent extends NavbarPageComponent implements OnInit {
 
     private redirectByRole(): string {
         let route;
-        switch (this.tokenService.getUser().role[0].idRole) {
+        let user = this.tokenService.getUser();
+        switch (user.role[0].idRole) {
             case 1:
-                route = 'c';
+                if (!this.isUserRegistrationCompleted(user))
+                    route = 'c/registration';
+                else route = 'c';
+
                 break;
             case 2:
                 route = 't';

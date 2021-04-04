@@ -7,6 +7,7 @@ import { catchError } from 'rxjs/operators';
 import { ServiceSession } from '../../shared/_models/service-session.model';
 import { Sale } from '../../shared/_models/sale.model';
 import { PaymentDto } from '../../shared/_dto/payment.dto';
+import { User } from '../../shared/_models/user.model';
 
 const uri = 'c';
 
@@ -21,6 +22,8 @@ export class RoleClientService extends DataService<any> {
     private apiSale = '/c/sale';
 
     private apiRegisterPayment = '/c/register-payment';
+
+    private apiCompleteRegistration = '/c/user-registration';
 
     constructor(http: HttpClient) {
         super(uri, http);
@@ -93,6 +96,13 @@ export class RoleClientService extends DataService<any> {
         return this.http.post<Sale>(
             this.buildPath(this.apiRegisterPayment),
             paymentDto
+        );
+    }
+
+    completeRegistration(user: User): Observable<User> {
+        return this.http.post<User>(
+            this.buildPath(this.apiCompleteRegistration),
+            user
         );
     }
 }
