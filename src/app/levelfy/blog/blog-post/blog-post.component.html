@@ -1,6 +1,10 @@
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-11 col-xl-10">
+    <div class="row justify-content-center" style="margin: 0 -48px 0 -48px">
+        <div class="col-12 col-lg-11 col-xl-10">
+            <button (click)="onClose()" type="button" id="sidebarCollapse"
+                    class="pl-0 mb-3 btn btn-light" data-toggle="tooltip" data-placement="right" title="Volver al listado">
+                <fa-icon [icon]="['fas','chevron-left']"></fa-icon> &nbsp; &nbsp;Volver al listado
+            </button>
             <div class="single-post">
                 <app-blog-header
                                  [author]="post.author"
@@ -11,9 +15,9 @@
                                  [title]="post.title"
                 ></app-blog-header>
                 <div class="single-post-text my-5">
-                    <div *ngFor="let f of fragments">
+                    <ng-template ngFor let-f [ngForOf]='fragments'>
                         <app-blog-fragment [fragment]="f" id="{{ f.id }}"></app-blog-fragment>
-                    </div>
+                    </ng-template>
                     <hr class="my-5" />
                     <div class="text-center"><a class="btn btn-transparent-dark" [routerLink]='["/blog"]'>Volver al listado</a></div>
                 </div>

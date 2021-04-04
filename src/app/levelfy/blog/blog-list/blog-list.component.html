@@ -1,4 +1,4 @@
-<a class="card post-preview post-preview-featured lift mb-5" (click)='toPost(principal.id)' >
+<a class="card post-preview post-preview-featured lift mb-5 ml-4 mr-4" (click)='toPost(principal.id)' >
     <div class="row no-gutters">
         <div class="col-lg-5"><div class="post-preview-featured-img"
         [ngStyle]="{'background-image': 'url('+ principal.thumbnail +')' }"></div></div>
@@ -20,7 +20,7 @@
         </div>
     </div>
 </a>
-<div class="row">
+<div class="row mr-0 ml-0">
     <ng-template ngFor let-blogPost [ngForOf]="blogPosts">
         <div class="col-md-6 col-xl-4 mb-5">
             <a class="card post-preview lift h-100" (click)='toPost(blogPost.id)'

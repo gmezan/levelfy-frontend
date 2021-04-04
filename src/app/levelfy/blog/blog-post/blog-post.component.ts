@@ -4,7 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { Fragment } from '../../../shared/_blog/fragment.model';
 import { BlogPostService } from '../../../core/services/blog-post.service';
 import { BlogPost } from 'app/shared/_blog/blog.post';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import DateTimeFormat = Intl.DateTimeFormat;
 
 @Component({
@@ -23,7 +23,8 @@ export class BlogPostComponent extends NavbarPageComponent implements OnInit {
     constructor(
         @Inject(DOCUMENT) document: any,
         private blogService: BlogPostService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         super(document);
         this.idPost = route.snapshot.paramMap.get('idBlog');
@@ -45,6 +46,10 @@ export class BlogPostComponent extends NavbarPageComponent implements OnInit {
 
         let sidebar = this.document.getElementById('blogSidebar');
         this.isSidebarHidden = !!sidebar.classList.contains('active');
+    }
+
+    onClose() {
+        this.router.navigateByUrl('blog');
     }
 
 }

@@ -13,8 +13,7 @@ export class BlogComponent extends NavbarPageComponent implements OnInit {
 //    isSidebarHidden: boolean = false;
 
     constructor(
-        @Inject(DOCUMENT) document: any,
-        private router: Router
+        @Inject(DOCUMENT) document: any
     ) {
         super(document);
     }
@@ -40,7 +39,4 @@ export class BlogComponent extends NavbarPageComponent implements OnInit {
         else sidebar.classList.add('active');
     }*/
 
-    onClose() {
-        this.router.navigateByUrl('blog');
-    }
 }
