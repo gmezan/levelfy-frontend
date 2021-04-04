@@ -1,6 +1,6 @@
 <app-header [bg-image]="service.imageUrl" [header-title]="service.serviceName" > </app-header>
 
-<div class="section py-5 bg-light">
+<div *ngIf='!noCourses' class="section py-5 bg-light">
     <div class="container">
         <div class="row">
 

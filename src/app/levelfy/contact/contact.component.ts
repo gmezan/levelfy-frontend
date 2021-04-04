@@ -1,9 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+    Component,
+    ComponentFactoryResolver,
+    Inject,
+    OnInit,
+    ViewChild,
+} from '@angular/core';
 import { NavbarPageComponent } from '../../core/common/navbar-page-component';
 import { DOCUMENT } from '@angular/common';
 import { OpenClientService } from '../../core/services/open-client.service';
 import { ContactMessage } from '../../shared/_models/contact-message.model';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomAlertDirective } from '../../shared/custom-alert/custom-alert.directive';
+import { CustomAlertComponent } from '../../shared/custom-alert/custom-alert.component';
+
+const messageAlertSuccess = 'Mensaje enviado correctamente';
+const messageAlertError = 'Hubo un error al mandar el mensaje';
 
 @Component({
     selector: 'app-contact',
@@ -11,6 +22,9 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./contact.component.css'],
 })
 export class ContactComponent extends NavbarPageComponent implements OnInit {
+    @ViewChild(CustomAlertDirective, { static: true })
+    alertDirective: CustomAlertDirective;
+
     supportEmail: string = 'peru.universityclass@gmail.com';
     supportNumber: string = '987654321';
     supportFacebookPage: string = 'https://facebook.com';
@@ -21,7 +35,8 @@ export class ContactComponent extends NavbarPageComponent implements OnInit {
     constructor(
         @Inject(DOCUMENT) document: any,
         private openClientService: OpenClientService,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private componentFactoryResolver: ComponentFactoryResolver
     ) {
         super(document);
         this.form = this.fillForm();
@@ -53,12 +68,25 @@ export class ContactComponent extends NavbarPageComponent implements OnInit {
         this.openClientService.postContactMessage(contactMessage).subscribe(
             (data) => {
                 this.resetForm();
-                console.log(data);
+                this.createAlert(true, messageAlertSuccess);
             },
             (error) => {
-                alert('Hubo un problema al enviar el mensaje');
-                console.log(error);
+                this.resetForm();
+                this.createAlert(false, messageAlertError);
             }
         );
+    }
+
+    protected createAlert(isSuccess: boolean, message: string) {
+        const viewContainerRef = this.alertDirective.viewContainerRef;
+        viewContainerRef.clear();
+
+        viewContainerRef
+            .createComponent<CustomAlertComponent>(
+                this.componentFactoryResolver.resolveComponentFactory(
+                    CustomAlertComponent
+                )
+            )
+            .instance.setValues(isSuccess, message);
     }
 }
