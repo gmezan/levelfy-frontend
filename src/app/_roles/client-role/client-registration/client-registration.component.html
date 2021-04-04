@@ -1,0 +1,66 @@
+<header class="page-header page-header-light bg-img-repeat bg-light" style="background-image: url('assets/img/backgrounds/pattern-shapes.png')">
+    <div class="page-header-content">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <h1 class="page-header-title"> {{ messageLeft }} </h1>
+                    <p class="page-header-text"> {{ messageParagraph }} </p>
+                </div>
+                <div class="col-lg-7">
+                    <div class="card rounded-lg text-dark">
+                        <div class="card-header text-dark py-4">{{ headerText }}</div>
+                        <div class="card-body">
+                            <form [formGroup]='form'>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapEmail">Email</label>
+                                        <input readonly formControlName='email' class="form-control" id="leadCapEmail" type="email" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapName">Nombre</label>
+                                        <input formControlName='name' class="form-control" id="leadCapName" type="text" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapUniversity">Universidad</label>
+                                        <select formControlName='university' class="form-control" id="leadCapUniversity" >
+                                            <option> -- Seleccionar -- </option>
+                                            <option [value]='"PUCP"'> PUCP </option>
+                                            <option [value]='"UPC"'> UPC </option>
+                                            <option [value]='"UL"'> ULIMA </option>
+                                            <option [value]='"NONE"'> Otra </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapBirthday">Fecha de nacimiento</label>
+                                        <input formControlName='birthday' class="form-control" id="leadCapBirthday" type="date" />
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapGender">Género</label>
+                                        <select formControlName='gender' class="form-control" id="leadCapGender">
+                                            <option> -- Seleccionar -- </option>
+                                            <option [value]='"Masculino"'> Masculino </option>
+                                            <option [value]='"Femenino"'> Femenino </option>
+                                            <option [value]='"Otro"'> Otro </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="small text-gray-600" for="leadCapPhone">Número celular</label>
+                                        <input step='1' formControlName='phone' class="form-control" id="leadCapPhone" type="number" />
+                                    </div>
+                                </div>
+                                <button class="btn btn-dark btn-block font-weight-500 mt-4"
+                                        [disabled]='!form.dirty || form.invalid'
+                                        (click)='onSubmitForm()' type="button">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>

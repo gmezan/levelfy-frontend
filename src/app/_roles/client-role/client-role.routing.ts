@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClientComponent } from './client/client.component';
 import { MyEnrollmentsComponent } from './my-enrollments/my-enrollments.component';
 import { EnrollmentComponent } from './enrollment/enrollment.component';
+import { ClientRegistrationComponent } from './client-registration/client-registration.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,11 @@ const routes: Routes = [
     {
         path: 'enrollment/:id',
         component: EnrollmentComponent,
+        pathMatch: 'full',
+    },
+    {
+        path: 'registration',
+        component: ClientRegistrationComponent,
         pathMatch: 'full',
     },
 ];

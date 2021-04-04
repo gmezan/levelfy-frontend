@@ -187,7 +187,6 @@
                             formControlName='idCourse'
                             class="form-control custom-select"
                             id="idCourse">
-                        <option> -- Select -- </option>
                         <option *ngFor='let c of courseSelector; let index = index' [value]='c.courseId.idCourse' >{{c.name}}</option>
                     </select>
                     <div class='alert alert-danger p-1' *ngIf="form.get('course').get('courseId').get('idCourse').touched && form.get('course').get('courseId').get('idCourse').invalid">
@@ -206,7 +205,6 @@
                         formControlName='idUser'
                         class="form-control custom-select"
                         id="inputTeacher">
-                    <option> -- Select -- </option>
                     <option *ngFor='let u of userSelector; let index = index' [value]='u.idUser' >{{u.fullName}}</option>
                 </select>
                 <div class='alert alert-danger p-1' *ngIf="form.get('teacher').get('idUser').touched && form.get('teacher').get('idUser').invalid">
@@ -268,7 +266,7 @@
 
             <div class="form-group col-md-6">
                 <label for="inputExpiration">Expiration <i class='small'>Optional</i></label>
-                <input type="datetime-local" id='inputExpiration' formControlName='expiration' class="form-control"  placeholder="Expiration">
+                <input [readOnly]='modal.isEdit' type="date" id='inputExpiration' formControlName='expiration' class="form-control"  placeholder="Expiration">
                 <div class='alert alert-danger p-1' *ngIf="form.get('expiration').touched && form.get('expiration').invalid">
                     <div *ngIf="form.get('expiration').errors.required">Expiration is required</div>
                 </div>

@@ -22,7 +22,8 @@
                 </div>
                 <div class="small text-gray-600 flex-shrink-0 text-right">
                     {{ _comment.dateTime | dateAgo }}<br />
-                    <div *ngIf='_comment.user.idUser==authService.getCurrentUser().idUser' class="badge badge-pill ">
+                    <!-- Three dots Menu --->
+                    <div *ngIf='(_comment.user.idUser==authService.getCurrentUser().idUser) || authService.isAdmin()' class="badge badge-pill ">
                         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                             <mat-icon>more_vert</mat-icon>
                         </button>

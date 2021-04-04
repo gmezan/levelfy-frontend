@@ -58,6 +58,7 @@ export abstract class ModalCrudComponent<T> {
         this.dataService.get(id).subscribe(
             (data) => {
                 this.resource = data;
+                this.modal.file = '';
                 this.form = this.fillModal();
             },
             (error) => {
@@ -70,6 +71,7 @@ export abstract class ModalCrudComponent<T> {
         this.resource = this.newResource;
         this.modal.modalCreate(this.modalStrings.create);
         this.form = this.fillModal();
+        this.modal.file = '';
     }
 
     modalDelete(id: string) {

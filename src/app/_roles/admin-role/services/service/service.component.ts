@@ -5,22 +5,23 @@ import {
     OnInit,
     ViewChild,
 } from '@angular/core';
+import { NavbarPageComponent } from '../../../../core/common/navbar-page-component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CourseService } from '../../../../core/services/course.service';
+import { EnrollmentService } from '../../../../core/services/enrollment.service';
+import { ServiceService } from '../../../../core/services/service.service';
+import { RoleTeachService } from '../../../../core/services/role-teach.service';
+import { DOCUMENT } from '@angular/common';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { ForumDirective } from '../../../../shared/forum/forum.directive';
+import { Service } from '../../../../shared/_models/service.model';
+import { Enrollment } from '../../../../shared/_models/enrollment.model';
 import {
     mapServiceRoute2ServiceType,
     servicesTypes,
-} from '../../../core/util/services-types';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../../core/services/course.service';
-import { EnrollmentService } from '../../../core/services/enrollment.service';
-import { ServiceService } from '../../../core/services/service.service';
-import { Service } from '../../../shared/_models/service.model';
-import { Enrollment } from '../../../shared/_models/enrollment.model';
-import { DOCUMENT } from '@angular/common';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
-import { ForumDirective } from '../../../shared/forum/forum.directive';
-import { ForumComponent } from '../../../shared/forum/forum.component';
-import { RoleTeachService } from '../../../core/services/role-teach.service';
+} from '../../../../core/util/services-types';
+import { ForumComponent } from '../../../../shared/forum/forum.component';
+import { RoleAdminService } from '../../../../core/services/role-admin.service';
 
 @Component({
     selector: 'app-service',
@@ -34,7 +35,7 @@ export class ServiceComponent extends NavbarPageComponent implements OnInit {
         private router: Router,
         private enrollmentService: EnrollmentService,
         private serviceService: ServiceService,
-        private roleTeachService: RoleTeachService,
+        private roleAdminService: RoleAdminService,
         @Inject(DOCUMENT) document: any,
         private fb: FormBuilder,
         private componentFactoryResolver: ComponentFactoryResolver
@@ -63,7 +64,7 @@ export class ServiceComponent extends NavbarPageComponent implements OnInit {
             this.serviceService.get(id.toString()).subscribe(
                 (data) => {
                     this.service = data;
-                    this.roleTeachService
+                    this.roleAdminService
                         .getEnrollmentList(data)
                         .subscribe((enrollmentList) => {
                             this.service.enrollmentList = enrollmentList;

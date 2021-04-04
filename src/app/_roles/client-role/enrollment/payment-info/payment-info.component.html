@@ -1,7 +1,7 @@
 <div class="form-group">
     <label class="small text-gray-600" >Información del pago</label>
     <p *ngIf='!enrollment.payed && (enrollment.saleList==null || enrollment.saleList.length==0) ' class="text text-dark">
-        <span *ngIf='enrollment.expiration' class="text-danger">Hora de expiración de la inscripción: <span> {{ enrollment.expiration | date: 'medium' }}</span></span>.<br>
+        <span *ngIf='enrollment.expiration' class="text-danger">Hora de expiración de la inscripción: <span> {{ enrollment.expiration | date: 'medium' }}</span><br></span>
         El pago para esta asesoría está pendiente. Sirvase de registrarlo, antes de que la inscripción expire, de cualquiera de las siguientes formas:
     </p>
     <p *ngIf='!enrollment.payed && (enrollment.saleList!=null && enrollment.saleList.length!=0) ' class="text text-dark">El pago de esta asesoría está siendo verificado</p>
