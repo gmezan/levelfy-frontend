@@ -10,10 +10,13 @@ import { DOCUMENT } from '@angular/common';
 import { NavbarPageComponent } from '../../../core/common/navbar-page-component';
 import { OpenClientService } from '../../../core/services/open-client.service';
 import { TeacherCoursesInfo } from '../../../shared/_dto/teacher-courses-info.model';
+import { FormControl } from '@angular/forms';
 
 /*
 	This component LISTS the courses available for each services
  */
+
+const path = '/services';
 
 @Component({
     selector: 'app-general-service',
@@ -28,9 +31,9 @@ export class GeneralServiceComponent
     teacherCoursesInfo: TeacherCoursesInfo[];
     footerMessage: string = 'Ver detalles';
 
-    private sub: any;
-    service: typeof servicesTypes[0];
+    serviceType: typeof servicesTypes[0];
     noCourses: boolean = false;
+    university: FormControl = new FormControl('NONE');
 
     // injecting dependencies
     constructor(
@@ -47,65 +50,89 @@ export class GeneralServiceComponent
         this.putFixedNavbarDark();
 
         // Listing courses according to the serviceType:
-        this.sub = this.route.params.subscribe((params) => {
-            this.service = mapServiceRoute2ServiceType[params['type']];
-            if (!this.service) {
+        this.route.params.subscribe((params) => {
+            this.serviceType = mapServiceRoute2ServiceType[params['type']];
+            if (!this.serviceType) {
                 this.error();
                 return;
             }
 
-            switch (this.service.key) {
-                case 'ASES_PER':
-                    this.openClientService
-                        .getAvailableServiceByTeacher(this.service.key)
-                        .subscribe(
-                            (data) => {
-                                this.teacherCoursesInfo = data;
-                                this.courses = [];
-                                this.noCourses =
-                                    data == null || data.length === 0;
-                            },
-                            (error: Response) => {
-                                console.log(error);
-                            }
-                        );
-                    break;
+            this.route.queryParams.subscribe((queryParams) => {
+                let university = queryParams.u || 'NONE';
+                this.university.setValue(university);
 
-                case 'ASES_PAQ':
-                    this.openClientService
-                        .getAvailableServiceByCourse(this.service.key)
-                        .subscribe(
-                            (data) => {
-                                this.courses = data;
-                                this.teacherCoursesInfo = [];
-                                this.noCourses =
-                                    data == null || data.length === 0;
-                            },
-                            (error: Response) => {
-                                console.log(error);
-                            }
-                        );
-                    break;
-                case 'MAR':
-                    this.openClientService
-                        .getAvailableServiceByCourse(this.service.key)
-                        .subscribe(
-                            (data) => {
-                                this.courses = data;
-                                this.teacherCoursesInfo = [];
-                                this.noCourses =
-                                    data == null || data.length === 0;
-                            },
-                            (error: Response) => {
-                                console.log(error);
-                            }
-                        );
-                    break;
-            }
+                switch (this.serviceType.key) {
+                    case 'ASES_PER':
+                        this.openClientService
+                            .getAvailableServiceByTeacher(
+                                this.serviceType.key,
+                                university
+                            )
+                            .subscribe(
+                                (data) => {
+                                    this.teacherCoursesInfo = data;
+                                    this.courses = [];
+                                    this.noCourses =
+                                        data == null || data.length === 0;
+                                },
+                                (error: Response) => {
+                                    console.log(error);
+                                }
+                            );
+                        break;
+
+                    case 'ASES_PAQ':
+                        this.openClientService
+                            .getAvailableServiceByCourse(
+                                this.serviceType.key,
+                                university
+                            )
+                            .subscribe(
+                                (data) => {
+                                    this.courses = data;
+                                    this.teacherCoursesInfo = [];
+                                    this.noCourses =
+                                        data == null || data.length === 0;
+                                },
+                                (error: Response) => {
+                                    console.log(error);
+                                }
+                            );
+                        break;
+                    case 'MAR':
+                        this.openClientService
+                            .getAvailableServiceByCourse(
+                                this.serviceType.key,
+                                university
+                            )
+                            .subscribe(
+                                (data) => {
+                                    this.courses = data;
+                                    this.teacherCoursesInfo = [];
+                                    this.noCourses =
+                                        data == null || data.length === 0;
+                                },
+                                (error: Response) => {
+                                    console.log(error);
+                                }
+                            );
+                        break;
+                }
+            });
         });
     }
 
     error() {
         this.router.navigate(['/error']);
+    }
+
+    onOptionsSelected(university: string) {
+        if (university === 'NONE') {
+            university = null;
+        }
+        let queryParams = { u: university };
+        this.router.navigate([path + '/' + this.serviceType.route], {
+            queryParams: queryParams,
+        });
     }
 }

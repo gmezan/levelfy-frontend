@@ -105,4 +105,10 @@ export class RoleClientService extends DataService<any> {
             user
         );
     }
+
+    cancelEnrollment(enrollment: Enrollment): Observable<any> {
+        return this.http.delete<any>(
+            this.buildPath(this.apiEnrollment + '/' + enrollment.idEnrollment)
+        );
+    }
 }

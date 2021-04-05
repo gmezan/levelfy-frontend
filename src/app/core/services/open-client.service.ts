@@ -9,6 +9,7 @@ import { CourseId } from '../../shared/_dto/courseId.model';
 import { Service } from '../../shared/_models/service.model';
 import { TeacherCoursesInfo } from '../../shared/_dto/teacher-courses-info.model';
 import { ContactMessage } from '../../shared/_models/contact-message.model';
+import { User } from '../../shared/_models/user.model';
 
 const uri = '/open';
 
@@ -39,10 +40,15 @@ export class OpenClientService extends DataService<any> {
         );
     }
 
-    getAvailableServiceByCourse(serviceType: string): Observable<Course[]> {
+    getAvailableServiceByCourse(
+        serviceType: string,
+        university: string
+    ): Observable<Course[]> {
         if (!serviceType) return null;
         let options = {
-            params: new HttpParams().set('serviceType', serviceType),
+            params: new HttpParams()
+                .set('serviceType', serviceType)
+                .set('university', university),
         };
         return this.http
             .get<Course[]>(
@@ -53,11 +59,14 @@ export class OpenClientService extends DataService<any> {
     }
 
     getAvailableServiceByTeacher(
-        serviceType: string
+        serviceType: string,
+        university: string
     ): Observable<TeacherCoursesInfo[]> {
         if (!serviceType) return null;
         let options = {
-            params: new HttpParams().set('serviceType', serviceType),
+            params: new HttpParams()
+                .set('serviceType', serviceType)
+                .set('university', university),
         };
         return this.http
             .get<TeacherCoursesInfo[]>(
@@ -82,6 +91,24 @@ export class OpenClientService extends DataService<any> {
 
         return this.http.get<Service[]>(
             this.buildPath(this.apiUriServiceFormByCourse),
+            options
+        );
+    }
+
+    public getServiceFormByServiceTypeAndTeacher(
+        serviceType: string,
+        teachId: string
+    ): Observable<Service[]> {
+        if (!serviceType || !teachId) return null;
+
+        let options = {
+            params: new HttpParams()
+                .set('serviceType', serviceType)
+                .set('t', teachId),
+        };
+
+        return this.http.get<Service[]>(
+            this.buildPath(this.apiUriServiceFormByTeacher),
             options
         );
     }

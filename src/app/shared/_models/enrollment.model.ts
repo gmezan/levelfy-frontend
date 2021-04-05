@@ -28,10 +28,11 @@ export class Enrollment extends Auditable implements Deserializable {
     student: User;
     payed: boolean;
     numberOfStudents: number;
-    start: Date;
-    end: Date;
+    start: string;
+    end: string;
     active: boolean;
     url: string;
     expiration: string;
+    price: number;
     saleList: Sale[];
 }

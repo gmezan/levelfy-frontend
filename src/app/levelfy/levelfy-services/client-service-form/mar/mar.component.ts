@@ -72,7 +72,6 @@ export class MarComponent implements OnInit {
                         this.services = data;
                         this.course = data[0].course;
                         this.service = data[0];
-                        console.log(this.services);
                     },
                     (error) => {}
                 );

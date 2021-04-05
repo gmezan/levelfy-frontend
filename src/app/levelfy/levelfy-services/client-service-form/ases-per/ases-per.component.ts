@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Course } from '../../../../shared/_models/course.model';
-import { CourseId } from '../../../../shared/_dto/courseId.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../../../../core/services/service.service';
 import { Service } from '../../../../shared/_models/service.model';
@@ -8,7 +7,6 @@ import { servicesTypes } from '../../../../core/util/services-types';
 import { CourseService } from 'app/core/services/course.service';
 import { EnrollmentService } from 'app/core/services/enrollment.service';
 import {
-    FormArray,
     FormBuilder,
     FormControl,
     FormGroup,
@@ -34,6 +32,12 @@ export class AsesPerComponent implements OnInit {
     service: Service = new Service();
     form: FormGroup;
 
+    // For the form:
+    numberOfStudents: FormControl = new FormControl(1, [Validators.required]);
+    endTime: FormControl = new FormControl(1, [Validators.required]);
+    startTime: FormControl = new FormControl(null, [Validators.required]);
+    dateAses: FormControl = new FormControl(null, [Validators.required]);
+
     constructor(
         private route: ActivatedRoute,
         private serviceService: ServiceService,
@@ -49,8 +53,12 @@ export class AsesPerComponent implements OnInit {
     ngOnInit(): void {
         this.route.queryParams.subscribe((params) => {
             // verify params courseId & university have been given
-            if (!params.i || !params.u) return;
+            if (!params.t) {
+                this.router.navigate(['/services']);
+                return;
+            }
 
+            let teachId = params.t;
             /*
 			  TODO: validate that the user (if authenticated) is not already registered in this services
 			    If so, redirect to the page of validation & payment.
@@ -58,9 +66,9 @@ export class AsesPerComponent implements OnInit {
 
             // Get list of services that have the CourseID and the serviceType
             this.openClientService
-                .getServiceFormByServiceTypeAndCourse_CourseId(
+                .getServiceFormByServiceTypeAndTeacher(
                     this.serviceType.key,
-                    new CourseId(params.i, params.u)
+                    teachId
                 )
                 .subscribe(
                     (data) => {
@@ -80,17 +88,6 @@ export class AsesPerComponent implements OnInit {
     fillModal(service: Service): FormGroup {
         // Validations must be according to the database
         this.service = service;
-
-        let formArray = [];
-        this.service.serviceSessionList?.forEach((sl) =>
-            formArray.push(
-                new FormGroup({
-                    date: new FormControl(sl.date, Validators.required),
-                    start: new FormControl(sl.start, Validators.required),
-                    end: new FormControl(sl.end, Validators.required),
-                })
-            )
-        );
 
         return this.fb.group({
             idService: [this.service.idService],
@@ -117,7 +114,6 @@ export class AsesPerComponent implements OnInit {
             expiration: [this.service.expiration],
             archived: [this.service.archived],
             photo: [this.service.photo],
-            serviceSessionList: new FormArray(formArray),
         });
     }
 
@@ -129,7 +125,19 @@ export class AsesPerComponent implements OnInit {
     emitInscription(): void {
         let enrollment: Enrollment = new Enrollment();
         enrollment.service = this.service;
+        enrollment.numberOfStudents = this.numberOfStudents.value;
+
+        enrollment.start = this.dateAses.value + 'T' + this.startTime.value;
+        enrollment.end = this.dateAses.value + 'T' + this.endTime.value;
 
         this.inscriptionEvent.emit(enrollment);
+    }
+
+    onCourseChange(value: string) {
+        this.services.forEach((serv) => {
+            if (serv.course.courseId.idCourse == value) {
+                this.service = serv;
+            }
+        });
     }
 }

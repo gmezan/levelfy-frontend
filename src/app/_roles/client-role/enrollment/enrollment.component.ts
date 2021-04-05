@@ -104,7 +104,7 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
     fillPaymentDto(): void {
         this.paymentDto.persona = this.enrollment.student.fullName;
         this.paymentDto.enrollmentId = this.enrollment.idEnrollment;
-        this.paymentDto.amount = this.enrollment.service.price;
+        this.paymentDto.amount = this.enrollment.price;
         this.paymentDto.email = this.enrollment.student.email;
     }
 
@@ -171,5 +171,19 @@ export class EnrollmentComponent extends NavbarPageComponent implements OnInit {
 
     error() {
         this.router.navigate(['/error']).then();
+    }
+
+    cancelEnrollment() {
+        this.roleClientService.cancelEnrollment(this.enrollment).subscribe(
+            (data) => {
+                this.router.navigate(['/c/enrollment']);
+            },
+            (error1) => {
+                this.createAlert(
+                    false,
+                    'No se puede cancelar esta inscripción'
+                );
+            }
+        );
     }
 }

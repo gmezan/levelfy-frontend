@@ -1,30 +1,28 @@
-<app-header [bg-image]="service.imageUrl" [header-title]="service.serviceName" > </app-header>
+<app-header [bg-image]="serviceType.imageUrl" [header-title]="serviceType.serviceName" > </app-header>
 
-<div class="section py-5 bg-light">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-12 col-lg-3 text-left">
-                <input class='form-control rounded' placeholder='Buscar...' />
-            </div>
-
-            <div class="col-md-12 col-lg-6"></div>
-
-            <div class="col-md-12 col-lg-3 text-right">
-                <button color='primary' mat-raised-button [matMenuTriggerFor]="menuUniversities">Universidad <fa-icon class='pl-1' [icon]='["fas","bars"]'></fa-icon></button>
-                <mat-menu #menuUniversities="matMenu">
-                    <button mat-menu-item>Todo</button>
-                    <button mat-menu-item>PUCP</button>
-                    <button mat-menu-item>UPC</button>
-                    <button mat-menu-item>ULIMA</button>
-                </mat-menu>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="section bg-light pt-3 pb-10" >
     <div class="container">
+        <nav class="navbar navbar-light bg-light justify-content-between py-5 mb-4">
+            <form  class='form-inline'>
+                <div class='form-group'>
+                    <label class='h2 font-weight-800'> Universidad: </label>
+                    <select [formControl]='university' #selectUniv
+                            (change)='onOptionsSelected(selectUniv.value)'
+                            class='form-control custom-select mx-3'
+                            name='university'
+                            id='rolSelector'>
+                        <option [value]='"NONE"'>Todas</option>
+                        <option [value]='"PUCP"'>PUCP</option>
+                        <option [value]='"UPC"'>UPC</option>
+                    </select>
+                </div>
+
+            </form>
+            <form class="form-inline">
+                <input #searchBar id='searchInput'  class="form-control mr-sm-2" type="search" placeholder="Buscar..." aria-label="Search">
+            </form>
+        </nav>
 
         <div class="row">
             <div class="col-md-8" *ngIf="noCourses">
@@ -38,7 +36,7 @@
                 <app-course-card
                     [course]="course"
                     [footer-message]="footerMessage"
-                    [path-url]="['/services/'+service.route+'/form']"
+                    [path-url]="['/services/'+serviceType.route+'/form']"
                     [path-url-params] = "{i: course.courseId.idCourse,
                                   u: course.courseId.university
                                   }"
@@ -48,7 +46,7 @@
             <div *ngFor="let teachInfo of teacherCoursesInfo"  class="col-lg-4 mb-5 item">
                 <app-teach-info-card
                     [teacher-courses-info]='teachInfo'
-                    [path-url]="['/services/'+service.route+'/form']"
+                    [path-url]="['/services/'+serviceType.route+'/form']"
                     [footer-message]="footerMessage"
                 ></app-teach-info-card>
             </div>
