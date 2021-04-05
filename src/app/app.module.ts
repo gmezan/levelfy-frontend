@@ -35,6 +35,7 @@ import {
 import { resourceInterceptor } from './core/interceptors/resource.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModRoleModule } from './_roles/mod-role/mod-role.module';
+import { httpInterceptorProviders } from './core/interceptors/expiration-handler.interceptor';
 
 @NgModule({
     declarations: [AppComponent],
@@ -81,6 +82,7 @@ import { ModRoleModule } from './_roles/mod-role/mod-role.module';
         },
 
         resourceInterceptor,
+        httpInterceptorProviders,
     ],
     bootstrap: [AppComponent],
 })
